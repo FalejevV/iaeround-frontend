@@ -4,7 +4,6 @@ import { IToggle } from "../../interface";
 
 export const ProfileMenuContainer = styled.div`
     height:100%;
-    width:auto;
     margin-left:auto;
     display:flex;
     justify-content:flex-end;
@@ -20,6 +19,11 @@ export const ProfileMenuUsername = styled.p`
     position: relative;
     padding-right:20px;
     user-select: none;
+
+    @media (max-width:800px){
+        display: none;
+    }
+
 `
 
 export const DropdownArrowSVG = styled.svg`
@@ -27,6 +31,10 @@ export const DropdownArrowSVG = styled.svg`
     height:25px;
     position: absolute;
     bottom: -5px;
+
+    @media (max-width:800px){
+        display: none;
+    }
 `
 
 export const ProfileMenuAvatar = styled.img`
@@ -35,6 +43,14 @@ export const ProfileMenuAvatar = styled.img`
     object-fit: cover;
     background-color: rgba(0,0,0,0.5);
     border-radius: 50%;
+
+
+    @media (max-width:550px){
+        width:50px;
+        height:50px;
+    }
+
+
 `
 
 export const ProfileMenuDropdown = styled.div<IToggle>`
@@ -51,10 +67,27 @@ export const ProfileMenuDropdown = styled.div<IToggle>`
     cursor: default;
     align-items: flex-start;
     box-shadow:0px 0px 5px 5px rgba(0,0,0,0.1);
-
+    z-index: 100;
     ${({ toggle }) => toggle && css`
         display: flex;
     `}
+
+    @media (max-width:800px){
+        position:fixed;
+        display: flex;
+        width:100%;
+        height:230px;
+        left:0px;
+        top:unset;
+        bottom:-235px;
+        justify-content:flex-end;
+        padding-bottom:20px;
+
+        transition: bottom 0.3s;
+        ${({ toggle }) => toggle && css`
+            bottom:0px;
+        `}
+    }
 `
 
 export const ProfileMenuLink = styled(Link)`
@@ -62,4 +95,48 @@ export const ProfileMenuLink = styled(Link)`
     width:100%;
     padding:10px;
     user-select: none;
+    transition: all 0.3s;
+    &:hover{
+        transform: scale(1.05);
+    }
+
+
+    @media (max-width:800px){
+        font-size:20px;
+
+        &:hover{
+            transform:unset;
+        }
+    }
+`
+
+export const ProfileDropdownUsername = styled(ProfileMenuLink)`
+    text-align: right;
+    color:#919191;
+    flex: auto;
+    display:none;
+
+    @media (max-width:800px){
+        display:block;
+    }
+`
+
+export const BackgroundDarkener = styled.div<IToggle>`
+    position:fixed;
+    left:0px;
+    top:90px;
+    width:100vw;
+    height:100vh;
+    background-color: rgba(0,0,0,0.5);
+    cursor:default;
+    opacity: 0;
+    z-index:99;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    ${({ toggle }) => toggle && css`
+        @media(max-width:800px){
+            opacity: 1;
+            pointer-events: default;
+        }
+    `}
 `

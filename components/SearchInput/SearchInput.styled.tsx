@@ -12,10 +12,6 @@ export const SearchContainer = styled.div`
     align-items: center;
     padding:0px 10px;
     position: relative;
-
-    &:focus{
-        
-    }
 `
 
 export const SearchIcon = styled.svg`
@@ -26,6 +22,12 @@ export const SearchIcon = styled.svg`
     top:50%;
     transform: translateY(-50%);
     cursor: pointer;
+
+    @media (max-width:450px){
+        width:20px;
+    }
+
+
 `
 
 export const SearchInputField = styled.input`
