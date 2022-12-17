@@ -67,7 +67,7 @@ export const ProfileMenuDropdown = styled.div<IToggle>`
     cursor: default;
     align-items: flex-start;
     box-shadow:0px 0px 5px 5px rgba(0,0,0,0.1);
-    z-index: 100;
+    z-index: 10000;
     ${({ toggle }) => toggle && css`
         display: flex;
     `}

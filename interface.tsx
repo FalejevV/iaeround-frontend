@@ -1,3 +1,3 @@
 export interface IToggle{
-    toggle:boolean;
+    toggle?:boolean;
 }
