@@ -18,9 +18,8 @@ export const STContainer = styled(Container)`
     padding-top:0px;
     padding-bottom:0px;
 
-    @media(max-width:850px){
+    @media(max-width:880px){
         flex-direction: column;
         gap:5px;
-        padding-bottom:15px;
     }
 `

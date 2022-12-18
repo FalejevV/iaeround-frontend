@@ -1,43 +1,47 @@
 import { useState } from "react";
 import { SortingButton, SortingButtonsContainer, SortingDateIndicator, SortingIndicator } from "./SortingButtons.styled";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { RootState } from "../../store/store";
+import { OrderBy } from "../../enum";
+import { setOrderBy } from "../../store/features/routeFiltering";
 
 
 function SortingButtons(){
-    const [currentSort, setCurrentSort] = useState<number>(1);
-    
+    const routeOrderBySelector = useAppSelector((state:RootState) => state.routeFiltering.orderBy);
+    const dispatch = useAppDispatch();
     function toggleSort(sortIndex:number){
-        if(currentSort === sortIndex){
-            setCurrentSort(sortIndex + 1);
+        if(routeOrderBySelector === sortIndex){
+            dispatch(setOrderBy(sortIndex + 1));
         }else{
-            setCurrentSort(sortIndex);
+            dispatch(setOrderBy(sortIndex));
         }
     }
 
     
     return(
         <SortingButtonsContainer>
-            <SortingButton onClick={() => {toggleSort(1)}}  toggle={currentSort === 1 || currentSort === 2}>
+            <SortingButton onClick={() => {toggleSort(OrderBy.NEW)}}  toggle={routeOrderBySelector === OrderBy.NEW || routeOrderBySelector === OrderBy.OLD}>
                 Date
-                <SortingDateIndicator>{currentSort === 1 && "new"} {currentSort === 2 && "old"} {currentSort !== 1 && currentSort !== 2 && "new"}</SortingDateIndicator>
+                <SortingDateIndicator>{routeOrderBySelector === OrderBy.NEW && "new"} {routeOrderBySelector === OrderBy.OLD && "old"} {routeOrderBySelector !== OrderBy.NEW && routeOrderBySelector !== OrderBy.OLD && "new"}</SortingDateIndicator>
             </SortingButton>
 
-            <SortingButton onClick={() => {toggleSort(5)}}  toggle={currentSort === 5 || currentSort === 6}>
+            <SortingButton onClick={() => {toggleSort(OrderBy.MOST_RATED)}}  toggle={routeOrderBySelector === OrderBy.MOST_RATED || routeOrderBySelector === OrderBy.LEAST_RATED}>
                 Rating
-                <SortingIndicator viewBox="0 0 24 24" width="24" height="24" toggle={currentSort === 6}>
+                <SortingIndicator viewBox="0 0 24 24" width="24" height="24" toggle={routeOrderBySelector === OrderBy.LEAST_RATED}>
                     <path fill="none" d="M0 0h24v24H0z"/><path d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
                 </SortingIndicator>
             </SortingButton>
 
-            <SortingButton onClick={() => {toggleSort(10)}} toggle={currentSort === 10 || currentSort === 11}>
+            <SortingButton onClick={() => {toggleSort(OrderBy.DISTANCE_LONG)}} toggle={routeOrderBySelector === OrderBy.DISTANCE_LONG || routeOrderBySelector === OrderBy.DISTANCE_SHORT}>
                 Distance
-                <SortingIndicator viewBox="0 0 24 24" width="24" height="24" toggle={currentSort === 11}>
+                <SortingIndicator viewBox="0 0 24 24" width="24" height="24" toggle={routeOrderBySelector === OrderBy.DISTANCE_SHORT}>
                     <path fill="none" d="M0 0h24v24H0z"/><path d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
                 </SortingIndicator>
             </SortingButton>
 
-            <SortingButton onClick={() => {toggleSort(15)}} toggle={currentSort === 15 || currentSort === 16}>
+            <SortingButton onClick={() => {toggleSort(OrderBy.TIME_LONG)}} toggle={routeOrderBySelector === OrderBy.TIME_LONG || routeOrderBySelector === OrderBy.TIME_SHORT}>
                 Time
-                <SortingIndicator viewBox="0 0 24 24" width="24" height="24" toggle={currentSort === 16}>
+                <SortingIndicator viewBox="0 0 24 24" width="24" height="24" toggle={routeOrderBySelector === OrderBy.TIME_SHORT}>
                     <path fill="none" d="M0 0h24v24H0z"/><path d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
                 </SortingIndicator>
             </SortingButton>

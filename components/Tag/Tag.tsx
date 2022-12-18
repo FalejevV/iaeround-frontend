@@ -1,3 +1,5 @@
+import { addTag, removeTag } from "../../store/features/routeFiltering";
+import { useAppDispatch } from "../../store/hooks";
 import { TagCloseIcon, TagContainer, TagTitle } from "./Tag.styled";
 
 
@@ -6,8 +8,21 @@ function Tag(props:{
     selectable?: boolean,
     title: string,
 }){
+    const dispatch = useAppDispatch();
+    function tagAction(){
+        if(props.selectable){
+            
+            dispatch(addTag(props.title));
+        }
+
+        if(props.closeable){
+            dispatch(removeTag(props.title));
+        }
+
+    }
+
     return(
-        <TagContainer>
+        <TagContainer onClick={tagAction}>
             <TagTitle>{props.title}</TagTitle>
             {props.closeable && 
                 <TagCloseIcon viewBox="0 0 24 24" width="24" height="24">
