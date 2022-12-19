@@ -4,14 +4,14 @@ import styled from "styled-components";
 export const CardContainer = styled.article`
     max-width: calc(1440px / 3 - 20px);
     width:100%;
-    height: fit-content;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     border: 2px solid ${({ theme }) => theme.accentColor};
     border-radius: 5px;
-
+    height:420px;
     cursor: pointer;
-
+    position: relative;
     @media(max-width:1180px){
         max-width: calc(1440px / 2 - 20px);
     }
@@ -24,16 +24,18 @@ export const CardContainer = styled.article`
 
 export const CardImage = styled.img`
     width:100%;
-    max-height: 270px;
-    height:100%;
+    height:270px;
     object-fit: cover;
     cursor: col-resize;
 `
 
 export const RouteInfoContainer = styled(Link)`
+    position: relative;
     display: flex;
+    width:100%;
+    flex: 1 auto;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding:15px;
     gap:10px;
 `
@@ -107,4 +109,16 @@ export const GPXIndicator = styled.p`
     color:#464646;
     white-space: nowrap;
     padding-bottom:1px;
+`
+
+export const DateInfo = styled.p`
+    font-size: 14px;
+    color:#464646;
+    white-space: nowrap;
+    width:100%;
+    text-align: right;
+    padding-bottom:17px;
+    position: absolute;
+    top:65px;
+    right:15px;
 `

@@ -4,6 +4,7 @@ import { GridContainer, GridWrapper, LoadMoreButton } from "./CardGrid.styled";
 import RouteCard from "../RouteCard/RouteCard";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store/store";
+import { OrderBy } from "../../enum";
 
 
 function CardGrid(props:{
@@ -13,41 +14,92 @@ function CardGrid(props:{
     filterable?: boolean;
 }){
     const [routeCounter, setRouteCounter] = useState<number>(props.displayAmount);
-    const [sortedRoutes, setSortedRoutes] = useState<IRoute[]>(props.data);
+    const [sortedRoutes, setSortedRoutes] = useState<IRoute[]>([]);
+    
 
     const routeOrderBySelector = useAppSelector((state:RootState) => state.routeFiltering.orderBy);
     const routeSearchSelector = useAppSelector((state:RootState) => state.routeFiltering.search);
     const routeTagsSelector = useAppSelector((state:RootState) => state.routeFiltering.tags);
 
-    console.log(routeOrderBySelector);
-    console.log(routeSearchSelector);
-    console.log(routeTagsSelector);
-
-    function sortRoutes(){
-        let filteredRoutesResult:IRoute[] = [];
-
+    function filterRoutes(){
+        let filteredArray:IRoute[] = [];
         if(routeSearchSelector.trim() !== ""){
-            filteredRoutesResult = props.data.filter((route:IRoute) => route.title.includes(routeSearchSelector.trim()));
-        }else{
-            filteredRoutesResult = props.data;
+            filteredArray = props.data.filter((route :IRoute) => route.title.toLowerCase().includes(routeSearchSelector.toLowerCase()));
         }
-
         if(routeTagsSelector.length > 0){
-            filteredRoutesResult = filteredRoutesResult.filter((route:IRoute) => {
-                let tagsOK = true;
-                routeTagsSelector.forEach(tag => {
-                    if(!route.tags.includes(tag)){
-                        tagsOK = false;
-                    }
-                })
-                if(tagsOK){
+            let arrayToFilter:IRoute[] = props.data.map(item => item);
+            if(filteredArray.length > 0){
+                arrayToFilter = filteredArray;
+            }
+            filteredArray = arrayToFilter.filter((route:IRoute) => {
+                if(routeTagsSelector.every(tag => {return route.tags.includes(tag)})){
                     return route;
                 }
-            })
+                return undefined;
+            });
+        }
+        
+        if(routeSearchSelector !== "" || routeTagsSelector.length > 0){
+            if(filteredArray.length === 0){
+                setSortedRoutes([]);
+                return;
+            }
         }
 
-        setSortedRoutes(filteredRoutesResult);
+        if(filteredArray.length === 0){
+            filteredArray = props.data.map(item => item);
+        }
+        if(routeOrderBySelector === OrderBy.NEW){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.OLD){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return new Date(a.date).getTime() - new Date(b.date).getTime();
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.MOST_RATED){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return b.likes.length - a.likes.length;
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.LEAST_RATED){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return a.likes.length - b.likes.length;
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.DISTANCE_LONG){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return parseInt(b.distance) - parseInt(a.distance);
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.DISTANCE_SHORT){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return parseInt(a.distance) - parseInt(a.distance);
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.TIME_LONG){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return parseInt(b.time) - parseInt(a.time);
+            }));
+        }
+
+        if(routeOrderBySelector === OrderBy.TIME_SHORT){
+            setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
+                return parseInt(a.time) - parseInt(b.time);
+            }));
+        }
+
+        
     }
+
 
     function showRoutes(){
         return sortedRoutes.map((route, index) => {
@@ -60,8 +112,9 @@ function CardGrid(props:{
     }
 
     useEffect(() => {
-        sortRoutes()
+        filterRoutes()
     },[routeOrderBySelector,routeSearchSelector,routeTagsSelector])
+
 
     function showMoreRoutes(){
         if(routeCounter + props.incrementDisplayAmountBy > sortedRoutes.length){

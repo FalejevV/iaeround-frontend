@@ -1,7 +1,7 @@
 import { IRoute } from "../../interface";
 import LikeCounter from "../LikeCounter/LikeCounter";
 import Tag from "../Tag/Tag";
-import { CardContainer, CardImage, DTTitle, DTContainer, DTSVG, DistanceTimeContainer, RouteInfoContainer, RouteTitle, RouteTitleContainer, TagsLikesContainer, TagsContainer, LikesContainer, GPXIndicator } from "./RouteCard.styled";
+import { CardContainer, CardImage, DTTitle, DTContainer, DTSVG, DistanceTimeContainer, RouteInfoContainer, RouteTitle, RouteTitleContainer, TagsLikesContainer, TagsContainer, LikesContainer, GPXIndicator, DateInfo } from "./RouteCard.styled";
 
 
 function RouteCard(props:{
@@ -40,6 +40,7 @@ function RouteCard(props:{
                     </DistanceTimeContainer>
                 </RouteTitleContainer>
                 <TagsLikesContainer>
+                    <DateInfo>{props.data.date}</DateInfo>
                     <TagsContainer>
                         {props.data.tags.map(tag => <Tag key={tag} title={tag} selectable={true} />)}
                     </TagsContainer>

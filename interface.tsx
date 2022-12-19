@@ -14,6 +14,7 @@ export interface IRoute{
     likes:string[],
     gpx:string,
     images:string[],
+    date:string,
     owner_id:string,
 }
 
