@@ -20,7 +20,7 @@ function RouteCard(props:{
     return(
         <CardContainer>
             <CardImage src={props.data.images[0]} alt="route thumbnail" />
-            <RouteInfoContainer href={`/route/${props.data.id}`} onClick={(e) => clickCheck(e)}>
+            <RouteInfoContainer href={`/route?id=${props.data.id}`} onClick={(e) => clickCheck(e)}>
                 <RouteTitleContainer>
                     <RouteTitle>{props.data.title}</RouteTitle>
                     <DistanceTimeContainer>

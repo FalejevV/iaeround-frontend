@@ -23,3 +23,7 @@ export interface IRouteFiltering{
     tags:string[],
     orderBy:OrderBy,
 }
+
+export interface ICounter{
+    count:number,
+}

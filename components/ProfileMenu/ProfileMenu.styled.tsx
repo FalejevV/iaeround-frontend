@@ -124,19 +124,19 @@ export const ProfileDropdownUsername = styled(ProfileMenuLink)`
 export const BackgroundDarkener = styled.div<IToggle>`
     position:fixed;
     left:0px;
-    top:90px;
+    top:0px;
     width:100vw;
     height:100vh;
     background-color: rgba(0,0,0,0.5);
     cursor:default;
     opacity: 0;
-    z-index:99;
+    z-index:999;
     transition: opacity 0.3s;
     pointer-events: none;
     ${({ toggle }) => toggle && css`
         @media(max-width:800px){
             opacity: 1;
-            pointer-events: default;
+            pointer-events: unset;
         }
     `}
 `

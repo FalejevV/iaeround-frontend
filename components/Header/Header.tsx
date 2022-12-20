@@ -8,22 +8,8 @@ import { useEffect, useState } from "react";
 
 
 function Header(){
-    const [sortTagsBarFound, setSortTagsBarFound] = useState(false);
-    useEffect(() => {
-        const nav = document.querySelectorAll('nav');
-        if(nav.length > 0){
-            nav.forEach((item:HTMLElement) => {
-                if(item.className.includes("ST")){
-                    if(!sortTagsBarFound){
-                        setSortTagsBarFound(true);
-                    }
-                }
-            });
-        }
-    }, [])
-
     return(
-        <Wrapper toggle={sortTagsBarFound}>
+        <Wrapper>
             <HeaderContainer>
                 <Logo />
                 <SearchInput />

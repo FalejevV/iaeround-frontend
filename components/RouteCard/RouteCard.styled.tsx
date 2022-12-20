@@ -115,7 +115,6 @@ export const DateInfo = styled.p`
     font-size: 14px;
     color:#464646;
     white-space: nowrap;
-    width:100%;
     text-align: right;
     padding-bottom:17px;
     position: absolute;

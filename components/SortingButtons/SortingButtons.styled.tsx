@@ -8,6 +8,14 @@ export const SortingButtonsContainer = styled.div`
     height:100%;
     align-items: center;
     gap:30px;
+
+    @media(max-width:430px){
+        gap:15px;
+    }
+
+    @media(max-width:340px){
+        gap:10px;
+    }
 `
 
 export const SortingButton = styled.button<IToggle>`
@@ -25,6 +33,15 @@ export const SortingButton = styled.button<IToggle>`
         color:${({ theme }) => theme.accentColor};
         fill:${({ theme }) => theme.accentColor};
     `}
+    
+
+    @media(max-width:430px){
+        font-size:14px;
+    }
+
+    @media(max-width:340px){
+        font-size:12px;
+    }
 `
 
 export const SortingIndicator = styled.svg<IToggle>`
@@ -41,4 +58,11 @@ export const SortingDateIndicator = styled.p`
     font-size: 14px;
     width:25px;
     padding-left:5px;
+
+    @media(max-width:430px){
+        font-size: 12px;
+        width:30px;
+        padding-left:0px;
+
+    }
 `
