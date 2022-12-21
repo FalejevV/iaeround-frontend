@@ -3,7 +3,7 @@ import { ICounter, IToggle } from "../../interface";
 
 
 
-export const GalleryContainer = styled.div`
+export const GalleryContainer = styled.div<IToggle>`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,14 +11,17 @@ export const GalleryContainer = styled.div`
     width: 100%;
     max-width: 800px;
     user-select: none;
+    position:relative;
 `
 
 
-export const MainImage = styled.img`
+export const MainImage = styled.img<IToggle>`
     width:100%;
     height:420px;
     object-fit: cover;
     border-radius: 5px;
+    position: relative;
+    transition: all 0.5s;
 `
 
 export const ImageSliderContainer = styled.div`
@@ -54,7 +57,8 @@ export const ImageFlexbox = styled.img<IToggle>`
     object-fit: cover;
     transition: all 0.3s;
     border:4px solid transparent;
-    border-radius:5px;
+    border-radius:8px;
+    cursor: pointer;
     ${({ toggle }) => toggle && css`
         border:4px solid ${({ theme }) => theme.accentColor};
     `}

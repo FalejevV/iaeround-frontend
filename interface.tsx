@@ -16,6 +16,7 @@ export interface IRoute{
     images:string[],
     date:string,
     owner_id:string,
+    about:string,
 }
 
 export interface IRouteFiltering{

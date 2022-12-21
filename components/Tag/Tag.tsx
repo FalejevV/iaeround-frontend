@@ -22,7 +22,7 @@ function Tag(props:{
     }
 
     return(
-        <TagContainer onClick={tagAction}>
+        <TagContainer toggle={props.closeable || props.selectable} onClick={tagAction}>
             <TagTitle>{props.title}</TagTitle>
             {props.closeable && 
                 <TagCloseIcon viewBox="0 0 24 24" width="24" height="24">

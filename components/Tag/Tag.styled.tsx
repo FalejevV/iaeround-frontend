@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { IToggle } from "../../interface";
 
 
 export const TagCloseIcon = styled.svg`
@@ -8,7 +9,7 @@ export const TagCloseIcon = styled.svg`
     transition: transform 0.3s;
 `
 
-export const TagContainer = styled.button`
+export const TagContainer = styled.button<IToggle>`
     height: 30px;
     white-space: nowrap;
     overflow: hidden;
@@ -19,16 +20,19 @@ export const TagContainer = styled.button`
     padding:0px 10px;
     border-radius: 0px 10px 0px 10px;
     user-select: none;
-    cursor: pointer;
     gap:5px;
     transition: background-color 0.3s;
-    &:hover{
-        background-color: rgba(0,0,0,0.05);
+   
+    ${({ toggle }) => toggle && css`
+        cursor: pointer;
+        &:hover{
+            background-color: rgba(0,0,0,0.05);
 
-        ${TagCloseIcon}{
-            transform: scale(1.2);
+            ${TagCloseIcon}{
+                transform: scale(1.2);
+            }
         }
-    }
+    `}
 `
 
 export const TagTitle = styled.p`
