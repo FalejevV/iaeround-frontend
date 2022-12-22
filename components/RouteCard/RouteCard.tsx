@@ -6,6 +6,7 @@ import { CardContainer, CardImage, DTTitle, DTContainer, DTSVG, DistanceTimeCont
 
 function RouteCard(props:{
     data:IRoute,
+    filterable?: boolean,
 }){
 
     function clickCheck(e:React.MouseEvent){
@@ -42,7 +43,7 @@ function RouteCard(props:{
                 <TagsLikesContainer>
                     <DateInfo>{props.data.date}</DateInfo>
                     <TagsContainer>
-                        {props.data.tags.map(tag => <Tag key={tag} title={tag} selectable={true} />)}
+                        {props.data.tags.map(tag => <Tag key={tag} title={tag} selectable={props.filterable} />)}
                     </TagsContainer>
                     <LikesContainer>
                         {props.data.gpx.trim() !== "" && <GPXIndicator>GPX</GPXIndicator>}

@@ -11,7 +11,8 @@ function CardGrid(props:{
     data:IRoute[],
     displayAmount:number,
     incrementDisplayAmountBy:number,
-    filterable?: boolean;
+    filterable?: boolean,
+    removePadding?: boolean,
 }){
     const [routeCounter, setRouteCounter] = useState<number>(props.displayAmount);
     const [sortedRoutes, setSortedRoutes] = useState<IRoute[]>([]);
@@ -22,6 +23,10 @@ function CardGrid(props:{
     const routeTagsSelector = useAppSelector((state:RootState) => state.routeFiltering.tags);
 
     function filterRoutes(){
+        if(props.filterable === false){
+            setSortedRoutes(props.data);
+            return;
+        }
         let filteredArray:IRoute[] = [];
         if(routeSearchSelector.trim() !== ""){
             filteredArray = props.data.filter((route :IRoute) => route.title.toLowerCase().includes(routeSearchSelector.toLowerCase()));
@@ -106,7 +111,7 @@ function CardGrid(props:{
             if((index + 1) > routeCounter){
                 return undefined;
             }else{
-                return <RouteCard data={route} key={index} />
+                return <RouteCard filterable={props.filterable} data={route} key={index} />
             }
         })
     }
@@ -126,7 +131,7 @@ function CardGrid(props:{
 
     return(
         <GridWrapper>
-            <GridContainer>
+            <GridContainer toggle={props.removePadding}>
                 {showRoutes()}
             </GridContainer>
             {sortedRoutes.length > routeCounter && sortedRoutes.length > 0 && <LoadMoreButton onClick={showMoreRoutes}>Load more</LoadMoreButton>}

@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Container } from "../Styles.styled";
+import { IToggle } from "../../interface";
 
 export const GridWrapper = styled(Container)`
     padding:0px;
@@ -10,7 +11,7 @@ export const GridWrapper = styled(Container)`
     padding-bottom:400px;
 `
 
-export const GridContainer = styled(Container)`
+export const GridContainer = styled(Container)<IToggle>`
     height:100%;
     width:100%;
     display: grid;
@@ -30,6 +31,12 @@ export const GridContainer = styled(Container)`
         grid-template-columns: 1fr;
         justify-items: center;
     }
+
+
+    ${({ toggle }) => toggle && css`
+        padding-left:0px;
+        padding-right:0px;
+    `}
 `
 
 export const LoadMoreButton = styled.button`

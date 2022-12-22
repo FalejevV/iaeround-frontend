@@ -22,6 +22,15 @@ export const MainImage = styled.img<IToggle>`
     border-radius: 5px;
     position: relative;
     transition: all 0.5s;
+    box-shadow: 0px 0px 5px 1px #000000d4;
+    aspect-ratio: 16 / 9;
+    @media(max-width:800px){
+        height:300px;
+    }
+
+    @media(max-width:500px){
+        height:200px;
+    }
 `
 
 export const ImageSliderContainer = styled.div`
@@ -49,6 +58,19 @@ export const ImageFlexboxContainer = styled.div<ICounter>`
     transition: all 0.3s;
     position: relative;
     left:${({ count }) => `calc((${count} * 200px * -1 + 200px))`};
+
+    @media(max-width:800px){
+        left:${({ count }) => `calc((${count} * 120px * -1 + 100px))`};
+    }
+
+    @media(max-width:500px){
+        left:${({ count }) => `calc((${count} * 120px * -1 + 60px))`};
+    }
+
+    @media(max-width:390px){
+        left:${({ count }) => `calc((${count} * 120px * -1 + 20px))`};
+    }
+
 `
 
 export const ImageFlexbox = styled.img<IToggle>`
@@ -62,6 +84,11 @@ export const ImageFlexbox = styled.img<IToggle>`
     ${({ toggle }) => toggle && css`
         border:4px solid ${({ theme }) => theme.accentColor};
     `}
+
+    @media(max-width:800px){
+        width:100px;
+        height:auto;
+    }
 `
 
 export const ArrowLeftSVG = styled.svg<IToggle>`

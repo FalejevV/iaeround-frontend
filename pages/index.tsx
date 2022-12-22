@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <SortTagsBar/>
-      <CardGrid data={routeData} displayAmount={6} incrementDisplayAmountBy={3}/>
+      <CardGrid filterable={true} data={routeData} displayAmount={6} incrementDisplayAmountBy={3}/>
     </>
   )
 }
