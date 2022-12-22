@@ -11,7 +11,7 @@ function RouteCard(props:{
 
     function clickCheck(e:React.MouseEvent){
         let target  = e.target as HTMLElement;
-        if(target.localName === "nav"){
+        if(target.localName === "nav" && props.filterable === true){
             e.preventDefault();
         }
     }
