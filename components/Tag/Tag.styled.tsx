@@ -9,7 +9,7 @@ export const TagCloseIcon = styled.svg`
     transition: transform 0.3s;
 `
 
-export const TagContainer = styled.button<IToggle>`
+export const TagContainer = styled.nav<IToggle>`
     height: 30px;
     white-space: nowrap;
     overflow: hidden;
@@ -35,6 +35,6 @@ export const TagContainer = styled.button<IToggle>`
     `}
 `
 
-export const TagTitle = styled.p`
+export const TagTitle = styled.nav`
     font-size: 14px;
 `

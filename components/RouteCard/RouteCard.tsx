@@ -11,11 +11,8 @@ function RouteCard(props:{
 
     function clickCheck(e:React.MouseEvent){
         let target  = e.target as HTMLElement;
-        let className = target.className;
-        if(typeof className === "string"){
-            if(className.includes("TagContainer") || className.includes("TagTitle")){
-                e.preventDefault();
-            }
+        if(target.localName === "nav"){
+            e.preventDefault();
         }
     }
     return(
