@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeftSVG, ArrowRightSVG, GalleryContainer, ImageFlexbox, ImageFlexboxContainer, ImageListContainer, ImageSliderContainer, MainImage } from "./GallerySlider.styled";
 
 
@@ -21,6 +21,10 @@ function GallerySlider(props:{
             }
         }
     }
+
+    useEffect(() => {
+        setCurrentImage(0);
+    }, [props.images]);
     return(
         <GalleryContainer>
             <MainImage  src={props.images[currentImage]} />

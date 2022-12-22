@@ -8,7 +8,7 @@ function SortTagsBar(){
         <STWrapper>
             <STContainer>
                 <SortingButtons />
-                <SortingTags tags={[]} />
+                <SortingTags />
             </STContainer>
         </STWrapper>
     )
