@@ -5,6 +5,10 @@ import { IToggle } from "../interface";
 export const RouteContainer = styled(Container)`
     display: flex;
     flex-direction: column;
+
+    @media(max-width:1300px){
+        gap:50px;
+    }
 `
 
 export const TopSectionContainer = styled.section`
@@ -180,4 +184,18 @@ export const RouteInfoLikesText = styled.p`
 
 export const SimmilarRoutesTitle = styled.h2`
     font-size: 20px;
+`
+
+export const SimmilarRoutesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+
+    @media(max-width:1300px){
+        padding:0px 30px;
+    }
+
+    @media(max-width:500px){
+        padding:0px 10px;
+    }
 `

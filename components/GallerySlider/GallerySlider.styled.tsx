@@ -31,6 +31,7 @@ export const MainImage = styled.img<IToggle>`
     @media(max-width:500px){
         height:200px;
     }
+    
 `
 
 export const ImageSliderContainer = styled.div`
@@ -87,7 +88,7 @@ export const ImageFlexbox = styled.img<IToggle>`
 
     @media(max-width:800px){
         width:100px;
-        height:auto;
+        height:70px;
     }
 `
 

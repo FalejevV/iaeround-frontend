@@ -16,12 +16,12 @@ function CardGrid(props:{
 }){
     const [routeCounter, setRouteCounter] = useState<number>(props.displayAmount);
     const [sortedRoutes, setSortedRoutes] = useState<IRoute[]>([]);
-    
+
 
     const routeOrderBySelector = useAppSelector((state:RootState) => state.routeFiltering.orderBy);
     const routeSearchSelector = useAppSelector((state:RootState) => state.routeFiltering.search);
     const routeTagsSelector = useAppSelector((state:RootState) => state.routeFiltering.tags);
-
+    
     function filterRoutes(){
         if(props.filterable === false){
             setSortedRoutes(props.data);
@@ -118,7 +118,7 @@ function CardGrid(props:{
 
     useEffect(() => {
         filterRoutes()
-    },[routeOrderBySelector,routeSearchSelector,routeTagsSelector])
+    },[routeOrderBySelector,routeSearchSelector,routeTagsSelector, props.data])
 
 
     function showMoreRoutes(){

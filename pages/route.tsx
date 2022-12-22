@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import routeData from "../routeData";
 import { useEffect, useState } from 'react';
 import { IRoute } from '../interface';
-import { Stat, StatSVG, RouteContainer, RouteDate, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle } from '../styles/route.styled';
+import { Stat, StatSVG, RouteContainer, RouteDate, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
@@ -32,6 +32,14 @@ function RoutePage(){
         }
     },[routeFetch, id]);
 
+    function getRoutes(){
+        if(simmilarRoutes.length > 0){
+            return <CardGrid data={simmilarRoutes} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} removePadding={true} />
+        }else{
+            return <p>Nothing found</p>
+        }
+    }
+
     function findSimmilarRoutes(){
         if(routeFetch && routeFetch.tags){
             let routeHaveMultipleSameTags:IRoute[] = []
@@ -47,7 +55,6 @@ function RoutePage(){
                     routeHaveMultipleSameTags.push(route);
                 }
             });
-            console.log(routeHaveMultipleSameTags);
             if(routeHaveMultipleSameTags.length === 0){
                 setSimmilarRoutes([]);
             }else{
@@ -105,12 +112,10 @@ function RoutePage(){
                     </RouteInfo>
                 </TopSectionContainer>
 
-                <SimmilarRoutesTitle>You may also like</SimmilarRoutesTitle>
-                {simmilarRoutes.length > 0 ? 
-                    <CardGrid data={simmilarRoutes} displayAmount={3} filterable={false} incrementDisplayAmountBy={3} removePadding={true} />
-                    :
-                    <SimmilarRoutesTitle>Nothing :/</SimmilarRoutesTitle>
-                }
+                <SimmilarRoutesContainer>
+                    <SimmilarRoutesTitle>You may also like</SimmilarRoutesTitle>
+                    {getRoutes()}
+                </SimmilarRoutesContainer>
             </RouteContainer>
         }
         </>
