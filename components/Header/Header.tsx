@@ -5,15 +5,18 @@ import { HeaderContainer, Wrapper } from "./Header.styled";
 import Head from 'next/head'
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import { useEffect, useState } from "react";
+import { SignInButton } from "../Styles.styled";
 
 
 function Header(){
+    const [loggedIn, setLoggedIn] = useState(false);
+
     return(
         <Wrapper>
             <HeaderContainer>
                 <Logo />
                 <SearchInput />
-                <ProfileMenu />
+                { loggedIn ? <ProfileMenu /> : <SignInButton href="/auth">Sign In</SignInButton>}
             </HeaderContainer>
         </Wrapper>
     )

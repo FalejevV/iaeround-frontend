@@ -5,8 +5,7 @@ import { Container } from "../Styles.styled";
 export const STWrapper = styled.div`
     width:100%;
     max-width:100vw;
-    height:fit-content;
-    min-height: 50px;
+    height:55px;
     box-shadow: unset;
     background-color: white;
     border-bottom: 2px solid ${({ theme }) => theme.accentColor};

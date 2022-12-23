@@ -8,6 +8,8 @@ export const GridWrapper = styled(Container)`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-left:0px;
+    padding-right:0px;
     padding-bottom:400px;
 `
 
@@ -21,7 +23,6 @@ export const GridContainer = styled(Container)<IToggle>`
     justify-content:space-between;
     align-items: space-between;
     align-content:space-between;
-
 
     @media(max-width:1180px){
         grid-template-columns: 1fr 1fr;
