@@ -28,3 +28,18 @@ export interface IRouteFiltering{
 export interface ICounter{
     count:number,
 }
+
+export interface IAuthForm{
+    username:{
+        value:string;
+    },
+    password:{
+        value:string;
+    },
+    repassword:{
+        value:string;
+    },
+    email:{
+        value:string;
+    }
+}

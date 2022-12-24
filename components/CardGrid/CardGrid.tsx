@@ -107,6 +107,9 @@ function CardGrid(props:{
 
 
     function showRoutes(){
+        if(sortedRoutes.length === 0){
+            return;
+        }
         return sortedRoutes.map((route, index) => {
             if((index + 1) > routeCounter){
                 return undefined;
@@ -117,6 +120,9 @@ function CardGrid(props:{
     }
 
     useEffect(() => {
+        if(props.data.length === 0){
+            return;
+        } 
         filterRoutes()
     },[routeOrderBySelector,routeSearchSelector,routeTagsSelector, props.data])
 
@@ -128,6 +134,7 @@ function CardGrid(props:{
             setRouteCounter(prevRouteCounter => prevRouteCounter += props.incrementDisplayAmountBy);
         }
     }
+
 
     return(
         <GridWrapper>

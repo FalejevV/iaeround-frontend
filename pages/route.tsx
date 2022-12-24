@@ -1,30 +1,40 @@
 import { useRouter } from 'next/router';
-import routeData from "../routeData";
 import { useEffect, useState } from 'react';
 import { IRoute } from '../interface';
 import { Stat, StatSVG, RouteContainer, RouteDate, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
+import Fetching from '../Fetching';
 
-function RoutePage(){
+function RoutePage(props:{
+    routes:IRoute[],
+}){
     const [routeFetch,setRouteFetch] = useState<IRoute>();
     const [userLiked, setUserLiked] = useState<boolean>(false);
     const [simmilarRoutes,setSimmilarRoutes] = useState<IRoute[]>([]);
     const router = useRouter();
     const { id } = router.query;
 
-    useEffect(() => {
-        if(id){
-            setRouteFetch(routeData[parseInt(id[0])-1]);
-        }
-    }, [id]);
-
     function toggleLike(){
         if(routeFetch && routeFetch.id){
             setUserLiked(prev=> !prev);
         }
     }
+
+    useEffect(() => {
+        if(props.routes.length > 0){
+            setRouteFetch(() => {
+                let searchRoute = props.routes.filter((route:IRoute) => route.id === id);
+                if(searchRoute){
+                    return searchRoute[0];
+                }
+            });
+        }
+    }, [id]);
+
+    console.log(routeFetch,"route fetch");
+    console.log(props.routes, "all");
 
     useEffect(() => {
         if(routeFetch && routeFetch.tags){
@@ -41,10 +51,10 @@ function RoutePage(){
     }
 
     function findSimmilarRoutes(){
-        if(routeFetch && routeFetch.tags){
+        if(routeFetch && routeFetch.tags && props.routes && props.routes.length > 0){
             let routeHaveMultipleSameTags:IRoute[] = []
             
-            routeData.forEach((route:IRoute) => {
+            props.routes.forEach((route:IRoute) => {
                 let tagsCounter = 0;
                 routeFetch.tags.forEach(tag => {
                     if(route.tags.includes(tag)){
@@ -68,7 +78,7 @@ function RoutePage(){
         {routeFetch && routeFetch?.images && 
             <RouteContainer>
                 <TopSectionContainer>
-                    <GallerySlider images={routeFetch?.images || [""]} />
+                    <GallerySlider id={routeFetch.id} images={routeFetch?.images || [""]} />
                     <RouteInfo>
                         <RouteTitle>{routeFetch.title}</RouteTitle>
                         <RouteStats>
@@ -123,3 +133,15 @@ function RoutePage(){
 }
 
 export default RoutePage;
+
+
+
+export async function getServerSideProps() {
+    let fetch = await Fetching.getAllRoutes().then(res => res.json());
+    return {
+      props: {
+        routes: fetch.data,
+      },
+    }
+  }
+  

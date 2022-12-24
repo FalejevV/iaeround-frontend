@@ -1,5 +1,6 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { IToggle } from "../interface";
 
 export const Container = styled.div`
     max-width: 1440px;
@@ -39,7 +40,7 @@ export const InputFieldInput = styled.input`
     border-radius: 5px;
     padding:10px;
     border:1px solid #4f4f4f;
-
+    color:#7a7a7a;
 
     &:focus{
         outline: none;
@@ -51,4 +52,20 @@ export const InputFieldContainer = styled.div`
     flex-direction: column;
     width:100%;
     gap:10px;
+`
+
+
+export const StatusMessage = styled.p<IToggle>`
+    font-size: 18px;
+    padding:10px 20px;
+    color: #204f0b;
+    border: 2px solid #204f0b;
+    border-radius: 5px;
+    background-color: white;
+
+
+    ${({ toggle }) => toggle && css`
+        border: 2px solid #841919;
+        color: #841919;
+    `}
 `

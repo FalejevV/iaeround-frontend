@@ -7,7 +7,7 @@ import rightArrow from "../public/img/right.svg";
 
 export const AuthContainer = styled(Container)`
     width:100%;
-    max-width: 480px;
+    max-width: 481px;
     margin-top:8vh;
     display:flex;
     flex-direction:column;
@@ -37,6 +37,7 @@ export const ButtonsContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap:20px;
 `
 
 export const LeftArrowSVG = styled.svg<IToggle>`

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { ArrowLeftSVG, ArrowRightSVG, GalleryContainer, ImageFlexbox, ImageFlexboxContainer, ImageListContainer, ImageSliderContainer, MainImage } from "./GallerySlider.styled";
+import { cloudImageLink } from "../../Fetching";
 
 
 function GallerySlider(props:{
     images:string[],
+    id:string,
 }){
     
     const [currentImage,setCurrentImage] = useState<number>(0);
@@ -27,14 +29,14 @@ function GallerySlider(props:{
     }, [props.images]);
     return(
         <GalleryContainer>
-            <MainImage  src={props.images[currentImage]} />
+            <MainImage  src={cloudImageLink + `/${props.id}/` + props.images[currentImage]} />
             <ImageSliderContainer>
                 <ArrowLeftSVG onClick={() => switchImage(-1)} viewBox="0 0 24 24" width="24" height="24" toggle={false}>
                     <path fill="none" d="M0 0h24v24H0z"/><path d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"/>
                 </ArrowLeftSVG>
                 <ImageListContainer>
                     <ImageFlexboxContainer count={currentImage}>
-                        {props.images.map((image:string, index:number) => <ImageFlexbox onClick={() => {setCurrentImage(index)}} toggle={currentImage === index} src={image} key={index} />)}
+                        {props.images.map((image:string, index:number) => <ImageFlexbox loading="lazy" onClick={() => {setCurrentImage(index)}} toggle={currentImage === index} src={cloudImageLink + `/${props.id}/` + image} key={index} />)}
                     </ImageFlexboxContainer>
                 </ImageListContainer>
                 <ArrowRightSVG onClick={() => switchImage(1)} viewBox="0 0 24 24" width="24" height="24" toggle={true}>
