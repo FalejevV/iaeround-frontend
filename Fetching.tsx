@@ -18,17 +18,17 @@ class Fetching{
 
 
     async login(data:string[]){
-        let fetching = await fetch(this.fetchAddress + "/auth/login", {
+        fetch(this.fetchAddress + "/auth/login", {
             method: 'POST',
-            credentials: 'same-origin',
+            credentials: 'include',
             headers: {
-            'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
             return data.status;
         });
-        return fetching;
+        return "OK";
     }
 
 
