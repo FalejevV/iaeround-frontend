@@ -43,3 +43,11 @@ export interface IAuthForm{
         value:string;
     }
 }
+
+export interface IProfile{
+    id:string,
+    login:string,
+    name:string,
+    about:string,
+    avatar:string,
+}

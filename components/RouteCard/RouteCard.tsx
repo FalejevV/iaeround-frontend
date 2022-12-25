@@ -16,8 +16,7 @@ function RouteCard(props:{
             e.preventDefault();
         }
     }
-
-    console.log(cloudImageLink + `/${props.data.id}/` + props.data.images[0]);
+    
     return(
         <CardContainer>
             <CardImage loading="lazy" src={cloudImageLink + `/${props.data.id}/` + props.data.images[0]} alt="route thumbnail" />

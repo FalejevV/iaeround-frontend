@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { BackgroundDarkener, DropdownArrowSVG, ProfileDropdownUsername, ProfileMenuAvatar, ProfileMenuContainer, ProfileMenuDropdown, ProfileMenuLink, ProfileMenuUsername } from "./ProfileMenu.styled";
+import { IProfile } from "../../interface";
+import Fetching, { cloudAvatarLink } from "../../Fetching";
+import profileSVG from "../../public/img/profile.svg";
 
-
-function ProfileMenu(){
+function ProfileMenu(props:{
+    profile:IProfile
+}){
 
     const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -53,22 +57,30 @@ function ProfileMenu(){
         }
     }, [])
     
+    function signOut(){
+        Fetching.logout().then(res => {
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        });
+    }
+
     return(
         <>  
             <BackgroundDarkener onClick={hideDropdown} toggle={dropdownVisible}></BackgroundDarkener>
             <ProfileMenuContainer onClick={toggleDropdown} className="profilemenu">
                 <ProfileMenuUsername>
-                    Username
+                    {props.profile.name}
                     <DropdownArrowSVG viewBox="0 0 24 24" width="24" height="24">
                         <path fill="none" d="M0 0h24v24H0z"/><path d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
                     </DropdownArrowSVG>
                 </ProfileMenuUsername>
-                <ProfileMenuAvatar src={""} />
+                <ProfileMenuAvatar src={props.profile.avatar !== "" ? cloudAvatarLink + `/${props.profile.id}/${props.profile.avatar}` : profileSVG} />
                 <ProfileMenuDropdown toggle={dropdownVisible}>
-                    <ProfileDropdownUsername href={"/profile/" + 1}>#Username</ProfileDropdownUsername>
+                    <ProfileDropdownUsername href={"/profile/" + 1}>#{props.profile.name}</ProfileDropdownUsername>
                     <ProfileMenuLink href={"/profile/" + 1}>Profile</ProfileMenuLink>
                     <ProfileMenuLink href={"/settings"}>Settings</ProfileMenuLink>
-                    <ProfileMenuLink href={""}>Sign Out</ProfileMenuLink>
+                    <ProfileMenuLink onClick={signOut} href={""}>Sign Out</ProfileMenuLink>
                 </ProfileMenuDropdown>
             </ProfileMenuContainer>
         </>

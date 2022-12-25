@@ -39,7 +39,6 @@ function Auth(){
     }
 
     function clickHandler(type:string){
-
         if(!openForm && type === "Sign In"){
             let formData = getFormData("Sign In");
             if(formData && typeof formData === "string"){
@@ -56,6 +55,9 @@ function Auth(){
                             error:false,
                             text: "You have logged in!"
                         });
+                        setTimeout(() => {
+                            window.location.href = "/";
+                        },1000);
                     }else{
                         setStatus({
                             error:true,
