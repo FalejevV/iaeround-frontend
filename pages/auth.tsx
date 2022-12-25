@@ -55,9 +55,6 @@ function Auth(){
                             error:false,
                             text: "You have logged in!"
                         });
-                        setTimeout(() => {
-                            window.location.href = "/";
-                        },1000);
                     }else{
                         setStatus({
                             error:true,
