@@ -2,7 +2,7 @@ export const cloudLink = "https://storage.googleapis.com/iaeround";
 export const cloudImageLink = "https://storage.googleapis.com/iaeround/img";
 export const cloudAvatarLink = "https://storage.googleapis.com/iaeround/avatar";
 class Fetching{
-    fetchAddress = true ? "https://octopus-app-rmug8.ondigitalocean.app/api" : "http://localhost:5000/api";
+    fetchAddress = false ? "https://octopus-app-rmug8.ondigitalocean.app/api" : "http://localhost:5000/api";
     
 
     async getAllRoutes(){
@@ -20,10 +20,10 @@ class Fetching{
     async login(data:string[]){
         let fetching = await fetch(this.fetchAddress + "/auth/login", {
             method: 'POST',
+            credentials: 'same-origin',
             headers: {
             'Content-Type': 'application/json',
             },
-            credentials: 'include',
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
             return data.status;
