@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IRoute } from '../interface';
-import { Stat, StatSVG, RouteContainer, RouteDate, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer } from '../styles/route.styled';
+import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
