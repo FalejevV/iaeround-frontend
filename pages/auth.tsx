@@ -6,15 +6,13 @@ import EmailField from "../components/EmailField/EmailField";
 import Fetching from "../Fetching";
 import { IAuthForm } from "../interface";
 import { StatusMessage } from "../components/Styles.styled";
-import { useAppDispatch } from "../store/hooks";
 import Cookies from "js-cookie";
-
-
 
 function Auth(){
     let formRef = useRef(null);
     const [openForm, setOpenForm] = useState(false);
     const [status, setStatus] = useState<{error:boolean, text:string}>();
+    const [fetching, setFetching] = useState("");
 
     function getFormData(type:string){
         if(formRef.current){
@@ -51,6 +49,7 @@ function Auth(){
                 return;
             }else{
                 setStatus(undefined);
+                setFetching("Sign In");
                 Fetching.login(formData as string[]).then(res => {
                     if(res.status === "OK"){
                         setStatus({
@@ -63,6 +62,10 @@ function Auth(){
                         var expiresDateString = expiresDate.toUTCString();
 
                         Cookies.set("IAEAuth", JSON.stringify(res.user));
+                        setTimeout(() => {
+                            window.location.href = "/";
+                        }, 1000);
+                        setFetching("");
                     }else{
                         setStatus({
                             error:true,
@@ -94,12 +97,14 @@ function Auth(){
                 return;
             }else{
                 setStatus(undefined);
+                setFetching("Sign Up")
                 Fetching.register(formData as string[]).then(res => {
                     if(res === "OK"){
                         setStatus({
                             error:false,
                             text: "You have been registered! Please sign in."
                         });
+                        setFetching("");
                     }else{
                         setStatus({
                             error:true,
@@ -135,7 +140,6 @@ function Auth(){
                     </LeftArrowSVG>
                     Sign In
                     </AuthButton>
-
                 <AuthButton onClick={() => clickHandler("Sign Up")} toggle={openForm}>
                     Sign Up
                     <RightArrowSVG toggle={!openForm} viewBox="0 0 24 24" width="24" height="24">

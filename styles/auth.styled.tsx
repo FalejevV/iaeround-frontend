@@ -1,9 +1,9 @@
-import styled, { css } from "styled-components";
+import styled, { StyledComponent, css } from "styled-components";
 import { Container } from "../components/Styles.styled";
 import { IToggle } from "../interface";
 import leftArrow from "../public/img/left.svg";
 import rightArrow from "../public/img/right.svg";
-
+import Image from 'next/image';
 
 export const AuthContainer = styled(Container)`
     width:100%;
@@ -96,7 +96,7 @@ export const AuthButton = styled.button<IToggle>`
     color: ${({ theme }) => theme.accentColor};
     transition: all 0.3s;
     position:relative;
-
+    white-space: nowrap;
     ${({ toggle }) => toggle && css`
         background-color: ${({ theme }) => theme.accentColor};
         color:white;
@@ -124,5 +124,4 @@ export const AuthButton = styled.button<IToggle>`
         }
     }
 `
-
 

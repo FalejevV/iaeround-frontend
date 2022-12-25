@@ -3,6 +3,7 @@ import { BackgroundDarkener, DropdownArrowSVG, ProfileDropdownUsername, ProfileM
 import { IProfile } from "../../interface";
 import Fetching, { cloudAvatarLink } from "../../Fetching";
 import profileSVG from "../../public/img/profile.svg";
+import Cookies from "js-cookie";
 
 function ProfileMenu(props:{
     profile:IProfile
@@ -58,6 +59,7 @@ function ProfileMenu(props:{
     }, [])
     
     function signOut(){
+        Cookies.set("IAEAuth", "");
         Fetching.logout().then(res => {
             setTimeout(() => {
                 window.location.reload();
