@@ -2,7 +2,7 @@ export const cloudLink = "https://storage.googleapis.com/iaeround";
 export const cloudImageLink = "https://storage.googleapis.com/iaeround/img";
 export const cloudAvatarLink = "https://storage.googleapis.com/iaeround/avatar";
 class Fetching{
-    fetchAddress = false ? "https://octopus-app-rmug8.ondigitalocean.app/api" : "http://localhost:5000/api";
+    fetchAddress = true ? "https://octopus-app-rmug8.ondigitalocean.app/api" : "http://localhost:5000/api";
     
 
     async getAllRoutes(){
