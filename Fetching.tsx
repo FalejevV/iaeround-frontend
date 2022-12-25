@@ -26,7 +26,10 @@ class Fetching{
             },
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
-            return data.status;
+            return {
+                status:data.status,
+                user:data.user
+            };
         });
         return fetching;
     }

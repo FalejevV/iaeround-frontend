@@ -6,6 +6,8 @@ import EmailField from "../components/EmailField/EmailField";
 import Fetching from "../Fetching";
 import { IAuthForm } from "../interface";
 import { StatusMessage } from "../components/Styles.styled";
+import { useAppDispatch } from "../store/hooks";
+import Cookies from "js-cookie";
 
 
 
@@ -50,15 +52,21 @@ function Auth(){
             }else{
                 setStatus(undefined);
                 Fetching.login(formData as string[]).then(res => {
-                    if(res === "OK"){
+                    if(res.status === "OK"){
                         setStatus({
                             error:false,
                             text: "You have logged in!"
                         });
+
+                        var date = new Date();
+                        var expiresDate = new Date(date.setDate(date.getHours() + 4));
+                        var expiresDateString = expiresDate.toUTCString();
+
+                        Cookies.set("IAEAuth", JSON.stringify(res.user));
                     }else{
                         setStatus({
                             error:true,
-                            text: res
+                            text: res.status
                         });
                     }
                 });

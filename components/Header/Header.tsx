@@ -6,17 +6,22 @@ import Head from 'next/head'
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import { useEffect, useState } from "react";
 import { SignInButton } from "../Styles.styled";
-import Auth from "../../Auth";
+
 import { IProfile } from "../../interface";
+import { useAppSelector } from "../../store/hooks";
+import { RootState } from "../../store/store";
+import Cookies from "js-cookie";
+import Auth from "../../Auth";
 
 function Header(){
     const [profile, setProfile] =  useState<IProfile>();
     const [loaded, setLoaded] = useState(false);
+
+    
     useEffect(() => {
-        let auth = Auth.getAuth();
-        console.log(auth);
-        if(auth && auth.id){
-            setProfile(auth);
+        let userData = Auth.getAuth();
+        if(userData && userData.id){
+            setProfile(userData);
         }
         setLoaded(true);
     }, []);
