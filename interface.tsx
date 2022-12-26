@@ -51,3 +51,15 @@ export interface IProfile{
     about:string,
     avatar:string,
 }
+
+export interface ILoginData{
+    login:string,
+    password:string,
+}
+
+export interface IRegisterData{
+    login:string,
+    password:string,
+    rpassword:string,
+    email:string,
+}

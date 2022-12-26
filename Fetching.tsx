@@ -1,3 +1,5 @@
+import { ILoginData, IRegisterData } from "./interface";
+
 export const cloudLink = "https://storage.googleapis.com/iaeround";
 export const cloudImageLink = "https://storage.googleapis.com/iaeround/img";
 export const cloudAvatarLink = "https://storage.googleapis.com/iaeround/avatar";
@@ -17,7 +19,7 @@ class Fetching{
     }
 
 
-    async login(data:string[]){
+    async login(data:ILoginData){
         let fetching = await fetch(this.fetchAddress + "/auth/login", {
             method: 'POST',
             credentials: 'include',
@@ -35,7 +37,7 @@ class Fetching{
     }
 
 
-    async register(data:string[]){
+    async register(data:IRegisterData){
         let fetching = await fetch(this.fetchAddress + "/auth/register", {
             method: 'POST',
             headers: {
@@ -44,7 +46,6 @@ class Fetching{
             credentials: 'include',
             body: JSON.stringify(data)
         }).then(res => res.json()).then(data => {
-            console.log(data);
             return data.status;
         });
         return fetching;

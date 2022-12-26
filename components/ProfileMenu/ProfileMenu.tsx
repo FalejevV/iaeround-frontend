@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { BackgroundDarkener, DropdownArrowSVG, ProfileDropdownUsername, ProfileMenuAvatar, ProfileMenuContainer, ProfileMenuDropdown, ProfileMenuLink, ProfileMenuUsername } from "./ProfileMenu.styled";
 import { IProfile } from "../../interface";
 import Fetching, { cloudAvatarLink } from "../../Fetching";
-import profileSVG from "../../public/img/profile.svg";
 import Cookies from "js-cookie";
 
 function ProfileMenu(props:{
@@ -65,8 +64,7 @@ function ProfileMenu(props:{
                 window.location.reload();
             }, 1000);
         });
-    }
-
+    }  
     return(
         <>  
             <BackgroundDarkener onClick={hideDropdown} toggle={dropdownVisible}></BackgroundDarkener>
@@ -77,7 +75,7 @@ function ProfileMenu(props:{
                         <path fill="none" d="M0 0h24v24H0z"/><path d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
                     </DropdownArrowSVG>
                 </ProfileMenuUsername>
-                <ProfileMenuAvatar src={props.profile.avatar !== "" ? cloudAvatarLink + `/${props.profile.id}/${props.profile.avatar}` : profileSVG} />
+                <ProfileMenuAvatar src={props.profile.avatar.trim() !== "" ? cloudAvatarLink + `/${props.profile.id}/${props.profile.avatar}` : "/img/profile.svg"} />
                 <ProfileMenuDropdown toggle={dropdownVisible}>
                     <ProfileDropdownUsername href={"/profile/" + 1}>#{props.profile.name}</ProfileDropdownUsername>
                     <ProfileMenuLink href={"/profile/" + 1}>Profile</ProfileMenuLink>

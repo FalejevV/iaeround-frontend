@@ -41,10 +41,9 @@ export const ProfileMenuAvatar = styled.img`
     width: 70px;
     height:70px;
     object-fit: cover;
-    background-color: rgba(0,0,0,0.5);
     border-radius: 50%;
-
-
+    padding:5px;
+    border:2px solid ${({ theme }) => theme.accentColor};
     @media (max-width:550px){
         width:50px;
         height:50px;

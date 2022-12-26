@@ -4,7 +4,7 @@ import TextField from "../components/TextField/TextField";
 import { AuthButton, AuthContainer, AuthForm, ButtonsContainer, LeftArrowSVG, RightArrowSVG } from "../styles/auth.styled";
 import EmailField from "../components/EmailField/EmailField";
 import Fetching from "../Fetching";
-import { IAuthForm } from "../interface";
+import { IAuthForm, ILoginData, IRegisterData } from "../interface";
 import { StatusMessage } from "../components/Styles.styled";
 import Cookies from "js-cookie";
 
@@ -24,13 +24,21 @@ function Auth(){
 
             if(type === "Sign In"){
                 if(username.trim() !== "" && password.trim() !== ""){
-                    return([username,password]);
+                    return({
+                        login:username,
+                        password:password
+                    } as ILoginData);
                 }else{
                     return ("Some fields look empty");
                 }
             }else if (type === "Sign Up"){
                 if(username.trim() !== "" && password.trim() !== "" && rpassword.trim() !== "" && email.trim() !== ""){
-                    return [username,password,rpassword,email];
+                    return({
+                        login:username,
+                        password,
+                        rpassword,
+                        email,
+                    } as IRegisterData);
                 }else{
                     return ("Some fields look empty");
                 }
@@ -50,18 +58,15 @@ function Auth(){
             }else{
                 setStatus(undefined);
                 setFetching("Sign In");
-                Fetching.login(formData as string[]).then(res => {
+                Fetching.login(formData as ILoginData).then(res => {
                     if(res.status === "OK"){
                         setStatus({
                             error:false,
                             text: "You have logged in!"
                         });
 
-                        var date = new Date();
-                        var expiresDate = new Date(date.setDate(date.getHours() + 4));
-                        var expiresDateString = expiresDate.toUTCString();
-
-                        Cookies.set("IAEAuth", JSON.stringify(res.user));
+                        Cookies.set("IAEAuth", JSON.stringify(res.user), { expires: 0.166});
+                        
                         setTimeout(() => {
                             window.location.href = "/";
                         }, 1000);
@@ -98,7 +103,7 @@ function Auth(){
             }else{
                 setStatus(undefined);
                 setFetching("Sign Up")
-                Fetching.register(formData as string[]).then(res => {
+                Fetching.register(formData as IRegisterData).then(res => {
                     if(res === "OK"){
                         setStatus({
                             error:false,
