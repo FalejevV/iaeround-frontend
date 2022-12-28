@@ -156,11 +156,12 @@ export const GPXTip = styled.button`
     }
 `
 
-export const RouteInfoLikesContainer = styled.div`
+export const RouteInfoLikesContainer = styled.div<IToggle>`
     display: flex;
     align-items: center;
     gap:5px;
     cursor:pointer;
+    position: relative;
 `
 
 export const RouteInfoLikesSVG = styled.svg`
@@ -198,4 +199,13 @@ export const SimmilarRoutesContainer = styled.div`
     @media(max-width:500px){
         padding:0px 10px;
     }
+`
+
+export const LikeTimeAlert = styled.p`
+    color:#9f2800;
+    font-size: 14px;
+    position:absolute;
+    top:40px;
+    left:0px;
+    white-space: nowrap;
 `

@@ -63,6 +63,35 @@ class Fetching{
         });
         return fetching;
     }
+
+    async addLike(postID:string){
+        let likeFetch =  await fetch(this.fetchAddress + "/route/routelike", {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                action:"ADD",
+                id:postID,
+            })
+        }).then(res => res.json()).then(data => {return data});
+        return likeFetch
+    }
+
+    async removeLike(postID:string){
+        return await fetch(this.fetchAddress + "/route/routelike", {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                action:"REMOVE",
+                id:postID,
+            })
+        }).then(res => res.json());
+    }
 }
 
 

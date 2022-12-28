@@ -1,26 +1,88 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IRoute } from '../interface';
-import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer } from '../styles/route.styled';
+import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer, LikeTimeAlert } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Fetching from '../Fetching';
+import Cookies from 'js-cookie';
 
 function RoutePage(props:{
     routes:IRoute[],
 }){
     const [routeFetch,setRouteFetch] = useState<IRoute>();
-    const [userLiked, setUserLiked] = useState<boolean>(false);
+    const [filteredLikes, setFilteredLikes] = useState<Set<string>>();
     const [simmilarRoutes,setSimmilarRoutes] = useState<IRoute[]>([]);
+    const [liked,setLiked] = useState<boolean | undefined>();
+    const [likeDebounce, setLikeDebounce] = useState<Date>(new Date());
+    const [likeAlert, setLikeAlert] = useState<boolean>(false);
     const router = useRouter();
     const { id } = router.query;
 
     function toggleLike(){
-        if(routeFetch && routeFetch.id){
-            setUserLiked(prev=> !prev);
+        if(liked !== undefined){
+            let oldTime = likeDebounce.valueOf();
+            let newTime = new Date().valueOf();
+            if(routeFetch!== undefined && routeFetch.id && (newTime - oldTime > 3000)){
+                setLikeAlert(false);
+                if(liked){
+                    Fetching.removeLike(routeFetch.id).then(data => {
+                        if(data.status === "OK"){
+                            setLikeDebounce(new Date());
+                            setRouteFetch(prevRoute => {
+                                if(prevRoute !== undefined){
+                                    return ({
+                                        ...prevRoute,
+                                        likes:data.data
+                                    })
+                                }
+                                return undefined;
+                            });
+                            }
+                        }
+                    );
+                }else{
+                    console.log("LIKE");
+                    Fetching.addLike(routeFetch.id).then(data => {
+                        if(data.status === "OK"){
+                            setLikeDebounce(new Date());
+                            setRouteFetch(prevRoute => {
+                                if(prevRoute !== undefined){
+                                    return ({
+                                        ...prevRoute,
+                                        likes:data.data
+                                    })
+                                }
+                                return undefined;
+                            });
+                            }
+                        }
+                    );
+                }
+            }else{
+                setLikeAlert(true);
+            }
         }
     }
+
+    useEffect(() => {
+        const IAEAuth = Cookies.get("IAEAuth");
+        if(IAEAuth && IAEAuth !== "" && routeFetch){
+            let authJSON = JSON.parse(IAEAuth);
+            if(routeFetch.likes.includes(authJSON.id)){
+                setLiked(true);
+            }else{
+                setLiked(false);
+            }
+        }
+
+        if(routeFetch !== undefined){
+            let likeMap = new Set(routeFetch.likes);
+            setFilteredLikes(likeMap);
+        }
+
+    }, [routeFetch])
 
     useEffect(() => {
         if(props.routes.length > 0){
@@ -32,9 +94,6 @@ function RoutePage(props:{
             });
         }
     }, [id]);
-
-    console.log(routeFetch,"route fetch");
-    console.log(props.routes, "all");
 
     useEffect(() => {
         if(routeFetch && routeFetch.tags){
@@ -114,9 +173,10 @@ function RoutePage(props:{
                             <RouteInfoLikesContainer onClick={toggleLike}>
                                 <RouteInfoLikesSVG viewBox="0 0 24 24" width="24" height="24">
                                     <path fill="none" d="M0 0H24V24H0z"></path><path d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z"></path>
-                                    <LikeFillPath toggle={userLiked} d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"/>
+                                    <LikeFillPath toggle={liked} d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"/>
                                 </RouteInfoLikesSVG>
-                                <RouteInfoLikesText>{routeFetch.likes.length}</RouteInfoLikesText>
+                                <RouteInfoLikesText>{filteredLikes !== undefined ? filteredLikes.size : "0"}</RouteInfoLikesText>
+                                {likeAlert && <LikeTimeAlert>Please wait couple seconds :P</LikeTimeAlert>}
                             </RouteInfoLikesContainer>
                         </DownloadAndLikesContainer>
                     </RouteInfo>
