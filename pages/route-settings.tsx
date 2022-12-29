@@ -6,7 +6,7 @@ import { IRoute } from "../interface";
 
 function RouteSettings(props:{
     route:IRoute,
-    auth:string
+    auth:any
 }){
     console.log(props);
     return(
@@ -24,7 +24,7 @@ export async function getServerSideProps(context: { query: { id: any; }; }) {
     let id = context.query.id;
     if(id !== undefined && id && id !== ""){
         let authFetch = await Fetching.checkAuth().then(res => res.json()).then(data => {
-            return data.id || "220";
+            return data;
         });
         return{
             props: {
