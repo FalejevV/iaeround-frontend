@@ -105,7 +105,20 @@ class Fetching{
     }
 
     async checkAuth(){
-        let fetching = await fetch(this.fetchAddress + "/auth/tokenCheck", {
+        let fetching = await fetch(this.fetchAddress + "/auth/token-check", {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        }).then(res => res.json()).then(data => {
+            return data.id;
+        });
+        return fetching;
+    }
+
+    async getTags(){
+        let fetching = fetch(this.fetchAddress + "/tags", {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',

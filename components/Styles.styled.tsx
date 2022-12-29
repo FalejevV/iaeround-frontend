@@ -32,19 +32,38 @@ export const SignInButton = styled(Link)`
 
 
 export const InputFieldTitle = styled.p`
-    font-size: 20px;
+    font-size: 18px;
+    opacity: 0.7;
+    white-space: nowrap;
 `
 
 export const InputFieldInput = styled.input`
     background-color: transparent;
     border-radius: 5px;
-    padding:10px;
+    padding:10px 15px;
     border:1px solid #4f4f4f;
-    color:#7a7a7a;
-
+    color:#000000;
+    font-size:15px;
+    width:100%;
     &:focus{
         outline: none;
     }
+`
+
+export const TextAreaInput = styled.textarea`
+    width:100%;
+    background-color: transparent;
+    border-radius: 5px;
+    padding:10px 15px;
+    border:1px solid #4f4f4f;
+    color:#000000;
+    font-size:15px;
+    &:focus{
+        outline: none;
+    }
+    resize: none;
+    height:200px;
+    line-height: 25px;
 `
 
 export const InputFieldContainer = styled.div`
@@ -68,4 +87,11 @@ export const StatusMessage = styled.p<IToggle>`
         border: 2px solid #841919;
         color: #841919;
     `}
+`
+
+
+export const LoadingImage = styled.img`
+    width:100px;
+    height:100px;
+    margin-top: 100px;
 `

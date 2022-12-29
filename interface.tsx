@@ -1,9 +1,9 @@
 import { OrderBy } from "./enum";
 
 export interface IToggle{
-    toggle?:boolean;
+    toggle?:boolean,
+    selected?: boolean
 }
-
 
 export interface IRoute{
     id:string,

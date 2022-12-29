@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { IRoute } from '../interface';
+import { IProfile, IRoute } from '../interface';
 import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, SimmilarRoutesTitle, SimmilarRoutesContainer, LikeTimeAlert, EditRouteContainer, EditRouteSVG, EditRouteText } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
@@ -8,6 +8,7 @@ import CardGrid from '../components/CardGrid/CardGrid';
 import Fetching from '../Fetching';
 import Cookies from 'js-cookie';
 import LikeCounter from '../components/LikeCounter/LikeCounter';
+import Auth from '../Auth';
 
 function RoutePage(props:{
     routes:IRoute[],
@@ -20,6 +21,7 @@ function RoutePage(props:{
     const [likeAlert, setLikeAlert] = useState<boolean>(false);
     const router = useRouter();
     const { id } = router.query;
+    const auth:IProfile = Auth.getAuth();
 
     function toggleLike(){
         if(liked !== undefined){
@@ -140,12 +142,14 @@ function RoutePage(props:{
                 <TopSectionContainer>
                     <GallerySlider id={routeFetch.id} images={routeFetch?.images || [""]} />
                     <RouteInfo>
-                        <EditRouteContainer href={"/route-settings?id="+id}>
-                            <EditRouteText>Edit route</EditRouteText>
-                            <EditRouteSVG viewBox="0 0 24 24" width="24" height="24">
-                                <path fill="none" d="M0 0h24v24H0z"/><path d="M8.686 4l2.607-2.607a1 1 0 0 1 1.414 0L15.314 4H19a1 1 0 0 1 1 1v3.686l2.607 2.607a1 1 0 0 1 0 1.414L20 15.314V19a1 1 0 0 1-1 1h-3.686l-2.607 2.607a1 1 0 0 1-1.414 0L8.686 20H5a1 1 0 0 1-1-1v-3.686l-2.607-2.607a1 1 0 0 1 0-1.414L4 8.686V5a1 1 0 0 1 1-1h3.686zM6 6v3.515L3.515 12 6 14.485V18h3.515L12 20.485 14.485 18H18v-3.515L20.485 12 18 9.515V6h-3.515L12 3.515 9.515 6H6zm6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                            </EditRouteSVG>
-                        </EditRouteContainer>
+                        {routeFetch.owner_id === auth.id && 
+                            <EditRouteContainer href={"/route-settings?id="+id}>
+                                <EditRouteText>Edit route</EditRouteText>
+                                    <EditRouteSVG viewBox="0 0 24 24" width="24" height="24">
+                                    <path fill="none" d="M0 0h24v24H0z"/><path d="M8.686 4l2.607-2.607a1 1 0 0 1 1.414 0L15.314 4H19a1 1 0 0 1 1 1v3.686l2.607 2.607a1 1 0 0 1 0 1.414L20 15.314V19a1 1 0 0 1-1 1h-3.686l-2.607 2.607a1 1 0 0 1-1.414 0L8.686 20H5a1 1 0 0 1-1-1v-3.686l-2.607-2.607a1 1 0 0 1 0-1.414L4 8.686V5a1 1 0 0 1 1-1h3.686zM6 6v3.515L3.515 12 6 14.485V18h3.515L12 20.485 14.485 18H18v-3.515L20.485 12 18 9.515V6h-3.515L12 3.515 9.515 6H6zm6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                                </EditRouteSVG>
+                            </EditRouteContainer>
+                        }
 
                         <RouteTitle>{routeFetch.title}</RouteTitle>
                         <RouteStats>

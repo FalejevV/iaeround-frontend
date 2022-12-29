@@ -88,6 +88,7 @@ export const RouteAbout = styled.p`
     font-weight: 400;
     font-size: 16px;
     color: #000000;
+    line-height: 26px;
 `
 
 export const RouteTags = styled.div`
@@ -227,11 +228,11 @@ export const EditRouteSVG = styled.svg`
 export const EditRouteContainer = styled(Link)`
     position: absolute;
     right:0px;
-    display: flex;
     align-items: center;
     justify-content: flex-end;
     cursor: pointer;
     gap:10px;
+    display:flex;
     &:hover{
         ${EditRouteText}{
             color:black;

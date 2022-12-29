@@ -7,22 +7,26 @@ function Tag(props:{
     closeable?: boolean,
     selectable?: boolean,
     title: string,
+    onClick?:Function,
+    selected?: boolean,
 }){
     const dispatch = useAppDispatch();
     function tagAction(){
-        if(props.selectable){
-            
+        if(props.selectable && props.onClick === undefined){
             dispatch(addTag(props.title));
         }
 
-        if(props.closeable){
+        if(props.closeable && props.onClick === undefined){
             dispatch(removeTag(props.title));
         }
 
+        if(props.onClick !== undefined){
+            props.onClick(props.title);
+        }
     }
 
     return(
-        <TagContainer toggle={props.closeable || props.selectable} onClick={tagAction}>
+        <TagContainer selected={props.selected || false} toggle={props.closeable || props.selectable} onClick={tagAction}>
             <TagTitle>{props.title}</TagTitle>
             {props.closeable && 
                 <TagCloseIcon viewBox="0 0 24 24" width="24" height="24">

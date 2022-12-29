@@ -33,6 +33,14 @@ export const TagContainer = styled.nav<IToggle>`
             }
         }
     `}
+
+    ${({ selected }) => selected && css`
+        background-color: #aaff9d;
+
+        &:hover{
+            background-color: #94f785;
+        }
+    `}
 `
 
 export const TagTitle = styled.nav`
