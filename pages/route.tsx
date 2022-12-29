@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IRoute } from '../interface';
-import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, LikeFillPath, SimmilarRoutesTitle, SimmilarRoutesContainer, LikeTimeAlert } from '../styles/route.styled';
+import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, SimmilarRoutesTitle, SimmilarRoutesContainer, LikeTimeAlert, EditRouteContainer, EditRouteSVG, EditRouteText } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
 import Fetching from '../Fetching';
 import Cookies from 'js-cookie';
+import LikeCounter from '../components/LikeCounter/LikeCounter';
 
 function RoutePage(props:{
     routes:IRoute[],
@@ -24,7 +25,7 @@ function RoutePage(props:{
         if(liked !== undefined){
             let oldTime = likeDebounce.valueOf();
             let newTime = new Date().valueOf();
-            if(routeFetch!== undefined && routeFetch.id && (newTime - oldTime > 3000)){
+            if(routeFetch!== undefined && routeFetch.id && (newTime - oldTime > 2000)){
                 setLikeAlert(false);
                 if(liked){
                     Fetching.removeLike(routeFetch.id).then(data => {
@@ -139,6 +140,13 @@ function RoutePage(props:{
                 <TopSectionContainer>
                     <GallerySlider id={routeFetch.id} images={routeFetch?.images || [""]} />
                     <RouteInfo>
+                        <EditRouteContainer href={"/route-settings?id="+id}>
+                            <EditRouteText>Edit route</EditRouteText>
+                            <EditRouteSVG viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"/><path d="M8.686 4l2.607-2.607a1 1 0 0 1 1.414 0L15.314 4H19a1 1 0 0 1 1 1v3.686l2.607 2.607a1 1 0 0 1 0 1.414L20 15.314V19a1 1 0 0 1-1 1h-3.686l-2.607 2.607a1 1 0 0 1-1.414 0L8.686 20H5a1 1 0 0 1-1-1v-3.686l-2.607-2.607a1 1 0 0 1 0-1.414L4 8.686V5a1 1 0 0 1 1-1h3.686zM6 6v3.515L3.515 12 6 14.485V18h3.515L12 20.485 14.485 18H18v-3.515L20.485 12 18 9.515V6h-3.515L12 3.515 9.515 6H6zm6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                            </EditRouteSVG>
+                        </EditRouteContainer>
+
                         <RouteTitle>{routeFetch.title}</RouteTitle>
                         <RouteStats>
                             <Stat>
@@ -171,11 +179,7 @@ function RoutePage(props:{
                                 <GPXTip>i</GPXTip>
                             </DownloadContainer>
                             <RouteInfoLikesContainer onClick={toggleLike}>
-                                <RouteInfoLikesSVG viewBox="0 0 24 24" width="24" height="24">
-                                    <path fill="none" d="M0 0H24V24H0z"></path><path d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z"></path>
-                                    <LikeFillPath toggle={liked} d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"/>
-                                </RouteInfoLikesSVG>
-                                <RouteInfoLikesText>{filteredLikes !== undefined ? filteredLikes.size : "0"}</RouteInfoLikesText>
+                                {filteredLikes !== undefined && liked !== undefined && <LikeCounter likes={filteredLikes} userLiked={liked} onClick={toggleLike} svgSize={"28px"} fontSize={"18px"}/>}
                                 {likeAlert && <LikeTimeAlert>Please wait couple seconds :P</LikeTimeAlert>}
                             </RouteInfoLikesContainer>
                         </DownloadAndLikesContainer>
@@ -203,5 +207,5 @@ export async function getServerSideProps() {
         routes: fetch.data,
       },
     }
-  }
+}
   

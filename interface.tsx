@@ -63,3 +63,7 @@ export interface IRegisterData{
     rpassword:string,
     email:string,
 }
+
+export interface ISize{
+    size:string
+}

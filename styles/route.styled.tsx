@@ -1,11 +1,12 @@
 import styled, { css } from "styled-components";
 import { Container } from "../components/Styles.styled";
 import { IToggle } from "../interface";
+import Link from "next/link";
 
 export const RouteContainer = styled(Container)`
     display: flex;
     flex-direction: column;
-
+    padding-top:30px;
     @media(max-width:1300px){
         gap:50px;
     }
@@ -37,7 +38,7 @@ export const RouteInfo = styled.div`
     display: flex;
     flex-direction: column;
     gap:15px;
-
+    position: relative;
     @media(max-width:1300px){
         padding:0px 0px;
         max-width: unset;
@@ -168,16 +169,6 @@ export const RouteInfoLikesSVG = styled.svg`
     width:28px;
     height:28px;
 `
-
-export const LikeFillPath = styled.path<IToggle>`
-    transition: all 0.3s;
-    opacity: 0;
-
-    ${({ toggle }) => toggle && css`
-        opacity: 1;
-    `}
-`
-
 export const RouteInfoLikesText = styled.p`
     font-size: 17px;
 `
@@ -209,3 +200,46 @@ export const LikeTimeAlert = styled.p`
     left:0px;
     white-space: nowrap;
 `
+
+
+export const EditRouteText = styled.p`
+    font-size:16px;
+    color:#4e4e4e;
+    white-space: nowrap;
+    transition: max-width 0.7s;
+    text-align: right;
+    max-width: 0px;
+    overflow:hidden;
+
+
+    @media(max-width:600px){
+        display: none;
+    }
+`
+
+export const EditRouteSVG = styled.svg`
+    fill:#4e4e4e;
+    width:30px;
+    height:30px;
+    transition: all 0.3s;
+`
+
+export const EditRouteContainer = styled(Link)`
+    position: absolute;
+    right:0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    gap:10px;
+    &:hover{
+        ${EditRouteText}{
+            color:black;
+            max-width:200px;
+        }
+        ${EditRouteSVG}{
+            fill:black;
+        }
+    }
+`
+

@@ -18,6 +18,17 @@ class Fetching{
         return fetching;
     }
 
+    async getOneRoute(id:string){
+        let fetching = fetch(this.fetchAddress + "/route/"+id, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
+        return fetching;
+    }
+
 
     async login(data:ILoginData){
         let fetching = await fetch(this.fetchAddress + "/auth/login", {
@@ -91,6 +102,17 @@ class Fetching{
                 id:postID,
             })
         }).then(res => res.json());
+    }
+
+    async checkAuth(){
+        let fetching = await fetch(this.fetchAddress + "/auth/tokenCheck", {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
+        return fetching;
     }
 }
 

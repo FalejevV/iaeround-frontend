@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { cloudImageLink } from "../../Fetching";
-import { IRoute } from "../../interface";
+import { IProfile, IRoute } from "../../interface";
 import LikeCounter from "../LikeCounter/LikeCounter";
 import Tag from "../Tag/Tag";
 import { CardContainer, CardImage, DTTitle, DTContainer, DTSVG, DistanceTimeContainer, RouteInfoContainer, RouteTitle, RouteTitleContainer, TagsLikesContainer, TagsContainer, LikesContainer, GPXIndicator, DateInfo } from "./RouteCard.styled";
+import Cookies from "js-cookie";
 
 
 function RouteCard(props:{
@@ -10,13 +12,37 @@ function RouteCard(props:{
     filterable?: boolean,
 }){
 
+    const [likesSet, setLikesSet] = useState<Set<string>>(new Set([]));
+    const [userLiked,setUserLiked] = useState<boolean>(false);
+
     function clickCheck(e:React.MouseEvent){
         let target  = e.target as HTMLElement;
         if(target.localName === "nav" && props.filterable === true){
             e.preventDefault();
         }
     }
+
+    useEffect(() => {
+        if(props.data.likes.length){
+            let uniqueLikes = new Set(props.data.likes);
+            setLikesSet(uniqueLikes);
+        }
+
+        const IAEAuth = Cookies.get("IAEAuth");
+        if(IAEAuth && IAEAuth !== "" && props.data.likes){
+            let authJSON:IProfile = JSON.parse(IAEAuth);
+            if(props.data.likes.includes(authJSON.id)){
+                setUserLiked(true);
+                return;
+            }else{
+                setUserLiked(false);
+            }
+        }else{
+            setUserLiked(false);
+        }
+    }, [props.data]);
     
+    console.log(userLiked);
     return(
         <CardContainer>
             <CardImage loading="lazy" src={cloudImageLink + `/${props.data.id}/` + props.data.images[0]} alt="route thumbnail" />
@@ -44,9 +70,9 @@ function RouteCard(props:{
                     <TagsContainer>
                         {props.data.tags.map(tag => <Tag key={tag} title={tag} selectable={props.filterable} />)}
                     </TagsContainer>
-                    <LikesContainer>
+                     <LikesContainer>
                         {props.data.gpx.trim() !== "" && <GPXIndicator>GPX</GPXIndicator>}
-                        <LikeCounter likes={props.data.likes} />
+                        <LikeCounter likes={likesSet} userLiked={userLiked} />
                     </LikesContainer>
                 </TagsLikesContainer>
             </RouteInfoContainer>
