@@ -23,9 +23,7 @@ export default RouteSettings;
 export async function getServerSideProps(context: { query: { id: any; }; }) {
     let id = context.query.id;
     if(id !== undefined && id && id !== ""){
-        let authFetch = await Fetching.checkAuth().then(res => res.json()).then(data => {
-            return data;
-        });
+        let authFetch = await Fetching.checkAuth();
         return{
             props: {
                 route: null,
