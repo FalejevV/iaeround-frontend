@@ -24,8 +24,7 @@ export async function getServerSideProps(context: { query: { id: any; }; }) {
     let id = context.query.id;
     if(id !== undefined && id && id !== ""){
         let authFetch = await Fetching.checkAuth().then(res => res.json()).then(data => {
-            console.log(data);
-            return "1"
+            return data.id || "220";
         });
         return{
             props: {
