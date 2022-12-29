@@ -61,7 +61,7 @@ function RouteSettings(){
             {routeFetch !== undefined && authFetch !== undefined && <>
                 {routeFetch.owner_id !== authFetch ? 
                 <>
-                    <LoginErrorText>Seems like you don't have access to edit this route.</LoginErrorText>
+                    <LoginErrorText>Seems like you dont have access to edit this route.</LoginErrorText>
                     <LoginErrorText>(Try to relogin)</LoginErrorText>
                 </>
                 :
