@@ -53,6 +53,15 @@ export const RouteTitle = styled.h1`
     padding-bottom: 15px;
 `
 
+export const RouteAthor = styled(Link)`
+    font-size:14px;
+    color:#494949;
+    transition: all 0.3s;
+    &:hover{
+        color:#000000;
+    }
+`
+
 export const RouteDate = styled.p`
     font-weight: 400;
     font-size: 14px;
@@ -197,8 +206,9 @@ export const LikeTimeAlert = styled.p`
     color:#9f2800;
     font-size: 14px;
     position:absolute;
-    top:40px;
-    left:0px;
+    top:50px;
+    left:-82px;
+    text-align: left;
     white-space: nowrap;
 `
 

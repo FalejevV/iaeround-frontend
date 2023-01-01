@@ -4,7 +4,7 @@ export const cloudLink = "https://storage.googleapis.com/iaeround";
 export const cloudImageLink = "https://storage.googleapis.com/iaeround/img";
 export const cloudAvatarLink = "https://storage.googleapis.com/iaeround/avatar";
 class Fetching{
-    fetchAddress = true ? "https://octopus-app-rmug8.ondigitalocean.app/api" : "http://localhost:5000/api";
+    fetchAddress = false ? "https://octopus-app-rmug8.ondigitalocean.app/api" : "http://localhost:5000/api";
     
 
     async getAllRoutes(){
@@ -124,6 +124,47 @@ class Fetching{
             'Content-Type': 'application/json',
             },
             credentials: 'include'
+        });
+        return fetching;
+    }
+
+    async getUser(id:string){
+        let fetching = fetch(this.fetchAddress + "/user/"+id, {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
+        return fetching;
+    }
+
+    async updateRoute(data:{
+        id:string,
+        title:string,
+        distance:string,
+        time:string,
+        about:string,
+        tags:string[],
+    }){
+        let fetching = fetch(this.fetchAddress + "/route", {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body:JSON.stringify(data)
+        });
+        return fetching;
+    }
+
+    async removeRoute(id:string){
+        let fetching = fetch(this.fetchAddress + "/route/"+id, {
+            method: 'DELETE',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include',
         });
         return fetching;
     }

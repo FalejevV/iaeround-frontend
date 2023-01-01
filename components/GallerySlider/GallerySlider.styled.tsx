@@ -31,7 +31,7 @@ export const MainImage = styled.img<IToggle>`
     @media(max-width:500px){
         height:200px;
     }
-    
+   
 `
 
 export const ImageSliderContainer = styled.div`

@@ -13,20 +13,46 @@ export const Container = styled.div`
     }
 `
 
+export const SignInLink = styled(Link)<IToggle>`
+    display: flex;
+    align-items: center;
+    margin-left:auto;
+    cursor: pointer;
+    @media(max-width:550px){
+        display: none;
+    }
 
-export const SignInButton = styled(Link)`
+    ${({ toggle }) => toggle && css`
+        @media(min-width:551px){
+            display: none;
+        }
+        @media(max-width:550px){
+            display: flex;
+        }
+    `}
+`
+
+export const SignInButton = styled.button`
     padding:10px 30px;
     background: linear-gradient(202.18deg, #3E6144 -7.99%, #6FAD7A 104.42%);
     border-radius: 5px;     
     font-size: 16px;
     color:white;
-    margin-left:auto;
     white-space: nowrap;
-    
+    cursor: pointer;
     transition: all 0.3s;
     &:hover{
         filter:brightness(1.2);
     }
+`
+
+export const SignInSVGSmall = styled.svg`
+    width:40px;
+    height:40px;
+    fill:${({ theme }) => theme.accentColor};
+    padding:9px;
+    border:2px solid ${({ theme }) => theme.accentColor};
+    border-radius: 5px;
 `
 
 

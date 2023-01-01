@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IProfile, IRoute } from '../interface';
-import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, SimmilarRoutesTitle, SimmilarRoutesContainer, LikeTimeAlert, EditRouteContainer, EditRouteSVG, EditRouteText } from '../styles/route.styled';
+import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSectionContainer, StatText, RouteAbout, RouteTags, DownloadAndLikesContainer, DownloadButton, DownloadSVG, GPXTip, DownloadContainer, RouteInfoLikesSVG, RouteInfoLikesContainer, RouteInfoLikesText, SimmilarRoutesTitle, SimmilarRoutesContainer, LikeTimeAlert, EditRouteContainer, EditRouteSVG, EditRouteText, RouteAthor } from '../styles/route.styled';
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
@@ -22,6 +22,7 @@ function RoutePage(props:{
     const router = useRouter();
     const { id } = router.query;
     const auth:IProfile = Auth.getAuth();
+    const [author,setAuthor] = useState<string>();
 
     function toggleLike(){
         if(liked !== undefined){
@@ -83,7 +84,10 @@ function RoutePage(props:{
         if(routeFetch !== undefined){
             let likeMap = new Set(routeFetch.likes);
             setFilteredLikes(likeMap);
+
+            Fetching.getUser(routeFetch.owner_id).then(res => res.json()).then((data:IProfile) => setAuthor(data.name));
         }
+        
 
     }, [routeFetch])
 
@@ -142,7 +146,7 @@ function RoutePage(props:{
                 <TopSectionContainer>
                     <GallerySlider id={routeFetch.id} images={routeFetch?.images || [""]} />
                     <RouteInfo>
-                        {routeFetch.owner_id === auth.id && 
+                        {auth !== undefined && routeFetch.owner_id === auth.id && 
                             <EditRouteContainer href={"/route-settings?id="+id}>
                                 <EditRouteText>Edit route</EditRouteText>
                                     <EditRouteSVG viewBox="0 0 24 24" width="24" height="24">
@@ -152,6 +156,7 @@ function RoutePage(props:{
                         }
 
                         <RouteTitle>{routeFetch.title}</RouteTitle>
+                        <RouteAthor href={"/profile?id=" + routeFetch.owner_id}>Author: {author}</RouteAthor>
                         <RouteStats>
                             <Stat>
                                 <StatSVG viewBox="0 0 24 24" width="24" height="24">

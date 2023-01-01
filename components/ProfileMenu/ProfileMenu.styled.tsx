@@ -125,6 +125,7 @@ export const BackgroundDarkener = styled.div<IToggle>`
     left:0px;
     top:0px;
     width:100vw;
+    max-width: 100vw;
     height:100vh;
     background-color: rgba(0,0,0,0.5);
     cursor:default;
