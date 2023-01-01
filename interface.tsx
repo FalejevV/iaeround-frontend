@@ -2,7 +2,8 @@ import { OrderBy } from "./enum";
 
 export interface IToggle{
     toggle?:boolean,
-    selected?: boolean
+    selected?: boolean,
+    success?:boolean,
 }
 
 export interface IRoute{
@@ -66,4 +67,8 @@ export interface IRegisterData{
 
 export interface ISize{
     size:string
+}
+
+export interface ITag{
+    title:string
 }

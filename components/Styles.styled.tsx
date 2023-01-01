@@ -59,7 +59,7 @@ export const SignInSVGSmall = styled.svg`
 
 export const InputFieldTitle = styled.p`
     font-size: 18px;
-    opacity: 0.7;
+    opacity: 0.85;
     white-space: nowrap;
 `
 
@@ -120,4 +120,15 @@ export const LoadingImage = styled.img`
     width:100px;
     height:100px;
     margin-top: 100px;
+`
+
+
+export const TagsContainer = styled.div`
+    display: flex;
+    width:100%;
+    flex-wrap: wrap;
+    gap:15px;
+    padding:15px;
+    border:1px solid #5c5c5c;
+    border-radius: 5px;
 `

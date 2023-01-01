@@ -39,16 +39,6 @@ export const TitleTagsWrapper = styled.div`
 
 `
 
-export const TagsContainer = styled.div`
-    display: flex;
-    width:100%;
-    flex-wrap: wrap;
-    gap:15px;
-    padding:15px;
-    border:1px solid #5c5c5c;
-    border-radius: 5px;
-`
-
 export const RemoveRouteButton = styled(SignInButton)`
     @media(max-width:600px){
        width:100%;
