@@ -4,7 +4,6 @@ import { IToggle } from "../../interface";
 
 export const ProfileMenuContainer = styled.div`
     height:100%;
-    margin-left:auto;
     display:flex;
     justify-content:flex-end;
     align-items: center;

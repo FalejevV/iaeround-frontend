@@ -13,6 +13,7 @@ import { RootState } from "../../store/store";
 import Cookies from "js-cookie";
 import Auth from "../../Auth";
 import Link from "next/link";
+import AddRouteButton from "../AddRouteButton/AddRouteButton";
 
 function Header(){
     const [profile, setProfile] =  useState<IProfile>();
@@ -29,11 +30,17 @@ function Header(){
     return(
         <Wrapper>
             <HeaderContainer>
-                <Logo />
+                <Logo toggle={true} />
                 <SearchInput />
                 {loaded && <>
-                    { profile ? <ProfileMenu profile={profile} /> : 
+                    { profile ? 
+                    <>
+                        <AddRouteButton />
+                        <ProfileMenu profile={profile} />
+                    </>
                     
+                    :
+
                     <>
                         <SignInLink toggle={false} href="/auth"> 
                             <SignInButton>Sign In</SignInButton>

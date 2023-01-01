@@ -3,7 +3,9 @@ import fullSizeLogo from "../../public/img/Logo.svg"
 import smallSizeLogo from "../../public/img/LogoSmall.svg"
 import { MouseEvent } from "react";
 
-function Logo(){
+function Logo(props:{
+    toggle?:boolean,
+}){
 
     function refreshIfSamePage(e:MouseEvent){
         if(window.location.pathname === "/"){
@@ -13,7 +15,7 @@ function Logo(){
     }
 
     return(
-        <LogoLink href="/" onClick={(e) => refreshIfSamePage(e)}>
+        <LogoLink toggle={props.toggle} href="/" onClick={(e) => refreshIfSamePage(e)}>
             <LogoPicture>
                 <source media="(min-width: 900px)" srcSet={fullSizeLogo.src} />
                 <img src={smallSizeLogo.src} alt="Logo"></img>

@@ -17,7 +17,7 @@ export const HeaderContainer = styled(Container)`
     height:100%;
     display: flex;
     align-items: center;
-    gap:80px;
+    gap:30px;
     @media (max-width:800px){
         gap:40px;
     }
