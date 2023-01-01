@@ -78,7 +78,7 @@ function FileField(props:{
         console.log("AS");
         if(file && file.length > 0){
             console.log("A");
-            return Array.from(file).map((file:File) => <PreviewImage alt="preview image" src={URL.createObjectURL(file)} />)
+            return Array.from(file).map((file:File, index:number) => <PreviewImage key={`${index}preview`} alt="preview image" src={URL.createObjectURL(file)} />)
         }
     }
 
