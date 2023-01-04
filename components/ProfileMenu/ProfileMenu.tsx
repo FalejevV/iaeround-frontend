@@ -78,8 +78,8 @@ function ProfileMenu(props:{
                 </ProfileMenuUsername>
                 <ProfileMenuAvatar src={props.profile.avatar.trim() !== "" ? cloudAvatarLink + `/${props.profile.id}/${props.profile.avatar}` : "/img/profile.svg"} />
                 <ProfileMenuDropdown toggle={dropdownVisible}>
-                    <ProfileDropdownUsername href={"/profile/" + 1}>#{props.profile.name}</ProfileDropdownUsername>
-                    <ProfileMenuLink href={"/profile/" + 1}>Profile</ProfileMenuLink>
+                    <ProfileDropdownUsername href={"/profile/" + props.profile.id}>#{props.profile.name}</ProfileDropdownUsername>
+                    <ProfileMenuLink href={"/profile/" + props.profile.id}>Profile</ProfileMenuLink>
                     <ProfileMenuLink href={"/settings"}>Settings</ProfileMenuLink>
                     <ProfileMenuLink onClick={signOut} href={""}>Sign Out</ProfileMenuLink>
                 </ProfileMenuDropdown>

@@ -1,18 +1,12 @@
 import Logo from "../Logo/Logo";
 import SearchInput from "../SearchInput/SearchInput";
-import { SearchContainer } from "../SearchInput/SearchInput.styled";
 import { HeaderContainer, Wrapper } from "./Header.styled";
-import Head from 'next/head'
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import { useEffect, useState } from "react";
 import { SignInButton, SignInLink, SignInSVGSmall } from "../Styles.styled";
 
 import { IProfile } from "../../interface";
-import { useAppSelector } from "../../store/hooks";
-import { RootState } from "../../store/store";
-import Cookies from "js-cookie";
 import Auth from "../../Auth";
-import Link from "next/link";
 import AddRouteButton from "../AddRouteButton/AddRouteButton";
 
 function Header(){
@@ -30,7 +24,7 @@ function Header(){
     return(
         <Wrapper>
             <HeaderContainer>
-                <Logo toggle={true} />
+                <Logo/>
                 <SearchInput />
                 {loaded && <>
                     { profile ? 

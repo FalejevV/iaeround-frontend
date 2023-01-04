@@ -29,6 +29,16 @@ class Fetching{
         return fetching;
     }
 
+    async getMyProfile(){
+        let fetching = fetch(this.fetchAddress + "/userme", {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
+        return fetching;
+    }
 
     async login(data:ILoginData){
         let fetching = await fetch(this.fetchAddress + "/auth/login", {

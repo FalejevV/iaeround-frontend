@@ -25,15 +25,14 @@ function RouteSettings(){
         text:""
     });
 
+
     useEffect(() => {
         if(id && id !== undefined && id !== ""){
             Fetching.checkAuth().then(res => setAuthFetch(res));
-            Fetching.getOneRoute(id[0]).then(res => res.json()).then(data => {setRouteFetch(data.data); setSelectedTags(data.data.tags)});
+            Fetching.getOneRoute(id.toString()).then(res => res.json()).then(data => {setRouteFetch(data.data); setSelectedTags(data.data.tags)});
             Fetching.getTags().then(res => res.json()).then(data => setTagsFetch(data.data || []));
         }
     },[id]);
-
-
 
     function toggleTag(tag:string){
         setSelectedTags(prevTags => {
@@ -63,7 +62,7 @@ function RouteSettings(){
                     });
                     if(id !== undefined){
                         Fetching.updateRoute({
-                            id:id[0],
+                            id:id.toString(),
                             title:title.value,
                             about:about.value,
                             distance:distance.value,
@@ -76,7 +75,7 @@ function RouteSettings(){
                                     text:data.status
                                 })
                             }else{
-                                window.location.href = `/route?id=${id[0]}`;
+                                window.location.href = `/route?id=${id.toString()}`;
                             }
                         })
                     }
@@ -108,8 +107,8 @@ function RouteSettings(){
         if(removeRouteTimer > 1){
             setRemoveRouteTimer(prevTimer => prevTimer -= 1);
         }else{
-            if(id !== undefined && id[0].trim() !== ""){
-                Fetching.removeRoute(id[0]).then(res => res.json()).then(data => {
+            if(id !== undefined && id.toString().trim() !== ""){
+                Fetching.removeRoute(id.toString()).then(res => res.json()).then(data => {
                     if(data.status === "OK"){
                         window.location.href = `/`;
                     }else{

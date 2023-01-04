@@ -53,6 +53,15 @@ export interface IProfile{
     avatar:string,
 }
 
+export interface IFullProfile{
+    id:string,
+    login:string,
+    name:string,
+    about:string,
+    avatar:string,
+    email:string,
+}
+
 export interface ILoginData{
     login:string,
     password:string,

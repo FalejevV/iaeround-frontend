@@ -42,7 +42,6 @@ function RouteCard(props:{
         }
     }, [props.data]);
     
-    console.log(userLiked);
     return(
         <CardContainer>
             <CardImage loading="lazy" src={cloudImageLink + `/${props.data.id}/` + props.data.images[0]} alt="route thumbnail" />

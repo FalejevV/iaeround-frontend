@@ -38,6 +38,10 @@ export const RouteInfoContainer = styled(Link)`
     justify-content: space-between;
     padding:15px;
     gap:10px;
+
+    @media(max-width:350px){
+        padding:10px;
+    }
 `
 
 
@@ -46,6 +50,10 @@ export const RouteTitle = styled.p`
     font-size: 18px;
     width:100%;
     font-weight: 500;
+
+    @media(max-width:350px){
+        font-size: 15px;
+    }
 `
 
 export const RouteTitleContainer = styled.div`
@@ -71,12 +79,19 @@ export const DTContainer = styled.div`   /// Individual flexbox to arrange dista
 `
 
 export const DTSVG = styled.svg`
-    
+    @media(max-width:350px){
+        width:20px;
+        height:20px;
+    }
 `
 
 export const DTTitle = styled.p`
     font-size: 16px;
     white-space: nowrap;
+
+    @media(max-width:350px){
+        font-size: 14px;
+    }
 `
 
 export const TagsLikesContainer = styled.div`

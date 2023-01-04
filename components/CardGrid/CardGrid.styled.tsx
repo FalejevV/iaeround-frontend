@@ -10,7 +10,7 @@ export const GridWrapper = styled(Container)`
     align-items: center;
     padding-left:0px;
     padding-right:0px;
-    padding-bottom:400px;
+    padding-bottom:100px;
 `
 
 export const GridContainer = styled(Container)<IToggle>`

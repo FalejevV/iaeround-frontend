@@ -45,4 +45,9 @@ export const TagContainer = styled.nav<IToggle>`
 
 export const TagTitle = styled.nav`
     font-size: 14px;
+
+
+    @media(max-width:350px){
+        font-size: 12px;
+    }
 `

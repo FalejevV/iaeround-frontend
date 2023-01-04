@@ -7,7 +7,6 @@ import { useState } from "react";
 export default function Home(props:{
   routes:IRoute[]
 }) {
-  const [routesFetch, setRoutesFetch] = useState<IRoute[]>([]);
   return (
     <>
       <SortTagsBar/>
