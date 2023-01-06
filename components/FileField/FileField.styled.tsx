@@ -15,6 +15,7 @@ export const FFLabel = styled.label`
     font-size: 20px;
     font-weight: 500;
     cursor:pointer;
+    position: relative;
 `
 
 export const FFInput = styled.input`
@@ -59,6 +60,10 @@ export const FilePreviewContainer = styled.div`
     overflow-x: scroll;
     scrollbar-width: thin;
     align-items: center;
+
+    @media(max-width:600px){
+        width:70vw;
+    }
 `
 
 export const PreviewImages = styled.div`
@@ -73,4 +78,15 @@ export const PreviewImage = styled.img`
     object-fit: cover;
     border:2px solid ${({ theme }) => theme.accentColor};
     border-radius:5px;
+`
+
+export const SmallText = styled.p`
+    position: absolute;
+    left:calc(100% + 10px);
+    top:0px;
+    font-size: 14px;
+    font-weight: 400;
+    color:#606060;
+    white-space: nowrap;
+
 `

@@ -1,4 +1,4 @@
-import { ILoginData, IRegisterData } from "./interface";
+import { ICreateRouteData, ILoginData, IRegisterData } from "./interface";
 
 export const cloudLink = "https://storage.googleapis.com/iaeround";
 export const cloudImageLink = "https://storage.googleapis.com/iaeround/img";
@@ -175,6 +175,29 @@ class Fetching{
             'Content-Type': 'application/json',
             },
             credentials: 'include',
+        });
+        return fetching;
+    }
+
+    async createNewRoute(data:ICreateRouteData){
+        let fetchData = new FormData();
+        fetchData.append('title', data.title);
+        fetchData.append('about', data.about);
+        fetchData.append('time', data.time.toString());
+        fetchData.append('distance', data.distance.toString());
+        fetchData.append('tags', data.tags.toString());
+        if(data.gpx !== ""){
+            fetchData.append('files', data.gpx);
+        }
+        Array.from(data.images).forEach((image:File) => {
+            fetchData.append('files', image);
+        });
+
+
+        let fetching = fetch(this.fetchAddress + "/route", {
+            method: 'POST',
+            credentials: 'include',
+            body:fetchData
         });
         return fetching;
     }

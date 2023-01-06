@@ -53,6 +53,16 @@ export interface IProfile{
     avatar:string,
 }
 
+export interface ICreateRouteData{
+    title:string,
+    distance:number,
+    time:number,
+    about:string,
+    gpx:File | string,
+    images:FileList,
+    tags:string[],
+}
+
 export interface IFullProfile{
     id:string,
     login:string,

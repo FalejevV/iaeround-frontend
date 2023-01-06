@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { AlertText, FFContainer, FFImage, FFInput, FFLabel, FilePreviewContainer, PreviewImage, PreviewImages } from "./FileField.styled";
+import { AlertText, FFContainer, FFImage, FFInput, FFLabel, FilePreviewContainer, PreviewImage, PreviewImages, SmallText } from "./FileField.styled";
 import { maxHeaderSize } from "http";
 
 
@@ -13,6 +13,7 @@ function FileField(props:{
     extention?:string,
     maxTotalWeightMB:number,
     preview?:boolean,
+    smallText?: string
 }){
 
     const [file,setFile] = useState<FileList>();
@@ -75,16 +76,14 @@ function FileField(props:{
     }
 
     function getPreviews(){
-        console.log("AS");
         if(file && file.length > 0){
-            console.log("A");
             return Array.from(file).map((file:File, index:number) => <PreviewImage key={`${index}preview`} alt="preview image" src={URL.createObjectURL(file)} />)
         }
     }
 
     return(
         <FFContainer>
-            <FFLabel htmlFor={props.name}>{props.title}</FFLabel>
+            <FFLabel htmlFor={props.name}>{props.title} {props.smallText !== "" && <SmallText>{props.smallText}</SmallText>}</FFLabel>
             {alert.trim() !== "" && alert.trim() !== "OK" && <AlertText>{alert}</AlertText>}
             <FFLabel htmlFor={props.name}>
                 <FFImage src={props.img || "/img/UploadIcon.svg"} toggle={alert.trim() !== ""} success={alert.trim() === "OK"}/>

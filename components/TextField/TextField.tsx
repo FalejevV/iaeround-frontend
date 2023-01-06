@@ -8,6 +8,7 @@ function TextField(props:{
     name:string,
     placeholder?:string,
     preValue?:string,
+    type?: string
 }){
 
     const [inputValue,setInputValue] = useState(props.preValue || "");
@@ -19,7 +20,7 @@ function TextField(props:{
     return(
         <InputFieldContainer>
             <InputFieldTitle>{props.title}</InputFieldTitle>
-            <InputFieldInput value={inputValue} onChange={(e) => inputChange(e)} name={props.name} placeholder={props.placeholder || ""}  type="text"/>
+            <InputFieldInput value={inputValue} onChange={(e) => inputChange(e)} name={props.name} placeholder={props.placeholder || ""}  type={props.type || "textarea"}/>
         </InputFieldContainer>
     )
 }
