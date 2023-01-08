@@ -61,6 +61,7 @@ export interface ICreateRouteData{
     gpx:File | string,
     images:FileList,
     tags:string[],
+    thumbnail:File
 }
 
 export interface IFullProfile{

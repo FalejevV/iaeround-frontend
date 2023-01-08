@@ -186,6 +186,7 @@ class Fetching{
         fetchData.append('time', data.time.toString());
         fetchData.append('distance', data.distance.toString());
         fetchData.append('tags', data.tags.toString());
+        fetchData.append('thumbnail', data.thumbnail);
         if(data.gpx !== ""){
             fetchData.append('files', data.gpx);
         }

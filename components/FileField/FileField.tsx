@@ -13,7 +13,7 @@ function FileField(props:{
     extention?:string,
     maxTotalWeightMB:number,
     preview?:boolean,
-    smallText?: string
+    smallText?: string,
 }){
 
     const [file,setFile] = useState<FileList>();
@@ -59,11 +59,11 @@ function FileField(props:{
         if(props.type !== undefined){
             let type = props.type;
             let typeText="";
-            if(type === "image/png"){
-                typeText = "an image"
+            if(type.includes("image")){
+                typeText = "an image";
             }
             Array.from(files).forEach((file:File) => {
-                if(file.type !== type){
+                if(!file.type.includes(type)){
                     setAlert(`File should be ${typeText}`);
                     return;
                 }else{
@@ -90,7 +90,7 @@ function FileField(props:{
             </FFLabel>
             <FFInput onChange={(e) => checkFile(e)} multiple={props.multiple} id={props.name} name={props.name} type="file" />
             {file && file.length > 0 && props.preview && 
-            <FilePreviewContainer>
+            <FilePreviewContainer toggle={props.multiple}>
                 <PreviewImages>
                     {getPreviews()}
                 </PreviewImages>

@@ -9,7 +9,7 @@ function GallerySlider(props:{
 }){
     
     const [currentImage,setCurrentImage] = useState<number>(0);
-
+    
     function switchImage(increment:number){
         if(currentImage + increment >= 0 && currentImage + increment < props.images.length){
             setCurrentImage(prevImage => prevImage + increment);
@@ -24,6 +24,11 @@ function GallerySlider(props:{
         }
     }
 
+    function getSortedImages(){
+        // for future?
+        return props.images;
+    }
+
     useEffect(() => {
         setCurrentImage(0);
     }, [props.images]);
@@ -36,7 +41,7 @@ function GallerySlider(props:{
                 </ArrowLeftSVG>
                 <ImageListContainer>
                     <ImageFlexboxContainer count={currentImage}>
-                        {props.images.map((image:string, index:number) => <ImageFlexbox loading="lazy" onClick={() => {setCurrentImage(index)}} toggle={currentImage === index} src={cloudImageLink + `/${props.id}/` + image} key={index} />)}
+                        {getSortedImages().map((image:string, index:number) => <ImageFlexbox loading="lazy" onClick={() => {setCurrentImage(index)}} toggle={currentImage === index} src={cloudImageLink + `/${props.id}/` + image} key={index} />)}
                     </ImageFlexboxContainer>
                 </ImageListContainer>
                 <ArrowRightSVG onClick={() => switchImage(1)} viewBox="0 0 24 24" width="24" height="24" toggle={true}>

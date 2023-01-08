@@ -56,13 +56,13 @@ function CardGrid(props:{
         }
         if(routeOrderBySelector === OrderBy.NEW){
             setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
-                return new Date(b.date).getTime() - new Date(a.date).getTime();
+                return parseInt(b.id) - parseInt(a.id);
             }));
         }
 
         if(routeOrderBySelector === OrderBy.OLD){
             setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
-                return new Date(a.date).getTime() - new Date(b.date).getTime();
+                return parseInt(a.id) - parseInt(b.id);
             }));
         }
 

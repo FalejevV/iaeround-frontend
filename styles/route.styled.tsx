@@ -123,7 +123,7 @@ export const DownloadContainer = styled.div`
     align-items: center;
 `
 
-export const DownloadButton = styled.button`
+export const DownloadButton = styled.a`
     width:180px;
     height:50px;
     background: linear-gradient(173.74deg, #3E6144 4.97%, #6FAD7A 121.95%);

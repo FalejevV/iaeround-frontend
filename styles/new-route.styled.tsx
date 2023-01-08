@@ -8,7 +8,6 @@ export const NRContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     gap:15px;
-
     @media(max-width:600px){
         padding-top:40px;
     }
@@ -24,26 +23,23 @@ export const NRForm = styled.form`
 export const TopInputContainer = styled.div`
     width:100%;
     display: flex;
-    gap:70px;
-
-    @media(max-width:600px){
-        flex-direction: column;
-        gap:30px;
-    }
+    gap:30px;
+    flex-direction: column;
+    padding-bottom: 20px;
 `
 
-export const TopLeftContainer = styled.div`
+export const TextFieldsContainer = styled.div`
     width:100%;
     display: flex;
     gap:15px;
     flex-direction: column;
 `
 
-export const TopRightContainer = styled.div`
+export const FileFieldsContainer = styled.div`
     display: flex;
     gap:15px;
-    flex-direction: column;
-    align-items: flex-end;
+    justify-content: space-between;
+    align-items: center;
 
     @media(max-width:600px){
         flex-direction: column;

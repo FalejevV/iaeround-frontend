@@ -53,14 +53,17 @@ export const AlertText = styled.p`
     width:100%;
 `
 
-export const FilePreviewContainer = styled.div`
+export const FilePreviewContainer = styled.div<IToggle>`
     width:100%;
     display: flex;
     overflow-y:hidden;
     overflow-x: scroll;
     scrollbar-width: thin;
     align-items: center;
-
+    ${({toggle}) => !toggle && css`
+        justify-content: center;
+        overflow:hidden;
+    `}
     @media(max-width:600px){
         width:70vw;
     }

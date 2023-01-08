@@ -5,11 +5,12 @@ import { Stat, StatSVG, RouteContainer, RouteInfo, RouteStats, RouteTitle, TopSe
 import GallerySlider from '../components/GallerySlider/GallerySlider';
 import Tag from '../components/Tag/Tag';
 import CardGrid from '../components/CardGrid/CardGrid';
-import Fetching from '../Fetching';
+import Fetching, { cloudLink } from '../Fetching';
 import Cookies from 'js-cookie';
 import LikeCounter from '../components/LikeCounter/LikeCounter';
 import Auth from '../Auth';
 import EditButton from '../components/EditButton/EditButton';
+import GPXHelpWindow from '../components/GPXHelpWindow/GPXHelpWindow';
 
 function RoutePage(props:{
     routes:IRoute[],
@@ -17,26 +18,33 @@ function RoutePage(props:{
     const [routeFetch,setRouteFetch] = useState<IRoute>();
     const [filteredLikes, setFilteredLikes] = useState<Set<string>>();
     const [simmilarRoutes,setSimmilarRoutes] = useState<IRoute[]>([]);
-    const [liked,setLiked] = useState<boolean | undefined>();
+    const [liked,setLiked] = useState<boolean | undefined>(false);
     const [likeDebounce, setLikeDebounce] = useState<Date>(new Date());
-    const [likeAlert, setLikeAlert] = useState<boolean>(false);
+    const [toggleGPXHelp, setToggleGPXHelp] = useState<boolean>(false);
+    const [likeAlert, setLikeAlert] = useState<string>("");
     const router = useRouter();
     const { id } = router.query;
     const auth:IProfile = Auth.getAuth();
     const [author,setAuthor] = useState<string>();
 
     function toggleLike(){
+        if(auth === undefined){
+            setLikeAlert("You need to sign in to like routes");
+            return;
+        }
+        
         if(liked !== undefined){
             let oldTime = likeDebounce.valueOf();
             let newTime = new Date().valueOf();
             if(routeFetch!== undefined && routeFetch.id && (newTime - oldTime > 2000)){
-                setLikeAlert(false);
+                setLikeAlert("");
                 if(liked){
                     Fetching.removeLike(routeFetch.id).then(data => {
                         if(data.status === "OK"){
                             setLikeDebounce(new Date());
                             setRouteFetch(prevRoute => {
                                 if(prevRoute !== undefined){
+                                    console.log(data.data);
                                     return ({
                                         ...prevRoute,
                                         likes:data.data
@@ -48,12 +56,12 @@ function RoutePage(props:{
                         }
                     );
                 }else{
-                    console.log("LIKE");
                     Fetching.addLike(routeFetch.id).then(data => {
                         if(data.status === "OK"){
                             setLikeDebounce(new Date());
                             setRouteFetch(prevRoute => {
                                 if(prevRoute !== undefined){
+                                    console.log(data.data);
                                     return ({
                                         ...prevRoute,
                                         likes:data.data
@@ -66,11 +74,19 @@ function RoutePage(props:{
                     );
                 }
             }else{
-                setLikeAlert(true);
+                setLikeAlert("Please wait couple seconds");
             }
         }
     }
 
+    useEffect(() => {
+        if(toggleGPXHelp){
+            document.body.style.overflow = "hidden";
+        }else{
+            document.body.style.overflow = "auto";
+        }
+    },[toggleGPXHelp]);
+    
     useEffect(() => {
         const IAEAuth = Cookies.get("IAEAuth");
         if(IAEAuth && IAEAuth !== "" && routeFetch){
@@ -80,17 +96,18 @@ function RoutePage(props:{
             }else{
                 setLiked(false);
             }
+        }else{
+            setLiked(false);
         }
 
         if(routeFetch !== undefined){
             let likeMap = new Set(routeFetch.likes);
+            console.log(likeMap);
             setFilteredLikes(likeMap);
 
             Fetching.getUser(routeFetch.owner_id).then(res => res.json()).then((data:IProfile) => setAuthor(data.name));
         }
-        
-
-    }, [routeFetch])
+    }, [routeFetch]);
 
     useEffect(() => {
         if(props.routes.length > 0){
@@ -142,6 +159,7 @@ function RoutePage(props:{
 
     return(
         <>
+        {toggleGPXHelp && <GPXHelpWindow setToggle={setToggleGPXHelp} />}
         {routeFetch && routeFetch?.images && 
             <RouteContainer>
                 <TopSectionContainer>
@@ -174,18 +192,20 @@ function RoutePage(props:{
                         <RouteTags>{routeFetch.tags.map((tag:string, index:number) => <Tag key={index} title={tag}/>)}</RouteTags>
 
                         <DownloadAndLikesContainer>
-                            <DownloadContainer>
-                                <DownloadButton>
-                                    <DownloadSVG viewBox="0 0 24 24" width="24" height="24">
-                                        <path fill="none" d="M0 0h24v24H0z"/><path d="M3 19h18v2H3v-2zm10-5.828L19.071 7.1l1.414 1.414L12 17 3.515 8.515 4.929 7.1 11 13.17V2h2v11.172z"/>
-                                    </DownloadSVG>
-                                    Download GPX
-                                </DownloadButton>
-                                <GPXTip>i</GPXTip>
-                            </DownloadContainer>
+                            {routeFetch && routeFetch?.gpx?.trim() !== "" && 
+                                 <DownloadContainer>
+                                    <DownloadButton href={`${cloudLink}/gpx/${routeFetch.id}/${routeFetch.gpx}`} download>
+                                        <DownloadSVG viewBox="0 0 24 24" width="24" height="24">
+                                            <path fill="none" d="M0 0h24v24H0z"/><path d="M3 19h18v2H3v-2zm10-5.828L19.071 7.1l1.414 1.414L12 17 3.515 8.515 4.929 7.1 11 13.17V2h2v11.172z"/>
+                                        </DownloadSVG>
+                                        Download GPX
+                                    </DownloadButton>
+                                    <GPXTip onClick={() => setToggleGPXHelp(true)}>i</GPXTip>
+                                </DownloadContainer>
+                            }
                             <RouteInfoLikesContainer onClick={toggleLike}>
                                 {filteredLikes !== undefined && liked !== undefined && <LikeCounter likes={filteredLikes} userLiked={liked} onClick={toggleLike} svgSize={"28px"} fontSize={"18px"}/>}
-                                {likeAlert && <LikeTimeAlert>Please wait couple seconds :P</LikeTimeAlert>}
+                                {likeAlert.trim() !== "" && <LikeTimeAlert>{likeAlert}</LikeTimeAlert>}
                             </RouteInfoLikesContainer>
                         </DownloadAndLikesContainer>
                     </RouteInfo>
