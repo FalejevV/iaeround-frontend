@@ -1,4 +1,4 @@
-import { ICreateRouteData, ILoginData, IRegisterData } from "./interface";
+import { ICreateRouteData, ILoginData, IProfile, IRegisterData } from "./interface";
 
 export const cloudLink = "https://storage.googleapis.com/iaeround";
 export const cloudImageLink = "https://storage.googleapis.com/iaeround/img";
@@ -36,6 +36,15 @@ class Fetching{
             'Content-Type': 'application/json',
             },
             credentials: 'include'
+        });
+        return fetching;
+    }
+
+    async updateMyProfile(formData:FormData){
+        let fetching = fetch(this.fetchAddress + "/user/profilechange", {
+            method: 'POST',
+            credentials: 'include',
+            body:formData
         });
         return fetching;
     }

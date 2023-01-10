@@ -77,7 +77,7 @@ export const ProfileMenuDropdown = styled.div<IToggle>`
         height:230px;
         left:0px;
         top:unset;
-        bottom:-235px;
+        bottom:-100%;
         justify-content:flex-end;
         padding-bottom:20px;
 
