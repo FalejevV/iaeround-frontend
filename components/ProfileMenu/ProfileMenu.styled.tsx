@@ -77,12 +77,13 @@ export const ProfileMenuDropdown = styled.div<IToggle>`
         height:230px;
         left:0px;
         top:unset;
-        bottom:-100%;
+        bottom:-200vh;
         justify-content:flex-end;
         padding-bottom:20px;
-
+        pointer-events:none;
         transition: bottom 0.3s;
         ${({ toggle }) => toggle && css`
+            pointer-events:unset;
             bottom:0px;
         `}
     }

@@ -71,12 +71,12 @@ function Profile(props:{
             <ProfileContainer>
                 {latestPosts !== undefined && latestPosts.length > 0 && <>
                     <ProfileRoutesTitle>Latest Posts</ProfileRoutesTitle>
-                    <CardGrid data={latestPosts} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} />
+                    <CardGrid removePadding={true} data={latestPosts} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} />
                 </>}
 
                 {likedPosts !== undefined && likedPosts.length > 0 &&  <>
                     <ProfileRoutesTitle>Liked Posts</ProfileRoutesTitle>
-                    <CardGrid data={likedPosts} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} />
+                    <CardGrid removePadding={true} data={likedPosts} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} />
                 </>}
             </ProfileContainer>
         </>

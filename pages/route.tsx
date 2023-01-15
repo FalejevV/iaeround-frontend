@@ -159,7 +159,7 @@ function RoutePage(props:{
 
     return(
         <>
-        {toggleGPXHelp && <GPXHelpWindow setToggle={setToggleGPXHelp} />}
+        {toggleGPXHelp && routeFetch && <GPXHelpWindow setToggle={setToggleGPXHelp} downloadLink={`${cloudLink}/gpx/${routeFetch.id}/${routeFetch.gpx}`}/>}
         {routeFetch && routeFetch?.images && 
             <RouteContainer>
                 <TopSectionContainer>
