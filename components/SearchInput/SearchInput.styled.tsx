@@ -43,3 +43,18 @@ export const SearchInputField = styled.input`
     padding:0px 15px;
     padding-left:45px;
 `
+
+export const ClearSVG = styled.svg`
+    position: absolute;
+    width:35px;
+    height:35px;
+    padding:7px;
+    right:0px;
+    cursor: pointer;
+    transition: all 0.5s;
+    @media(min-width:750px){
+        &:hover{
+            transform: scale(1.3) rotate(90deg);
+        }
+    }
+`
