@@ -11,6 +11,21 @@ function SearchInput(){
     const routeSearchSelector = useAppSelector((state:RootState) => state.routeFiltering.search);
     const dispatch = useAppDispatch();''
 
+
+    function hideKeyboard(){
+
+            setTimeout(() => {
+                if(inputRef.current){
+                    console.log("A");
+                    let input:HTMLInputElement = inputRef.current;
+                    setTimeout(() => {
+                        input.setAttribute("inputmode", "search");
+                    }, 200);
+                    input.setAttribute("inputmode", "none");
+                }
+            },200);
+    }
+
     function searchClick(){
         if(inputRef.current){
             let inputField:HTMLInputElement = inputRef.current
@@ -18,6 +33,7 @@ function SearchInput(){
                 inputField.focus();
             }else{
                 dispatch(setSearch(inputField.value));
+                hideKeyboard();
             }
         }
     }
@@ -27,6 +43,7 @@ function SearchInput(){
         let target:HTMLFormElement = e.currentTarget;
         let searchInput = target.elements[0] as HTMLInputElement;
         dispatch(setSearch(searchInput.value));
+        hideKeyboard();
     }
     return(
         <SearchContainer onSubmit={(e) => formSubmit(e)}>
