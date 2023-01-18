@@ -19,9 +19,9 @@ function SearchInput(){
                     console.log("A");
                     let input:HTMLInputElement = inputRef.current;
                     setTimeout(() => {
-                        input.setAttribute("inputmode", "search");
+                        input.setAttribute('style', 'display:none;');
                     }, 200);
-                    input.setAttribute("inputmode", "none");
+                    input.setAttribute('style', '');
                 }
             },200);
     }
