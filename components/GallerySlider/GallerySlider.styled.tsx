@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { ICounter, IToggle } from "../../interface";
+import { LeftArrowSVG } from "../../styles/auth.styled";
 
 
 
@@ -24,6 +25,7 @@ export const MainImage = styled.img<IToggle>`
     transition: all 0.5s;
     box-shadow: 0px 0px 5px 1px #000000d4;
     aspect-ratio: 16 / 9;
+    cursor: pointer;
     @media(max-width:800px){
         height:300px;
     }
@@ -107,4 +109,56 @@ export const ArrowLeftSVG = styled.svg<IToggle>`
 
 export const ArrowRightSVG = styled(ArrowLeftSVG)`
 
+`
+
+export const ZoomImage = styled.img`
+    width:100%;
+    max-width:70vw;
+    max-height: 80vh;
+    object-fit: contain;
+    cursor: pointer;
+`
+
+export const ZoomImageContainer = styled.div`
+    position: fixed;
+    left:50%;
+    transform: translateX(-50%);
+    top:5vh;
+    width:100%;
+    max-width:90vw;
+    height:100%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    gap:20px;
+    align-items: center;
+    z-index: 1000;
+
+    @media(max-width:1200px){
+        gap:0px;
+    }
+`
+
+
+export const ZoomBackground = styled.div`
+    position: fixed;
+    top:0px;
+    left:0px;
+    width:100vw;
+    height:100vh;
+    z-index: 999;
+    background-color:#000000cc;
+    backdrop-filter: blur(8px);
+`
+
+export const ZoomArrow = styled.svg<IToggle>`
+    cursor: pointer;
+    fill:white;
+    width:100px;
+    height:100px;
+
+    transition: all 0.3s;
+    &:hover{
+        transform: scale(1.2);
+    }
 `
