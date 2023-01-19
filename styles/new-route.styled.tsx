@@ -8,6 +8,7 @@ export const NRContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     gap:15px;
+    padding-bottom: 200px;
     @media(max-width:600px){
         padding-top:40px;
     }

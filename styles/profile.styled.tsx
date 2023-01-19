@@ -38,6 +38,7 @@ export const InfoBarAvatar = styled.img`
     border-radius: 50%;
     box-shadow: 0px 0px 5px 5px #00000014;
     border:2px solid ${({ theme }) => theme.accentColor};
+    object-fit: cover;
 `
 
 export const InfoBarUserStats = styled.div`

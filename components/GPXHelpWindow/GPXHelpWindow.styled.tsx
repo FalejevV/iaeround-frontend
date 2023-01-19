@@ -45,6 +45,14 @@ export const GPXHTitle = styled.p`
     color:${({ theme }) => theme.accentColor || "black"};
     font-weight: bold;
     padding-bottom: 50px;
+
+    @media(max-width:500px){
+        font-size: 25px;
+    }
+
+    @media(max-width:320px){
+        font-size: 20px;
+    }
 `
 
 export const GPXCloseButton = styled.svg`
