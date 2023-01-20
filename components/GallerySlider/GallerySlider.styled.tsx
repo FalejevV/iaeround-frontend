@@ -111,54 +111,110 @@ export const ArrowRightSVG = styled(ArrowLeftSVG)`
 
 `
 
-export const ZoomImage = styled.img`
-    width:100%;
-    max-width:70vw;
-    max-height: 80vh;
-    object-fit: contain;
-    cursor: pointer;
+
+
+export const ZoomMainContainer = styled.div<IToggle>`
+    display:none;
+    flex-direction: column;
+    width:100vw;
+    height:100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    position: relative;
+
+    ${({ toggle }) => toggle && css`
+        display:flex;
+    `}
 `
 
-export const ZoomImageContainer = styled.div`
+
+
+export const ZoomImageContainer = styled.div<IToggle>`
     position: fixed;
+    top:50px;
     left:50%;
     transform: translateX(-50%);
-    top:5vh;
+    overflow: scroll;
+    scrollbar-width: none;
+    overflow-y: hidden;
+    scrollbar-width: 0%;
+    display: none;
+    flex-direction: column;
+    gap:100px;
+    justify-content: flex-start;
+    align-items: flex-start;
     width:100%;
-    max-width:90vw;
     height:100%;
-    max-height: 80vh;
-    display: flex;
-    justify-content: center;
-    gap:20px;
-    align-items: center;
+    max-width: 60vw;
+    max-height: 85vh;
     z-index: 1000;
-
-    @media(max-width:1200px){
-        gap:0px;
-    }
+    padding:0px 30px;
+    scroll-snap-stop: always;
+    scroll-snap-type: x mandatory;
+    ${({ toggle }) => toggle && css`
+        display:flex;
+    `}
 `
 
 
-export const ZoomBackground = styled.div`
+export const ZoomImageSlider = styled.div`
+    max-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:50px;
+`
+
+export const ZoomImage = styled.img`
+    flex:1 auto;
+    width:60vw;
+    height:60vh;
+    object-fit: contain;
+    cursor:grab;
+    scroll-snap-align: none center;
+`
+
+export const ZoomBackground = styled.div<IToggle>`
     position: fixed;
     top:0px;
     left:0px;
     width:100vw;
     height:100vh;
     z-index: 999;
-    background-color:#000000cc;
+    background-color:#000000ee;
     backdrop-filter: blur(8px);
+
+    display: none;
+    ${({ toggle }) => toggle && css`
+        display:block;
+    `}
 `
 
-export const ZoomArrow = styled.svg<IToggle>`
-    cursor: pointer;
+export const ZoomArrowContainer = styled.div`
+    width:100%;
+    max-width: 100vw;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:50px;
+    position: fixed;
+    bottom: 10vh;
+    z-index: 1001;
+    left:0px;
+`
+export const ZoomArrow = styled.svg`
     fill:white;
     width:100px;
     height:100px;
-
+    cursor: pointer;
     transition: all 0.3s;
+
     &:hover{
         transform: scale(1.2);
     }
+`
+
+
+export const ZoomCloseSVG = styled(ZoomArrow)`
+
 `
