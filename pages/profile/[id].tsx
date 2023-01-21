@@ -53,7 +53,7 @@ function Profile(props:{
         <>
             <PInfoBar>
                 <InfoBarLeftSide>
-                    <InfoBarAvatar src={props.user.avatar !== "" ? cloudAvatarLink + `/${props.user.id}/${props.user.avatar}` : defaultAvatarImage.src} />
+                    <InfoBarAvatar alt="avatar" width='160' height='160' src={props.user.avatar !== "" ? cloudAvatarLink + `/${props.user.id}/${props.user.avatar}` : defaultAvatarImage.src} />
                     <InfoBarUserStats>
                         <IBStatText>{props.user.name}</IBStatText>
                         <IBStatText>Likes: {likes}</IBStatText>

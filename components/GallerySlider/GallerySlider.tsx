@@ -60,13 +60,14 @@ function GallerySlider(props:{
         setCurrentImage(0);
     }, [props.images]);
 
+
     return(
         <GalleryContainer>
             <ZoomMainContainer toggle={zoomToggle}>
 
                 <ZoomImageContainer ref={zoomSliderRef} toggle={zoomToggle}>
                     <ZoomImageSlider>
-                        {props.images.map((image:string, index:number) => <ZoomImage key={index} src={cloudImageLink + `/${props.id}/` + image} />)}
+                        {props.images.map((image:string, index:number) => <ZoomImage alt="slider-image" width="1280" height="720" key={index} src={cloudImageLink + `/${props.id}/` + image} />)}
                     </ZoomImageSlider>
                 </ZoomImageContainer>
                 <ZoomArrowContainer>
@@ -85,7 +86,7 @@ function GallerySlider(props:{
             </ZoomMainContainer>
             <ZoomBackground toggle={zoomToggle} onClick={zoomMainImage}></ZoomBackground>
 
-            <MainImage onClick={zoomMainImage}  src={cloudImageLink + `/${props.id}/` + props.images[currentImage]}/>
+            <MainImage alt="main" width="800" height="420" onClick={zoomMainImage}  src={cloudImageLink + `/${props.id}/` + props.images[currentImage]}/>
             <ImageSliderContainer>
                 <ArrowLeftSVG onClick={() => switchImage(-1)} viewBox="0 0 24 24" width="24" height="24" toggle={false}>
                     <path fill="none" d="M0 0h24v24H0z"/><path d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"/>

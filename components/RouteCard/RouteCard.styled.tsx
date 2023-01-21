@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
+import Image from "next/image";
 
 export const CardContainer = styled.article`
     max-width: calc(1440px / 3 - 20px);
@@ -22,11 +23,11 @@ export const CardContainer = styled.article`
 `
 
 
-export const CardImage = styled.img`
+export const CardImage = styled(Image)`
     width:100%;
     height:270px;
     object-fit: cover;
-    cursor: col-resize;
+    cursor:default;
 `
 
 export const RouteInfoContainer = styled(Link)`

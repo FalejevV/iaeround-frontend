@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Container } from "../components/Styles.styled"
-
+import Image from "next/image";
 
 export const ProfileContainer = styled(Container)`
     display: flex;
@@ -32,7 +32,7 @@ export const InfoBarLeftSide = styled.div`
     width:100%;
 `
 
-export const InfoBarAvatar = styled.img`
+export const InfoBarAvatar = styled(Image)`
     width:160px;
     height:160px;
     border-radius: 50%;

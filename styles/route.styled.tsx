@@ -206,8 +206,12 @@ export const LikeTimeAlert = styled.p`
     color:#9f2800;
     font-size: 14px;
     position:absolute;
-    top:50px;
+    top:35px;
     left:-82px;
     text-align: left;
     white-space: nowrap;
+    background-color:white;
+    padding:10px;
+    border-radius: 5px;
+    border:1px solid #9f2800;
 `

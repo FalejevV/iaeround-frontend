@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { ICounter, IToggle } from "../../interface";
 import { LeftArrowSVG } from "../../styles/auth.styled";
+import Image from "next/image";
 
 
 
@@ -16,7 +17,7 @@ export const GalleryContainer = styled.div<IToggle>`
 `
 
 
-export const MainImage = styled.img<IToggle>`
+export const MainImage = styled(Image)<IToggle>`
     width:100%;
     height:420px;
     object-fit: cover;
@@ -118,10 +119,11 @@ export const ZoomMainContainer = styled.div<IToggle>`
     flex-direction: column;
     width:100vw;
     height:100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    position: relative;
-
+    align-items: center;
+    position: fixed;
+    left:0px;
+    top:0px;
+    z-index: 1000;
     ${({ toggle }) => toggle && css`
         display:flex;
     `}
@@ -130,10 +132,7 @@ export const ZoomMainContainer = styled.div<IToggle>`
 
 
 export const ZoomImageContainer = styled.div<IToggle>`
-    position: fixed;
-    top:50px;
-    left:50%;
-    transform: translateX(-50%);
+    position: relative;
     overflow: scroll;
     scrollbar-width: none;
     overflow-y: hidden;
@@ -145,33 +144,74 @@ export const ZoomImageContainer = styled.div<IToggle>`
     align-items: flex-start;
     width:100%;
     height:100%;
-    max-width: 60vw;
-    max-height: 85vh;
+    max-width: 1280px;
+    max-height: 720px;
     z-index: 1000;
     padding:0px 30px;
+    padding-bottom:50px;
     scroll-snap-stop: always;
     scroll-snap-type: x mandatory;
     ${({ toggle }) => toggle && css`
         display:flex;
     `}
+
+    @media(max-height:700px){
+        padding-bottom:0px;
+    }
+    @media(max-width:1280px){
+        max-width: 854px;
+        top:0px;
+        padding-bottom:0px;
+    }
+
+    @media(max-width:854px){
+        max-width:640px;
+    }
+
+    @media(max-width:640px){
+        max-width:426px;
+    }
+
+    @media(max-width:426px){
+        max-width:300px;
+    }
 `
 
 
 export const ZoomImageSlider = styled.div`
-    max-height: 80vh;
+    height:100%;
+    max-height: 720px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap:50px;
+    gap:10px;
+    position: relative;
+    padding:20px;
+    
 `
 
-export const ZoomImage = styled.img`
-    flex:1 auto;
-    width:60vw;
-    height:60vh;
+export const ZoomImage = styled(Image)`
+    position: relative;
+    width:1280px;
+    height:inherit;
     object-fit: contain;
-    cursor:grab;
     scroll-snap-align: none center;
+
+    @media(max-width:1280px){
+        width:854px;
+    }
+    
+    @media(max-width:854px){
+        width:640px;
+    }
+
+    @media(max-width:640px){
+        width:426px;
+    }
+    
+    @media(max-width:426px){
+        width:300px;
+    }
 `
 
 export const ZoomBackground = styled.div<IToggle>`
@@ -183,7 +223,7 @@ export const ZoomBackground = styled.div<IToggle>`
     z-index: 999;
     background-color:#000000ee;
     backdrop-filter: blur(8px);
-
+    cursor: pointer;
     display: none;
     ${({ toggle }) => toggle && css`
         display:block;
@@ -196,11 +236,11 @@ export const ZoomArrowContainer = styled.div`
     display:flex;
     align-items: center;
     justify-content: center;
-    gap:50px;
-    position: fixed;
+    gap:30px;
     bottom: 10vh;
     z-index: 1001;
     left:0px;
+    padding-bottom:20px;
 `
 export const ZoomArrow = styled.svg`
     fill:white;
@@ -211,6 +251,16 @@ export const ZoomArrow = styled.svg`
 
     &:hover{
         transform: scale(1.2);
+    }
+
+    @media(max-width:854px){
+        width:50px;
+        height:50px;
+    }
+
+    @media(max-height:854px){
+        width:50px;
+        height:50px;
     }
 `
 

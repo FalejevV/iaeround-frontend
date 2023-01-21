@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styled, { css } from "styled-components";
 import { IToggle } from "../../interface";
+import Image from "next/image";
 
 export const ProfileMenuContainer = styled.div`
     height:100%;
@@ -36,7 +37,7 @@ export const DropdownArrowSVG = styled.svg`
     }
 `
 
-export const ProfileMenuAvatar = styled.img`
+export const ProfileMenuAvatar = styled(Image)`
     width: 70px;
     height:70px;
     object-fit: cover;
