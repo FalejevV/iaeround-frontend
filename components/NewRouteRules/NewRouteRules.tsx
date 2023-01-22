@@ -38,7 +38,7 @@ function NewRouteRules(){
                         <NRRulesText>
                             2. You need to provide a map image that displays an entire route.
                             <br></br>(Phone screenshot from <Link href="https://play.google.com/store/apps/details?id=com.ilyabogdanovich.geotracker&hl=en_US&gl=US">route tracking app</Link>/<Link href="https://www.gpsvisualizer.com/draw/">draw online</Link>)
-                            <br></br>Drop it in "Images" upload.
+                            <br></br>Drop it in &quot;Images&quot; upload.
                         </NRRulesText>
                         
                         <NRRImageContainer>
