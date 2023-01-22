@@ -8,6 +8,7 @@ import { ICreateRouteData, ITag } from "../interface";
 import { NRAlert, NRContainer, NRForm, TagsWrapper, TopInputContainer, TextFieldsContainer, FileFieldsContainer } from "../styles/new-route.styled";
 import { TitleTagsWrapper } from "../styles/route-settings.styled";
 import TextAreaField from "../components/TextAreaField/TextAreaField";
+import NewRouteRules from "../components/NewRouteRules/NewRouteRules";
 
 
 function NewRoute(props:{
@@ -116,32 +117,35 @@ function NewRoute(props:{
     }
 
     return(
-        <NRContainer>
-            <NRForm onSubmit={(e) => createRoute(e)}>
-                <TopInputContainer>
-                    <TextFieldsContainer>
-                        <TextField name="routetitle" title="Route title" />
-                        <TextField type="number" name="distance" title="Distance" placeholder="KM"/>
-                        <TextField type="number" name="time" title="Time" placeholder="Minutes" />
-                    </TextFieldsContainer>
+        <>
+            <NewRouteRules />
+            <NRContainer>
+                <NRForm onSubmit={(e) => createRoute(e)}>
+                    <TopInputContainer>
+                        <TextFieldsContainer>
+                            <TextField name="routetitle" title="Route title" />
+                            <TextField type="number" name="distance" title="Distance" placeholder="KM"/>
+                            <TextField type="number" name="time" title="Time" placeholder="Minutes" />
+                        </TextFieldsContainer>
 
-                    <FileFieldsContainer>
-                        <FileField title="Thumbnail" name="thumbnail" maxTotalWeightMB={thumbnailFileSize} type="image" preview={true}/>
-                        <FileField smallText="(Not required)" title="GPX" name="gpx" maxTotalWeightMB={gpxTotalFileSize} extention="gpx" />
-                        <FileField smallText="(2-5 required)" title="Images" name="images" maxTotalWeightMB={imagesTotalFileSize} multiple={true} type="image" preview={true}/>
-                    </FileFieldsContainer>
-                </TopInputContainer>
-                <TagsWrapper>
-                    <InputFieldTitle>Tags (2-4 required)</InputFieldTitle>
-                    <TagsContainer>
-                        {getTags()}
-                    </TagsContainer>
-                </TagsWrapper>
-                <TextAreaField title="About" name="about" placeholder="Please write sometging about your route" />
-                {alertText.trim() !== "" && <NRAlert>{alertText}</NRAlert>}   
-                <SignInButton>Create Route</SignInButton>
-            </NRForm>
-        </NRContainer>
+                        <FileFieldsContainer>
+                            <FileField title="Thumbnail" name="thumbnail" maxTotalWeightMB={thumbnailFileSize} type="image" preview={true}/>
+                            <FileField smallText="(Not required)" title="GPX" name="gpx" maxTotalWeightMB={gpxTotalFileSize} extention="gpx" />
+                            <FileField smallText="(2-5 required)" title="Images" name="images" maxTotalWeightMB={imagesTotalFileSize} multiple={true} type="image" preview={true}/>
+                        </FileFieldsContainer>
+                    </TopInputContainer>
+                    <TagsWrapper>
+                        <InputFieldTitle>Tags (2-4 required)</InputFieldTitle>
+                        <TagsContainer>
+                            {getTags()}
+                        </TagsContainer>
+                    </TagsWrapper>
+                    <TextAreaField title="About" name="about" placeholder="Please write sometging about your route" />
+                    {alertText.trim() !== "" && <NRAlert>{alertText}</NRAlert>}   
+                    <SignInButton>Create Route</SignInButton>
+                </NRForm>
+            </NRContainer>
+        </>
     )
 }
 
