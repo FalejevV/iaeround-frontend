@@ -44,7 +44,7 @@ function RouteCard(props:{
     
     return(
         <CardContainer>
-            <CardImage width="480" height="270" src={cloudImageLink + `/${props.data.id}/` + props.data.images[0]} alt="route thumbnail" />
+            <CardImage priority width="480" height="270" src={cloudImageLink + `/${props.data.id}/` + props.data.images[0]} alt="route thumbnail" />
             <RouteInfoContainer href={`/route?id=${props.data.id}`} onClick={(e) => clickCheck(e)}>
                 <RouteTitleContainer>
                     <RouteTitle>{props.data.title}</RouteTitle>
