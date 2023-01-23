@@ -2,9 +2,9 @@ import styled, { css } from "styled-components";
 import { Container } from "../Styles.styled";
 import Link from "next/link";
 import Image from "next/image";
-import { ICounter } from "../../interface";
+import { ICounter, IToggle } from "../../interface";
 
-export const NRRulesBackgroundFill = styled.div`
+export const NRRulesBackgroundFill = styled.div<IToggle>`
     top:0px;
     left:0px;
     bottom:0px;
@@ -18,6 +18,12 @@ export const NRRulesBackgroundFill = styled.div`
     z-index: 1001;
     backdrop-filter: blur(8px);
     padding:20px 20px;
+
+    display:block;
+
+    ${({ toggle }) => toggle && css`
+        display:none;
+    `}
 `
 
 export const NRRulesContainer = styled(Container)`

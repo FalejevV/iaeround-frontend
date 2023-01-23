@@ -64,3 +64,29 @@ export const NRAlert = styled.p`
     color: #8c0000;
     font-size: 18px;
 `
+
+export const RulesCheckboxContainer = styled.div`
+    display: flex;
+    width:100%;
+    align-items: center;
+    justify-content: flex-start;
+    cursor:pointer;
+`
+
+export const RulesButton = styled.button`
+    background-color: transparent;
+    padding:0px 10px;
+    font-weight: 600;
+    font-size:18px;
+    color:${({ theme }) => theme.accentColor || "black"};
+    cursor:pointer;
+    transition: all 0.3s;
+    text-decoration: underline;
+    &:hover{
+        transform: scale(1.1);
+    }
+`
+
+export const RulesContainer = styled.div`
+    position:absolute;
+`

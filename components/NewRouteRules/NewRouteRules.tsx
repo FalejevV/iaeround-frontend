@@ -4,9 +4,14 @@ import { useEffect, useState } from "react";
 
 
 
-function NewRouteRules(){
+function NewRouteRules(props:{
+    counter:boolean,
+}){
     const [count,setCount] = useState(0);
     
+    useEffect(() => {
+        setCount(0);
+    },[props.counter]);
 
     function countIncrement(){
         setCount(prevCount => {
@@ -18,16 +23,9 @@ function NewRouteRules(){
         })
     }
 
-    useEffect(() => {
-        if(count >= 4){
-
-        }
-    },[count]);
-
     return(
         <>
-            {count < 4 && 
-            <NRRulesBackgroundFill>
+            <NRRulesBackgroundFill toggle={count >= 4}>
                 <NRRulesContainer>
                     <NRRulesTitle>Route upload rules</NRRulesTitle>
                     <NRRulesList>
@@ -49,7 +47,6 @@ function NewRouteRules(){
                     <NRRulesButton onClick={countIncrement} count={count}><NRRulesButtonText>Got it!</NRRulesButtonText></NRRulesButton>
                 </NRRulesContainer>
             </NRRulesBackgroundFill>
-            }
         </>
     )
 }

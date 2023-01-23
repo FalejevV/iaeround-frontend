@@ -36,7 +36,7 @@ function Header(){
                     :
 
                     <>
-                        <SignInLink toggle={false} href="/auth"> 
+                        <SignInLink toggle={false} href="/auth" aria-label="sign-in"> 
                             <SignInButton>Sign In</SignInButton>
                         </SignInLink>
                         <SignInLink toggle={true} href="/auth">

@@ -18,8 +18,8 @@ function TextAreaField(props:{
     }
     return(
         <InputFieldContainer>
-            <InputFieldTitle>{props.title}</InputFieldTitle>
-            <TextAreaInput value={inputValue} onChange={(e) => inputChange(e)} name={props.name} placeholder={props.placeholder || ""}/>
+            <InputFieldTitle htmlFor={props.name}>{props.title}</InputFieldTitle>
+            <TextAreaInput id={props.name} value={inputValue} onChange={(e) => inputChange(e)} name={props.name} placeholder={props.placeholder || ""}/>
         </InputFieldContainer>
     )
 }

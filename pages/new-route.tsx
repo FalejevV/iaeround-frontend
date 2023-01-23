@@ -1,14 +1,15 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import Fetching from "../Fetching";
 import FileField from "../components/FileField/FileField";
 import { InputFieldTitle, SignInButton, TagsContainer } from "../components/Styles.styled";
 import Tag from "../components/Tag/Tag";
 import TextField from "../components/TextField/TextField";
 import { ICreateRouteData, ITag } from "../interface";
-import { NRAlert, NRContainer, NRForm, TagsWrapper, TopInputContainer, TextFieldsContainer, FileFieldsContainer } from "../styles/new-route.styled";
+import { NRAlert, NRContainer, NRForm, TagsWrapper, TopInputContainer, TextFieldsContainer, FileFieldsContainer, RulesCheckboxContainer, RulesButton, RulesContainer } from "../styles/new-route.styled";
 import { TitleTagsWrapper } from "../styles/route-settings.styled";
 import TextAreaField from "../components/TextAreaField/TextAreaField";
 import NewRouteRules from "../components/NewRouteRules/NewRouteRules";
+import CheckboxField from "../components/CheckboxField/CheckboxField";
 
 
 function NewRoute(props:{
@@ -20,7 +21,8 @@ function NewRoute(props:{
     const thumbnailFileSize = 2;
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [alertText, setAlertText] = useState<string>("");
-
+    const [rulesCounter, toggleRulesCounter] = useState(false);
+    
     function toggleTag(tag:string){
         setSelectedTags(prevTags => {
             if(prevTags.includes(tag)){
@@ -116,9 +118,14 @@ function NewRoute(props:{
         }
     }
 
+    function displayRules(e:FormEvent){
+        e.preventDefault();
+        toggleRulesCounter(prev => !prev);
+    }
+    
     return(
         <>
-            <NewRouteRules />
+            <NewRouteRules counter={rulesCounter}/>
             <NRContainer>
                 <NRForm onSubmit={(e) => createRoute(e)}>
                     <TopInputContainer>
@@ -141,7 +148,11 @@ function NewRoute(props:{
                         </TagsContainer>
                     </TagsWrapper>
                     <TextAreaField title="About" name="about" placeholder="Please write sometging about your route" />
-                    {alertText.trim() !== "" && <NRAlert>{alertText}</NRAlert>}   
+                    <RulesCheckboxContainer>
+                        <CheckboxField title="I have read the" name="rules" required/>
+                        <RulesButton onClick={(e) => displayRules(e)}>Rules</RulesButton>
+                    </RulesCheckboxContainer>
+                    {alertText.trim() !== "" && <NRAlert>{alertText}</NRAlert>}
                     <SignInButton>Create Route</SignInButton>
                 </NRForm>
             </NRContainer>

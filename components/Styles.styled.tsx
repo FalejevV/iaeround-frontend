@@ -57,10 +57,11 @@ export const SignInSVGSmall = styled.svg`
 
 
 
-export const InputFieldTitle = styled.p`
+export const InputFieldTitle = styled.label`
     font-size: 18px;
     opacity: 0.85;
     white-space: nowrap;
+    cursor: pointer;
 `
 
 export const InputFieldInput = styled.input`
@@ -92,11 +93,30 @@ export const TextAreaInput = styled.textarea`
     line-height: 25px;
 `
 
+export const CheckboxFieldInput = styled.input`
+    background-color: transparent;
+    border-radius: 5px;
+    padding:10px 15px;
+    border:1px solid #4f4f4f;
+    color:#000000;
+    font-size:15px;
+    cursor: pointer;
+    &:focus{
+        outline: none;
+    }
+`
+
 export const InputFieldContainer = styled.div`
     display: flex;
     flex-direction: column;
     width:100%;
     gap:10px;
+`
+
+export const CheckboxFieldContainer = styled.div`
+    display: flex;
+    gap:10px;
+    cursor: pointer;
 `
 
 

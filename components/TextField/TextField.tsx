@@ -19,8 +19,8 @@ function TextField(props:{
     }
     return(
         <InputFieldContainer>
-            <InputFieldTitle>{props.title}</InputFieldTitle>
-            <InputFieldInput value={inputValue} onChange={(e) => inputChange(e)} name={props.name} placeholder={props.placeholder || ""}  type={props.type || "textarea"}/>
+            <InputFieldTitle htmlFor={props.name} >{props.title}</InputFieldTitle>
+            <InputFieldInput id={props.name} value={inputValue} onChange={(e) => inputChange(e)} name={props.name} placeholder={props.placeholder || ""}  type={props.type || "textarea"}/>
         </InputFieldContainer>
     )
 }
