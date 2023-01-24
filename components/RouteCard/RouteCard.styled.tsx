@@ -1,6 +1,7 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Image from "next/image";
+import { IToggle } from "../../interface";
 
 export const CardContainer = styled.article`
     max-width: calc(1440px / 3 - 20px);
@@ -136,4 +137,31 @@ export const DateInfo = styled.p`
     position: absolute;
     top:65px;
     right:15px;
+`
+
+export const PreviewImageContainer = styled.div`
+    position: absolute;
+    top:0px;
+    left:0px;
+    display: flex;
+    width:100%;
+    height:100%;
+    max-height: 270px;
+    align-items: center;
+    gap:5px;
+    cursor: ew-resize;
+`
+
+export const PreviewImageElement = styled.div<IToggle>`
+    flex: 1 auto;
+    height:100%;
+    border-top:5px solid ${({ theme }) => theme.accentColor || "black"};
+    transition: all 0.3s;
+
+    ${({ toggle }) => toggle && css`
+        &:hover{
+            border-top:10px solid ${({ theme }) => theme.accentColor || "black"};
+            filter:brightness(2);
+        }
+    `}
 `
