@@ -1,15 +1,16 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ThemeProvider } from 'styled-components'
 import Header from '../components/Header/Header'
 import Head from 'next/head'
 import { Provider } from 'react-redux';
 import { store } from '../store/store'
+import Footer from '../components/Footer/Footer'
+import { FlexThemeProvider } from '../components/Styles.styled'
 
 export default function App({ Component, pageProps }: AppProps) {
   return(
   <Provider store={store}>
-    <ThemeProvider theme={{
+    <FlexThemeProvider theme={{
       accentColor: "#21612D"
     }}>
         <Head>
@@ -21,7 +22,8 @@ export default function App({ Component, pageProps }: AppProps) {
         </Head>
         <Header />
         <Component {...pageProps} />
-    </ThemeProvider>
+        <Footer/>
+    </FlexThemeProvider>
   </Provider>
   )
 }

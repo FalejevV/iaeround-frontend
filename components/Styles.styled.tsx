@@ -1,6 +1,7 @@
 import Link from "next/link";
-import styled, { css } from "styled-components";
+import styled, { ThemeProvider, css } from "styled-components";
 import { IToggle } from "../interface";
+import { Provider } from "react-redux";
 
 export const Container = styled.div`
     max-width: 1440px;
@@ -11,6 +12,15 @@ export const Container = styled.div`
     @media(max-width:380px){
         padding:20px 10px;
     }
+`
+
+export const FlexThemeProvider = styled(ThemeProvider)`
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    max-width: 100vw;
+    min-height: 100vh;
+    height:100%;
 `
 
 export const SignInLink = styled(Link)<IToggle>`
