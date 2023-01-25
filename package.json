@@ -16,6 +16,7 @@
     "@types/react-dom": "18.0.9",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.0.7",
+    "browser-image-compression": "^2.0.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "js-cookie": "^3.0.1",

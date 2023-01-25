@@ -6,10 +6,10 @@ import Tag from "../components/Tag/Tag";
 import TextField from "../components/TextField/TextField";
 import { ICreateRouteData, ITag } from "../interface";
 import { NRAlert, NRContainer, NRForm, TagsWrapper, TopInputContainer, TextFieldsContainer, FileFieldsContainer, RulesCheckboxContainer, RulesButton, RulesContainer } from "../styles/new-route.styled";
-import { TitleTagsWrapper } from "../styles/route-settings.styled";
 import TextAreaField from "../components/TextAreaField/TextAreaField";
 import NewRouteRules from "../components/NewRouteRules/NewRouteRules";
 import CheckboxField from "../components/CheckboxField/CheckboxField";
+import Compression from "../Compression";
 
 
 function NewRoute(props:{
@@ -44,7 +44,7 @@ function NewRoute(props:{
         }
     }
 
-    function createRoute(e:FormEvent){
+    async function createRoute(e:FormEvent){
         e.preventDefault();
         let target = e.target as HTMLFormElement;
         let title = target.routetitle as HTMLInputElement;
@@ -86,16 +86,29 @@ function NewRoute(props:{
                 setAlertText(`Please select 2-4 tags`);
                 return;
             }
-            
+
+            let compressedThumbnail = await Compression.image(thumbnailFile) || new Blob();
+
+            let compressedImages = imagesArray.map(async (image) => await Compression.image(image));
+            let imageCompressResult = await Promise.all(compressedImages).then(values => {
+                let fileList: File[] = [];
+                values.forEach((blob,index) => {
+                    var file = new File([blob || ""], `${index}image.jpeg`)
+                    fileList.push(file);
+                });
+                return fileList;
+            }) as File[];
+
+
             const routeData:ICreateRouteData = {
                 title:title.value,
                 distance:parseInt(distance.value),
                 time:parseInt(time.value),
                 gpx: gpxFile,
-                images:images.files,
+                images:imageCompressResult,
                 about:about.value,
                 tags:selectedTags,
-                thumbnail:thumbnailFile
+                thumbnail:compressedThumbnail
 
             }
             console.log("FETCH");

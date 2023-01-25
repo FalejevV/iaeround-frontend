@@ -199,11 +199,9 @@ class Fetching{
         if(data.gpx !== ""){
             fetchData.append('files', data.gpx);
         }
-        Array.from(data.images).forEach((image:File) => {
+        data.images.forEach((image:File) => {
             fetchData.append('files', image);
         });
-
-
         let fetching = fetch(this.fetchAddress + "/route", {
             method: 'POST',
             credentials: 'include',

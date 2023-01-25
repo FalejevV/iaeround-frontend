@@ -59,9 +59,9 @@ export interface ICreateRouteData{
     time:number,
     about:string,
     gpx:File | string,
-    images:FileList,
+    images:File[],
     tags:string[],
-    thumbnail:File
+    thumbnail:Blob
 }
 
 export interface IFullProfile{
