@@ -116,6 +116,10 @@ export const DownloadAndLikesContainer = styled.div`
     align-items: center;
     justify-content: flex-start;
     gap:30px;
+
+    @media(max-width:550px){
+        gap:10px;
+    }
 `
 
 export const DownloadContainer = styled.div`
@@ -141,10 +145,21 @@ export const DownloadButton = styled.a`
         filter:brightness(1.1);
     }
 
+    @media(max-width:550px){
+        width:140px;
+        font-size: 13px;
+        height:45px;
+    }
+
 `
 
 export const DownloadSVG = styled.svg`
     fill:white;
+
+    @media(max-width:550px){
+        width:20px;
+        height:20px;
+    }
 `
 
 export const GPXTip = styled.button`
@@ -173,6 +188,10 @@ export const RouteInfoLikesContainer = styled.div<IToggle>`
     gap:5px;
     cursor:pointer;
     position: relative;
+
+    @media(max-width:550px){
+        flex-direction: column
+    }
 `
 
 export const RouteInfoLikesSVG = styled.svg`
@@ -205,11 +224,9 @@ export const SimmilarRoutesContainer = styled.div`
 export const LikeTimeAlert = styled.p`
     color:#9f2800;
     font-size: 14px;
-    position:absolute;
-    top:35px;
-    left:-82px;
+    position:relative;
+    margin-left:10px;
     text-align: left;
-    white-space: nowrap;
     background-color:white;
     padding:10px;
     border-radius: 5px;

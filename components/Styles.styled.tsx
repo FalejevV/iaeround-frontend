@@ -54,6 +54,10 @@ export const SignInButton = styled.button`
     &:hover{
         filter:brightness(1.2);
     }
+
+    &:disabled{
+        opacity:0.4;
+    }
 `
 
 export const SignInSVGSmall = styled.svg`

@@ -5,6 +5,7 @@ import Image from "next/image";
 
 export const LogoLink = styled(Link)`
     max-width: 190px;
+    position: relative;
     @media(max-width:333px){
         display:none;
     }

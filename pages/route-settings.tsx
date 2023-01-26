@@ -20,6 +20,7 @@ function RouteSettings(){
     const { id } = router.query;
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [removeRouteTimer, setRemoveRouteTimer] = useState(5);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const [alertText, setAlertText] = useState({
         error:false,
         text:""
@@ -48,6 +49,10 @@ function RouteSettings(){
 
     function saveRoute(e:FormEvent){
         e.preventDefault();
+        if(buttonDisabled){
+            return;
+        }
+        setButtonDisabled(true);
         if(formRef.current){
             let form = formRef.current as HTMLFormElement;
             let title = form.routetitle as HTMLInputElement;
@@ -73,7 +78,8 @@ function RouteSettings(){
                                 setAlertText({
                                     error:true,
                                     text:data.status
-                                })
+                                });
+                                setButtonDisabled(false);
                             }else{
                                 window.location.href = `/route?id=${id.toString()}`;
                             }
@@ -91,12 +97,14 @@ function RouteSettings(){
                             text:"You selected too much tags. (4 max)"
                         })
                     }
+                    setButtonDisabled(false);
                 }
             }else{
                 setAlertText({
                     error:true,
                     text:"Some fields look empty"
                 })
+                setButtonDisabled(false);
             }
         }
     }
@@ -148,7 +156,7 @@ function RouteSettings(){
                         </TitleTagsWrapper>
                         {alertText.text.trim() !== "" && <StatusMessage toggle={alertText.error}>{alertText.text}</StatusMessage>}
                         <RSButtonsContainer>
-                            <SaveRouteButton onClick={(e) => saveRoute(e)} >Save route</SaveRouteButton>
+                            <SaveRouteButton disabled={buttonDisabled} onClick={(e) => saveRoute(e)} >Save route</SaveRouteButton>
                             <RemoveRouteButton onClick={(e) => removeRoute(e)} >Remove route {removeRouteTimer < 5 && removeRouteTimer > 0 && `(${removeRouteTimer} clicks)`}</RemoveRouteButton>
                         </RSButtonsContainer>
                     </RouteEditForm>

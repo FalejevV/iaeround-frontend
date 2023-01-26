@@ -123,5 +123,9 @@ export const AuthButton = styled.button<IToggle>`
             }
         }
     }
+
+    &:disabled{
+        opacity:0.4;
+    }
 `
 

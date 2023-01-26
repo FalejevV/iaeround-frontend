@@ -14,7 +14,7 @@ function Footer(){
     return(
         <FooterWrapper>
             <FooterContainer>
-                <FooterText toggle={footerToggle} count={clickCounter} onClick={clickFooter}>An empty footer ¯\_(ツ)_/¯</FooterText>
+                <FooterText toggle={footerToggle ? true : false} count={clickCounter} onClick={clickFooter}>An empty footer ¯\_(ツ)_/¯</FooterText>
                 <MG alt="footer" src="/img/footer.png" width="200" height="200" toggle={clickCounter >= 55}/>
             </FooterContainer>
         </FooterWrapper>

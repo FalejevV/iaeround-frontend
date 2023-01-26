@@ -10,7 +10,6 @@ function FloatingHeader(){
     const [headerHidden, setHeaderHidden] = useState(false);
 
     useEffect(() => {
-        console.log(window.scrollY);
         document.addEventListener('scroll', (e) => {
             if(window.scrollY>200){
                 setToggle(true);

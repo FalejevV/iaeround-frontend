@@ -22,7 +22,8 @@ function NewRoute(props:{
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [alertText, setAlertText] = useState<string>("");
     const [rulesCounter, toggleRulesCounter] = useState(false);
-    
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
     function toggleTag(tag:string){
         setSelectedTags(prevTags => {
             if(prevTags.includes(tag)){
@@ -46,6 +47,10 @@ function NewRoute(props:{
 
     async function createRoute(e:FormEvent){
         e.preventDefault();
+        if(buttonDisabled){
+            return;
+        }
+        setButtonDisabled(true);
         let target = e.target as HTMLFormElement;
         let title = target.routetitle as HTMLInputElement;
         let distance = target.distance as HTMLInputElement;
@@ -66,17 +71,20 @@ function NewRoute(props:{
 
             if(thumbnailFile === undefined){
                 setAlertText(`Please select a thumbnail`);
+                setButtonDisabled(false);
                 return;
             }
 
             if(thumbnail.files[0].size > thumbnailFileSize * 1000000){
                 setAlertText(`Thumbnail size should be smaller than ${thumbnailFileSize}mb`);
+                setButtonDisabled(false);
                 return;
             }
 
 
             if(totalImagesSize > imagesTotalFileSize * 1000000){
                 setAlertText(`Total images size should be smaller than ${imagesTotalFileSize}mb`);
+                setButtonDisabled(false);
                 return;
             }else{
                 setAlertText(``);
@@ -84,9 +92,11 @@ function NewRoute(props:{
 
             if(selectedTags.length > 4 || selectedTags.length < 2){
                 setAlertText(`Please select 2-4 tags`);
+                setButtonDisabled(false);
                 return;
             }
 
+            setAlertText("Compressing images... please wait");
             let compressedThumbnail = await Compression.image(thumbnailFile) || new Blob();
 
             let compressedImages = imagesArray.map(async (image) => await Compression.image(image));
@@ -111,7 +121,6 @@ function NewRoute(props:{
                 thumbnail:compressedThumbnail
 
             }
-            console.log("FETCH");
             Fetching.createNewRoute(routeData).then(res => res.json()).then(data => {
                 if(data.status !== "OK"){
                     setAlertText(data.status);
@@ -127,6 +136,7 @@ function NewRoute(props:{
             
         }else{
             setAlertText("Some fields look empty. All fields except GPX are required");
+            setButtonDisabled(false);
             return;
         }
     }
@@ -166,7 +176,7 @@ function NewRoute(props:{
                         <RulesButton onClick={(e) => displayRules(e)}>Rules</RulesButton>
                     </RulesCheckboxContainer>
                     {alertText.trim() !== "" && <NRAlert>{alertText}</NRAlert>}
-                    <SignInButton>Create Route</SignInButton>
+                    <SignInButton disabled={buttonDisabled}>Create Route</SignInButton>
                 </NRForm>
             </NRContainer>
         </>

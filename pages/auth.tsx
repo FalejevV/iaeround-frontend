@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PasswordField from "../components/PasswordField/PasswordField";
 import TextField from "../components/TextField/TextField";
 import { AuthButton, AuthContainer, AuthForm, ButtonsContainer, LeftArrowSVG, RightArrowSVG } from "../styles/auth.styled";
@@ -7,12 +7,23 @@ import Fetching from "../Fetching";
 import { IAuthForm, ILoginData, IRegisterData } from "../interface";
 import { StatusMessage } from "../components/Styles.styled";
 import Cookies from "js-cookie";
+import {default as AuthCheck} from "../Auth";
 
 function Auth(){
     let formRef = useRef(null);
     const [openForm, setOpenForm] = useState(false);
     const [status, setStatus] = useState<{error:boolean, text:string}>();
     const [fetching, setFetching] = useState("");
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [loggedIn, setLoggedIn] = useState("loading");
+
+    useEffect(() => {
+        if(AuthCheck.getAuth() === undefined){
+            setLoggedIn("NO");
+        }else{
+            setLoggedIn("OK");
+        }
+    }, []);
 
     function getFormData(type:string){
         if(formRef.current){
@@ -47,6 +58,9 @@ function Auth(){
     }
 
     function clickHandler(type:string){
+        if(buttonDisabled){
+            return;
+        }
         if(!openForm && type === "Sign In"){
             let formData = getFormData("Sign In");
             if(formData && typeof formData === "string"){
@@ -58,6 +72,7 @@ function Auth(){
             }else{
                 setStatus(undefined);
                 setFetching("Sign In");
+                setButtonDisabled(true);
                 Fetching.login(formData as ILoginData).then(res => {
                     if(res.status === "OK"){
                         setStatus({
@@ -71,15 +86,16 @@ function Auth(){
                             window.location.href = "/";
                         }, 1000);
                         setFetching("");
+                        return;
                     }else{
                         setStatus({
                             error:true,
                             text: res.status
                         });
+                        setButtonDisabled(false);
                     }
                 });
             }
-            return;
         }
 
         if(!openForm && type === "Sign Up"){
@@ -124,35 +140,39 @@ function Auth(){
 
 
     return(
-        <AuthContainer>
-            <AuthForm ref={formRef} toggle={openForm} onSubmit={(e) => {e.preventDefault();}}>
-                <TextField title="Username" name="username" placeholder="Username"/>
-                <PasswordField title="Password" name="password" placeholder="Password" />
-                <PasswordField title="Repeat password" name="repassword" placeholder="Repeat password" />
-                <EmailField title="Email" name="email" placeholder="Email" />
-            </AuthForm>
-
-            {status && status.text.trim() !== "" && 
-            <StatusMessage toggle={status.error}>
-                 {status.text}
-             </StatusMessage>
+        <>
+            {loggedIn === "NO" && 
+                <AuthContainer>
+                    <AuthForm ref={formRef} toggle={openForm} onSubmit={(e) => {e.preventDefault();}}>
+                        <TextField title="Username" name="username" placeholder="Username"/>
+                        <PasswordField title="Password" name="password" placeholder="Password" />
+                        <PasswordField title="Repeat password" name="repassword" placeholder="Repeat password" />
+                        <EmailField title="Email" name="email" placeholder="Email" />
+                    </AuthForm>
+        
+                    {status && status.text.trim() !== "" && 
+                    <StatusMessage toggle={status.error}>
+                        {status.text}
+                    </StatusMessage>
+                    }
+        
+                    <ButtonsContainer>
+                        <AuthButton disabled={buttonDisabled} onClick={() => clickHandler("Sign In")} toggle={!openForm}>
+                            <LeftArrowSVG toggle={openForm} viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"/><path d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"/>
+                            </LeftArrowSVG>
+                            Sign In
+                            </AuthButton>
+                        <AuthButton disabled={buttonDisabled} onClick={() => clickHandler("Sign Up")} toggle={openForm}>
+                            Sign Up
+                            <RightArrowSVG toggle={!openForm} viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
+                            </RightArrowSVG>
+                        </AuthButton>
+                    </ButtonsContainer>
+                </AuthContainer>
             }
-
-            <ButtonsContainer>
-                <AuthButton onClick={() => clickHandler("Sign In")} toggle={!openForm}>
-                    <LeftArrowSVG toggle={openForm} viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="none" d="M0 0h24v24H0z"/><path d="M10.828 12l4.95 4.95-1.414 1.414L8 12l6.364-6.364 1.414 1.414z"/>
-                    </LeftArrowSVG>
-                    Sign In
-                    </AuthButton>
-                <AuthButton onClick={() => clickHandler("Sign Up")} toggle={openForm}>
-                    Sign Up
-                    <RightArrowSVG toggle={!openForm} viewBox="0 0 24 24" width="24" height="24">
-                        <path fill="none" d="M0 0h24v24H0z"/><path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
-                    </RightArrowSVG>
-                </AuthButton>
-            </ButtonsContainer>
-        </AuthContainer>
+        </>
     )
 }
 

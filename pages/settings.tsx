@@ -1,5 +1,4 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import Auth from "../Auth";
 import TextField from "../components/TextField/TextField";
 import { AvatarFFBotText, AvatarFFInput, AvatarFFLabel, AvatarFFPreview, AvatarFFTextContainer, AvatarFFTopText, AvatarFileField, SettingsChangeSuccessText, SettingsForm, SettingsLoginAlert } from "../styles/settings.styled";
 import { IFullProfile, IProfile } from "../interface";
@@ -10,6 +9,7 @@ import { SignInButton } from "../components/Styles.styled";
 import { AlertText } from "../components/FileField/FileField.styled";
 import { getURL } from "next/dist/shared/lib/utils";
 import Cookies from "js-cookie";
+import Compression from "../Compression";
 
 
 function Settings(){
@@ -20,7 +20,7 @@ function Settings(){
     const [success, setSuccess] = useState("");
     const [fileSizeToggle, setFileSizeToggle] = useState(false);
     const imageRef = useRef(null);
-
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     useEffect(() => {
         Fetching.getMyProfile().then(res => res.json()).then(data => {
             if(data.id !== undefined){
@@ -30,8 +30,12 @@ function Settings(){
         });
     }, []);
 
-    function submitForm(e:FormEvent){
+    async function submitForm(e:FormEvent){
         e.preventDefault();
+        if(buttonDisabled){
+            return;
+        }
+        setButtonDisabled(true);
         let target = e.target as HTMLFormElement;
         let avatarInput = target.avatar as HTMLInputElement;
         let nameInput = target.profileNname as HTMLInputElement;
@@ -42,6 +46,7 @@ function Settings(){
             if(avatarFile && avatarFile !== undefined){
                 if (avatarFile.size > fileSizeMB * 1000000){
                     setTextAlert(`Avatar image size is too big. Max ${fileSizeMB}MB`);
+                    setButtonDisabled(false);
                     return;
                 }else{
                     setTextAlert("");
@@ -56,7 +61,12 @@ function Settings(){
                 formData.append('email', email);
                 formData.append('about', about);
                 if(avatarFile && avatarFile !== undefined){
-                    formData.append('avatar', avatarFile);
+                    let compressedAvatar = await Compression.image(avatarFile) || false;
+                    if(compressedAvatar !== false){
+                        formData.append('avatar', compressedAvatar);
+                    }else{
+                        formData.append('avatar', avatarFile);
+                    }
                 }
                 setSuccess("Saving...");
                 setTextAlert("");
@@ -76,6 +86,7 @@ function Settings(){
         }else{
             setTextAlert("Input fields could not found. Try refreshing page")
         }
+        setButtonDisabled(false);
     }
 
     function updateAvatar(e:ChangeEvent){
@@ -114,7 +125,7 @@ function Settings(){
                     <TextAreaField title="About" name="about" preValue={profileInfo.about} />
                     {textAlert.trim() !== "" && <AlertText>{textAlert}</AlertText>}
                     {success.trim() !== "" && <SettingsChangeSuccessText>{success}</SettingsChangeSuccessText>}
-                    <SignInButton>Save Profile (You will be logged out)</SignInButton>
+                    <SignInButton disabled={buttonDisabled}>Save Profile (You will be logged out)</SignInButton>
                 </SettingsForm>
             }
         </>

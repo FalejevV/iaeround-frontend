@@ -44,7 +44,6 @@ function RoutePage(props:{
                             setLikeDebounce(new Date());
                             setRouteFetch(prevRoute => {
                                 if(prevRoute !== undefined){
-                                    console.log(data.data);
                                     return ({
                                         ...prevRoute,
                                         likes:data.data
@@ -61,7 +60,6 @@ function RoutePage(props:{
                             setLikeDebounce(new Date());
                             setRouteFetch(prevRoute => {
                                 if(prevRoute !== undefined){
-                                    console.log(data.data);
                                     return ({
                                         ...prevRoute,
                                         likes:data.data
@@ -102,7 +100,6 @@ function RoutePage(props:{
 
         if(routeFetch !== undefined){
             let likeMap = new Set(routeFetch.likes);
-            console.log(likeMap);
             setFilteredLikes(likeMap);
 
             Fetching.getUser(routeFetch.owner_id).then(res => res.json()).then((data:IProfile) => setAuthor(data.name));
