@@ -8,6 +8,7 @@ import { IAuthForm, ILoginData, IRegisterData } from "../interface";
 import { StatusMessage } from "../components/Styles.styled";
 import Cookies from "js-cookie";
 import {default as AuthCheck} from "../Auth";
+import ForgotPassword from "../components/ForgotPassword/ForgotPassword";
 
 function Auth(){
     let formRef = useRef(null);
@@ -175,6 +176,8 @@ function Auth(){
                             </RightArrowSVG>
                         </AuthButton>
                     </ButtonsContainer>
+
+                    <ForgotPassword/>
                 </AuthContainer>
             }
         </>

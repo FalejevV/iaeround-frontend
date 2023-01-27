@@ -209,6 +209,19 @@ class Fetching{
         });
         return fetching;
     }
+
+    async recoverPassword(loginOrEmail:string){
+        let fetching = fetch(this.fetchAddress + "/auth/recover", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                login:loginOrEmail,
+            })
+        });
+        return fetching;
+    }
 }
 
 

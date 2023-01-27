@@ -11,7 +11,7 @@ export const AuthContainer = styled(Container)`
     margin-top:8vh;
     display:flex;
     flex-direction:column;
-    gap:50px;
+    gap:15px;
 `
 
 
@@ -23,7 +23,6 @@ export const AuthForm = styled.form<IToggle>`
     gap:20px;
     max-height: 175px;
     overflow: hidden;
-
     transition: all 0.6s;
     ${({ toggle }) => toggle && css`
         max-height: 500px;
@@ -33,6 +32,7 @@ export const AuthForm = styled.form<IToggle>`
 
 
 export const ButtonsContainer = styled.div`
+    padding-top:30px;
     width:100%;
     display: flex;
     align-items: center;
