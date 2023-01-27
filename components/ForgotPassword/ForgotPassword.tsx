@@ -23,6 +23,7 @@ function ForgotPassword() {
         let target = e.target as HTMLFormElement;
         let eloginInput = target[0] as HTMLInputElement;
         if(eloginInput && eloginInput.value.trim() !== ""){
+            setMessage("Processing...");
             Fetching.recoverPassword(eloginInput.value).then(res => res.json()).then(data => {
                 setMessage(data.status);
                 setButtonToggle(false);
