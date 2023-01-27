@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import { FPButton, FPContainer, FPForm, FPMessage, FPSubmit } from "./ForgotPassword.styled";
-import TextField from "../TextField/TextField";
 import { SignInButton } from "../Styles.styled";
 import { AuthButton } from "../../styles/auth.styled";
 import Fetching from "../../Fetching";
+import EmailField from "../EmailField/EmailField";
 
 
 
@@ -37,7 +37,7 @@ function ForgotPassword() {
         <FPContainer toggle={toggleForm}>
             <FPButton onClick={() => setToggleForm(prev => !prev)}>Forgot password?</FPButton>
             <FPForm onSubmit={(e) => formSubmit(e)}>
-                <TextField title="Please enter username/email" name="ELogin"  />
+                <EmailField title="Please enter email" name="ELogin"  />
                 <FPSubmit disabled={buttonToggle}>Recover password</FPSubmit>
                 {message.trim() !== "" && <FPMessage>{message}</FPMessage>}
             </FPForm>

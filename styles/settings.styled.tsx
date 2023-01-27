@@ -20,7 +20,7 @@ export const SettingsForm = styled.form`
     gap:15px;
     padding:15px;
     padding-top:50px;
-    padding-bottom: 200px;
+    padding-bottom: 100px;
 `
 
 

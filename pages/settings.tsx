@@ -10,6 +10,8 @@ import { AlertText } from "../components/FileField/FileField.styled";
 import { getURL } from "next/dist/shared/lib/utils";
 import Cookies from "js-cookie";
 import Compression from "../Compression";
+import { CPForm } from "../components/ChangePassword/ChangePassword.styled";
+import ChangePassword from "../components/ChangePassword/ChangePassword";
 
 
 function Settings(){
@@ -109,6 +111,7 @@ function Settings(){
         <>
             {fetched && profileInfo === undefined && <SettingsLoginAlert>You need to log in </SettingsLoginAlert>}
             {fetched && profileInfo !== undefined &&
+            <>
                 <SettingsForm onSubmit={(e) => submitForm(e)}>
                     <AvatarFileField>
                         <AvatarFFLabel htmlFor="avatar">
@@ -127,6 +130,9 @@ function Settings(){
                     {success.trim() !== "" && <SettingsChangeSuccessText>{success}</SettingsChangeSuccessText>}
                     <SignInButton disabled={buttonDisabled}>Save Profile (You will be logged out)</SignInButton>
                 </SettingsForm>
+
+                <ChangePassword />
+            </>
             }
         </>
     )
