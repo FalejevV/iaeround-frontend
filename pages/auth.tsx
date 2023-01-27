@@ -44,12 +44,17 @@ function Auth(){
                 }
             }else if (type === "Sign Up"){
                 if(username.trim() !== "" && password.trim() !== "" && rpassword.trim() !== "" && email.trim() !== ""){
-                    return({
-                        login:username,
-                        password,
-                        rpassword,
-                        email,
-                    } as IRegisterData);
+                    if(email.includes("@") && email.includes(".")){
+                        return({
+                            login:username,
+                            password,
+                            rpassword,
+                            email,
+                        } as IRegisterData);
+                    }else{
+                        return ("Incorrect email");
+                    }
+                    
                 }else{
                     return ("Some fields look empty");
                 }
