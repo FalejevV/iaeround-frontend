@@ -5,7 +5,7 @@ import RouteCard from "../RouteCard/RouteCard";
 import { useAppSelector } from "../../store/hooks";
 import { RootState } from "../../store/store";
 import { OrderBy } from "../../enum";
-
+import { nanoid } from "@reduxjs/toolkit";
 
 function CardGrid(props:{
     data:IRoute[],
@@ -114,7 +114,7 @@ function CardGrid(props:{
             if((index + 1) > routeCounter){
                 return undefined;
             }else{
-                return <RouteCard filterable={props.filterable} data={route} key={index} />
+                return <RouteCard filterable={props.filterable} data={route} key={nanoid()} />
             }
         })
     }
