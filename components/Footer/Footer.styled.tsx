@@ -40,7 +40,7 @@ export const FooterText = styled.p<IToggle & ICounter>`
 `
 
 export const MG = styled(Image)<IToggle>`
-    width:140px;
+    width:0px;
     height:0px;
     position: absolute;
     top:0px;
@@ -48,6 +48,7 @@ export const MG = styled(Image)<IToggle>`
     opacity:0;
     transition: all 0.3s;
     ${({ toggle }) => toggle && css`
+        width:140px;
         height:140px;
         display: flex;
         right:0px;

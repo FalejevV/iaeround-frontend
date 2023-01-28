@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import TextField from "../TextField/TextField";
 import { CPForm, CPMessage, CPSubmit, CPTitle } from "./ChangePassword.styled";
+import Fetching from "../../Fetching";
 
 
 
@@ -31,9 +32,18 @@ function ChangePassword(){
         let repeatPassword = target.repeatpassword;
         if(oldPassword.value.trim() !== "" && newPassword.value.trim() !== "" && repeatPassword.value.trim() !== ""){
             if(newPassword.value.trim() === repeatPassword.value.trim()){
-                setMessage("OK");
-                setButtonDisabled(false);
-                return;
+                Fetching.changePassword(oldPassword.value, newPassword.value, repeatPassword.value).then(res => res.json()).then(data => {
+                    if(data.status === "OK"){
+                        setMessage("Password changed. You are logged out.");
+                        setTimeout(() => {
+                            window.location.href = "/";
+                        },3000);
+                        return;
+                    }
+                    setMessage(data.status);
+                    setButtonDisabled(false);
+                    return;
+                })
             }else{
                 setMessage("New password fields do not match");
                 setButtonDisabled(false);

@@ -222,6 +222,22 @@ class Fetching{
         });
         return fetching;
     }
+
+    async changePassword(oldP:string, newP:string,repeatP:string){
+        let fetching = fetch(this.fetchAddress + "/auth/changepassword", {
+            method: 'POST',
+            credentials:'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                oldP,
+                newP,
+                repeatP
+            })
+        });
+        return fetching;
+    }
 }
 
 

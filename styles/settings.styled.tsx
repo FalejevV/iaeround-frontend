@@ -20,7 +20,6 @@ export const SettingsForm = styled.form`
     gap:15px;
     padding:15px;
     padding-top:50px;
-    padding-bottom: 100px;
 `
 
 
@@ -36,6 +35,11 @@ export const AvatarFFPreview = styled.img`
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
+
+    @media(max-width:350px){
+        width:120px;
+        height:120px;
+    }
 `
 
 export const AvatarFFLabel = styled.label`

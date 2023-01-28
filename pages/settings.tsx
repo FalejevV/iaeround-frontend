@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import Compression from "../Compression";
 import { CPForm } from "../components/ChangePassword/ChangePassword.styled";
 import ChangePassword from "../components/ChangePassword/ChangePassword";
+import ChangeEmail from "../components/ChangeEmail/ChangeEmail";
 
 
 function Settings(){
@@ -41,9 +42,8 @@ function Settings(){
         let target = e.target as HTMLFormElement;
         let avatarInput = target.avatar as HTMLInputElement;
         let nameInput = target.profileNname as HTMLInputElement;
-        let emailInput = target.email as HTMLInputElement;
         let aboutInput = target.about as HTMLInputElement;
-        if(avatarInput !== undefined && nameInput !== undefined && aboutInput !== undefined && emailInput !== undefined){
+        if(avatarInput !== undefined && nameInput !== undefined && aboutInput !== undefined){
             let avatarFile = avatarInput.files && avatarInput.files[0];
             if(avatarFile && avatarFile !== undefined){
                 if (avatarFile.size > fileSizeMB * 1000000){
@@ -55,12 +55,10 @@ function Settings(){
                 }
             }
             let name = nameInput.value;
-            let email = emailInput.value;
             let about = aboutInput.value;
-            if(name.trim() !== "" && email.trim() !== "" && about.trim() !== ""){
+            if(name.trim() !== "" &&  about.trim() !== ""){
                 let formData = new FormData();
                 formData.append('name' , name);
-                formData.append('email', email);
                 formData.append('about', about);
                 if(avatarFile && avatarFile !== undefined){
                     let compressedAvatar = await Compression.image(avatarFile) || false;
@@ -124,13 +122,13 @@ function Settings(){
                         </AvatarFFLabel>
                     </AvatarFileField>
                     <TextField title="Name" name="profileNname" preValue={profileInfo.name} />
-                    <EmailField title="Email" name="email" preValue={profileInfo.email} />
                     <TextAreaField title="About" name="about" preValue={profileInfo.about} />
                     {textAlert.trim() !== "" && <AlertText>{textAlert}</AlertText>}
                     {success.trim() !== "" && <SettingsChangeSuccessText>{success}</SettingsChangeSuccessText>}
                     <SignInButton disabled={buttonDisabled}>Save Profile (You will be logged out)</SignInButton>
                 </SettingsForm>
-
+                
+                <ChangeEmail email={profileInfo.email} />
                 <ChangePassword />
             </>
             }
