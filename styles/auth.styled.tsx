@@ -89,6 +89,7 @@ export const AuthButton = styled.button<IToggle>`
     padding:5px 20px;
     max-width: 180px;
     width:100%;
+    height:42px;
     cursor: pointer;
     border-radius: 5px;
     border:2px solid ${({ theme }) => theme.accentColor};

@@ -238,6 +238,32 @@ class Fetching{
         });
         return fetching;
     }
+
+    async getEmailChangeCode(){
+        let fetching = fetch(this.fetchAddress + "/auth/emailcode", {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
+        return fetching;
+    }
+
+    async changeEmail(email:string, code:string){
+        let fetching = fetch(this.fetchAddress + "/auth/changeemail", {
+            method: 'POST',
+            credentials:'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify({
+                email,
+                code
+            })
+        });
+        return fetching;
+    }
 }
 
 

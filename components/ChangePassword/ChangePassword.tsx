@@ -1,7 +1,8 @@
 import { FormEvent, useEffect, useState } from "react";
 import TextField from "../TextField/TextField";
-import { CPForm, CPMessage, CPSubmit, CPTitle } from "./ChangePassword.styled";
+import { CPContainer, CPForm, CPMessage, CPSubmit, CPTitle } from "./ChangePassword.styled";
 import Fetching from "../../Fetching";
+import Cookies from "js-cookie";
 
 
 
@@ -35,6 +36,7 @@ function ChangePassword(){
                 Fetching.changePassword(oldPassword.value, newPassword.value, repeatPassword.value).then(res => res.json()).then(data => {
                     if(data.status === "OK"){
                         setMessage("Password changed. You are logged out.");
+                        Cookies.set("IAEAuth", "");
                         setTimeout(() => {
                             window.location.href = "/";
                         },3000);
@@ -57,14 +59,16 @@ function ChangePassword(){
     } 
 
     return(
-        <CPForm onSubmit={(e) => formSubmit(e)} toggle={toggleForm}>
+        <CPContainer onSubmit={(e) => e.preventDefault()}>
             <CPTitle onClick={() => setToggleForm(prev => !prev)}>Change password</CPTitle>
-            <TextField title="Old password" name="oldpassword" />
-            <TextField title="New password" name="newpassword" />
-            <TextField title="Repeat password" name="repeatpassword" />
-            <CPSubmit disabled={buttonDisabled}>Change password</CPSubmit>
-            {message.trim() !== "" && <CPMessage>{message}</CPMessage>}
-        </CPForm>
+            <CPForm onSubmit={(e) => formSubmit(e)} toggle={toggleForm}>
+                <TextField title="Old password" name="oldpassword" />
+                <TextField title="New password" name="newpassword" />
+                <TextField title="Repeat password" name="repeatpassword" />
+                <CPSubmit disabled={buttonDisabled}>Change password</CPSubmit>
+                {message.trim() !== "" && <CPMessage>{message}</CPMessage>}
+            </CPForm>
+        </CPContainer>
     )
 }
 

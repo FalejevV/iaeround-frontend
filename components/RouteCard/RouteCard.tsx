@@ -48,7 +48,7 @@ function RouteCard(props:{
                 {props.data.images.map((image:string,index:number) => <PreviewImageElement onMouseEnter={() => setCurrentImagePreview(cloudImageLink + `/${props.data.id}/` + image)} key={index+image} toggle={(cloudImageLink + `/${props.data.id}/` + image) === currentImagePreview}></PreviewImageElement>)}
             </PreviewImageContainer>
             
-            <CardImage width="456" height="270" src={currentImagePreview} alt="route thumbnail"/>
+            <CardImage width="356" height="200" src={currentImagePreview} alt="route thumbnail"/>
             <RouteInfoContainer href={`/route?id=${props.data.id}`} onClick={(e) => clickCheck(e)}>
                 <RouteTitleContainer>
                     <RouteTitle>{props.data.title}</RouteTitle>
