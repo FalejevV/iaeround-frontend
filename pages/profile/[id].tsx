@@ -48,12 +48,11 @@ function Profile(props:{
             setRouteCounter(routeSum);
         }
     },[]);
-    
     return(
         <>
             <PInfoBar>
                 <InfoBarLeftSide>
-                    <InfoBarAvatar alt="avatar" width='160' height='160' src={props.user.avatar !== "" ? cloudAvatarLink + `/${props.user.id}/${props.user.avatar}` : defaultAvatarImage.src} />
+                    <InfoBarAvatar alt="avatar" width='160' height='160' src={props.user.avatar !== "" && props.user.avatar ? cloudAvatarLink + `/${props.user.id}/${props.user.avatar}` : "/img/profile.svg"} />
                     <InfoBarUserStats>
                         <IBStatText>{props.user.name}</IBStatText>
                         <IBStatText>Likes: {likes}</IBStatText>
