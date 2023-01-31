@@ -14,6 +14,14 @@ export const FooterWrapper = styled.footer`
     border-top:2px solid ${({ theme }) => theme.accentColor || "black"};
     position: relative;
     margin-top: auto;
+    box-shadow: 0px 0px 10px 0px #0000004d;
+
+    opacity: 0.4;
+    transition: all 0.3s;
+    user-select: none;
+    &:hover{
+        opacity: 1;
+    }
 `
 
 export const FooterContainer = styled(Container)`
@@ -23,35 +31,7 @@ export const FooterContainer = styled(Container)`
     justify-content: center;
 `
 
-export const FooterText = styled.p<IToggle & ICounter>`
-    cursor: pointer;
-    font-weight: 500;
-    color:${({ theme }) => theme.accentColor || "black"};
-    transition: all 0.3s;
-    user-select: none;
+export const FooterText = styled.p`
     font-size: 16px;
-    ${({ toggle }) => toggle && css`
-        transform:rotateY(180deg);
-    `}
-
-    ${({ count }) => count && `
-        font-size: calc(16px + ${count}px);
-    `}
-`
-
-export const MG = styled(Image)<IToggle>`
-    width:0px;
-    height:0px;
-    position: absolute;
-    top:0px;
-    right:-50px;
-    opacity:0;
-    transition: all 0.3s;
-    ${({ toggle }) => toggle && css`
-        width:140px;
-        height:140px;
-        display: flex;
-        right:0px;
-        opacity:1
-    `}
+    color:${({ theme }) => theme.accentColor || "black"};
 `
