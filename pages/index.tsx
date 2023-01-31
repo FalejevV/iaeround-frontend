@@ -2,12 +2,19 @@ import CardGrid from "../components/CardGrid/CardGrid";
 import SortTagsBar from "../components/SortTagsBar/SortTagsBar";
 import { IRoute } from "../interface";
 import Fetching from "../Fetching";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FloatingHeader from "../components/FloatingHeader/FloatingHeader";
 
 export default function Home(props:{
   routes:IRoute[]
 }) {
+
+  // Freeze fix when going back page
+  useEffect(() => {
+    document.body.style.overflow = "auto";
+  },[]);
+
+
   return (
     <>
       <FloatingHeader/>

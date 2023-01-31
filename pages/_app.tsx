@@ -6,8 +6,16 @@ import { Provider } from 'react-redux';
 import { store } from '../store/store'
 import Footer from '../components/Footer/Footer'
 import { FlexThemeProvider } from '../components/Styles.styled'
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
+
+  // Freeze fix when going back page
+  useEffect(() => {
+    document.body.style.overflow = "auto";
+  },[]);
+
+
   return(
   <Provider store={store}>
     <FlexThemeProvider theme={{

@@ -15,6 +15,12 @@ function Profile(props:{
     const [routeCounter, setRouteCounter] = useState<number>();
     const [latestPosts, setLatestPosts] = useState<IRoute[]>();
     const [likedPosts, setLikedPosts] = useState<IRoute[]>();
+
+    // Freeze fix when going back page
+    useEffect(() => {
+        document.body.style.overflow = "auto";
+    },[]);
+
     useEffect(() => {
         if(props.routes.length > 0){
             let likeSum = 0;

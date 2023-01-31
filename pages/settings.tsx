@@ -105,6 +105,12 @@ function Settings(){
         }
     }
 
+    // Freeze fix when going back page
+    useEffect(() => {
+        document.body.style.overflow = "auto";
+    },[]);
+
+    
     return(
         <>
             {fetched && profileInfo === undefined && <SettingsLoginAlert>You need to log in </SettingsLoginAlert>}
@@ -113,7 +119,7 @@ function Settings(){
                 <SettingsForm onSubmit={(e) => submitForm(e)}>
                     <AvatarFileField>
                         <AvatarFFLabel htmlFor="avatar">
-                            <AvatarFFPreview ref={imageRef} src={`${cloudAvatarLink}/${profileInfo.id}/${profileInfo.avatar}`} />
+                            <AvatarFFPreview ref={imageRef} src={profileInfo.avatar?.trim() !== "" && profileInfo.avatar ? cloudAvatarLink + `/${profileInfo.id}/${profileInfo.avatar}` : "/img/profile.svg"} />
                             <AvatarFFInput onChange={(e) => updateAvatar(e)} name="avatar" id="avatar" type="file" />
                             <AvatarFFTextContainer>
                                 <AvatarFFTopText>Click to chage image</AvatarFFTopText>

@@ -26,6 +26,12 @@ function Auth(){
         }
     }, []);
 
+    // Freeze fix when going back page
+    useEffect(() => {
+        document.body.style.overflow = "auto";
+    },[]);
+
+
     function getFormData(type:string){
         if(formRef.current){
             const form:IAuthForm = formRef.current;

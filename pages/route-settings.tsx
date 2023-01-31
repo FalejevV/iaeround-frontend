@@ -26,6 +26,11 @@ function RouteSettings(){
         text:""
     });
 
+    // Freeze fix when going back page
+    useEffect(() => {
+        document.body.style.overflow = "auto";
+    },[]);
+
 
     useEffect(() => {
         if(id && id !== undefined && id !== ""){

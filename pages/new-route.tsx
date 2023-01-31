@@ -1,4 +1,4 @@
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Fetching from "../Fetching";
 import FileField from "../components/FileField/FileField";
 import { InputFieldTitle, SignInButton, TagsContainer } from "../components/Styles.styled";
@@ -35,6 +35,12 @@ function NewRoute(props:{
             }
         })
     }
+    
+    // Freeze fix when going back page
+    useEffect(() => {
+        document.body.style.overflow = "auto";
+    },[]);
+
 
     function getTags(){
         if(props.tags && props.tags.length === 0){

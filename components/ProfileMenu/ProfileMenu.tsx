@@ -76,7 +76,7 @@ function ProfileMenu(props:{
                         <path fill="none" d="M0 0h24v24H0z"/><path d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
                     </DropdownArrowSVG>
                 </ProfileMenuUsername>
-                <ProfileMenuAvatar alt="avatar" width="70" height="70" src={props.profile.avatar.trim() !== "" && props.profile.avatar ? cloudAvatarLink + `/${props.profile.id}/${props.profile.avatar}` : "/img/profile.svg"} />
+                <ProfileMenuAvatar alt="avatar" width="70" height="70" src={props.profile.avatar?.trim() !== "" && props.profile.avatar ? cloudAvatarLink + `/${props.profile.id}/${props.profile.avatar}` : "/img/profile.svg"} />
                 <ProfileMenuDropdown toggle={dropdownVisible}>
                     <ProfileDropdownUsername href={"/profile/" + props.profile.id}>#{props.profile.name}</ProfileDropdownUsername>
                     <ProfileMenuLink href={"/profile/" + props.profile.id}>Profile</ProfileMenuLink>
