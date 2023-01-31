@@ -86,7 +86,7 @@ function CardGrid(props:{
 
         if(routeOrderBySelector === OrderBy.DISTANCE_SHORT){
             setSortedRoutes(filteredArray.sort((a:IRoute,b:IRoute) => {
-                return parseInt(a.distance) - parseInt(a.distance);
+                return parseInt(a.distance) - parseInt(b.distance);
             }));
         }
 
