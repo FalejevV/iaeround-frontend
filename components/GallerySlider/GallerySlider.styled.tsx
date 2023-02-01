@@ -241,6 +241,23 @@ export const ZoomArrowContainer = styled.div`
     z-index: 1001;
     left:0px;
     padding-bottom:20px;
+
+
+    @media(max-height:680px){
+        position: absolute;
+        width:70px;
+        height:100%;
+        left:unset;
+        right:0px;
+        top:50%;
+        transform: translateY(-50%);
+        flex-direction: column-reverse;
+        justify-content: center;
+        background-color: #0000009e;
+        backdrop-filter: blur(8px);
+    }
+        
+    
 `
 export const ZoomArrow = styled.svg`
     fill:white;
