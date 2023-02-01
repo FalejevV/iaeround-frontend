@@ -28,8 +28,9 @@ export const SortingButton = styled.button<IToggle>`
     white-space: nowrap;
     display: flex;
     align-items: center;
+    
     ${({ toggle }) => toggle && css`
-        transform:scale(1.15);
+        transform:scale(1.15) translateX(4px);
         color:${({ theme }) => theme.accentColor};
         fill:${({ theme }) => theme.accentColor};
     `}
