@@ -16,9 +16,9 @@ function NewRoute(props:{
     tags:ITag[],
 }){
 
-    const imagesTotalFileSize = 5;
-    const gpxTotalFileSize = 2;
-    const thumbnailFileSize = 2;
+    const imagesTotalFileSize = 20;
+    const gpxTotalFileSize = 5;
+    const thumbnailFileSize = 5;
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [alertText, setAlertText] = useState<string>("");
     const [rulesCounter, toggleRulesCounter] = useState(false);
