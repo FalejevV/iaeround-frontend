@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { ICounter, IToggle } from "../../interface";
 import { LeftArrowSVG } from "../../styles/auth.styled";
-import Image from "next/image";
 
 
 
@@ -17,7 +16,7 @@ export const GalleryContainer = styled.div<IToggle>`
 `
 
 
-export const MainImage = styled(Image)<IToggle>`
+export const MainImage = styled.img<IToggle>`
     width:100%;
     height:420px;
     object-fit: cover;
@@ -190,7 +189,7 @@ export const ZoomImageSlider = styled.div`
     
 `
 
-export const ZoomImage = styled(Image)`
+export const ZoomImage = styled.img`
     position: relative;
     width:1280px;
     height:inherit;

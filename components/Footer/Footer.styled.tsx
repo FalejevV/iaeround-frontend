@@ -16,7 +16,6 @@ export const FooterWrapper = styled.footer`
     margin-top: auto;
     box-shadow: 0px 0px 10px 0px #0000004d;
 
-    opacity: 0.4;
     transition: all 0.3s;
     user-select: none;
     &:hover{

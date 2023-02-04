@@ -24,7 +24,7 @@ export const CardContainer = styled.article`
 `
 
 
-export const CardImage = styled(Image)`
+export const CardImage = styled.img`
     width:100%;
     height:270px;
     object-fit: cover;
