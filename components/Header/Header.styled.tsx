@@ -18,13 +18,9 @@ export const HeaderContainer = styled(Container)`
     display: flex;
     align-items: center;
     gap:30px;
-    @media (max-width:800px){
-        gap:40px;
-    }
 
-    @media (max-width:550px){
+    @media (max-width:800px){
         gap:10px;
-        padding:10px;
     }
 
 `

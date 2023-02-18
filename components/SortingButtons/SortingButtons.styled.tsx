@@ -9,6 +9,14 @@ export const SortingButtonsContainer = styled.div`
     align-items: center;
     gap:30px;
 
+
+    
+    @media(max-width:880px){
+        width:100%;
+        max-width:546px;
+        justify-content: space-between;
+    }
+
     @media(max-width:430px){
         gap:15px;
     }
