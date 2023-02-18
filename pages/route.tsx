@@ -11,6 +11,7 @@ import LikeCounter from '../components/LikeCounter/LikeCounter';
 import Auth from '../Auth';
 import EditButton from '../components/EditButton/EditButton';
 import GPXHelpWindow from '../components/GPXHelpWindow/GPXHelpWindow';
+import { NothingFoundText } from '../components/Styles.styled';
 
 function RoutePage(props:{
     routes:IRoute[],
@@ -127,7 +128,7 @@ function RoutePage(props:{
         if(simmilarRoutes.length > 0){
             return <CardGrid data={simmilarRoutes} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} removePadding={true} />
         }else{
-            return <p>Nothing found</p>
+            return <NothingFoundText>--- No similar routes found 😥 ----</NothingFoundText>
         }
     }
 
@@ -143,7 +144,14 @@ function RoutePage(props:{
                     }
                 })
                 if(tagsCounter >= 2 && route.id !== routeFetch.id){
-                    routeHaveMultipleSameTags.push(route);
+                    if(Auth.getAuth()){
+                        if(!route.likes.includes(Auth.getAuth().id)){
+                            routeHaveMultipleSameTags.push(route);
+                        }
+                    }else{
+                        routeHaveMultipleSameTags.push(route);
+                    }
+                    
                 }
             });
             if(routeHaveMultipleSameTags.length === 0){

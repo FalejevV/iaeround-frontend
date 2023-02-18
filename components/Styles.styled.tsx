@@ -166,3 +166,10 @@ export const TagsContainer = styled.div`
     border:1px solid #5c5c5c;
     border-radius: 5px;
 `
+
+
+export const NothingFoundText = styled.p`
+    font-size: 17px;
+    opacity:0.6;
+    padding-top:20px;
+`

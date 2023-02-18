@@ -32,8 +32,7 @@ export const MainImage = styled.img<IToggle>`
 
     @media(max-width:500px){
         height:200px;
-    }
-   
+    }   
 `
 
 export const ImageSliderContainer = styled.div`
@@ -174,6 +173,11 @@ export const ZoomImageContainer = styled.div<IToggle>`
     @media(max-width:426px){
         max-width:300px;
     }
+
+
+    @media(max-height:800px){
+        padding-bottom:20px;
+    }
 `
 
 
@@ -187,6 +191,12 @@ export const ZoomImageSlider = styled.div`
     position: relative;
     padding:20px;
     
+    
+
+    
+    @media(max-height:500px){
+        padding:0px;
+    }
 `
 
 export const ZoomImage = styled.img`
@@ -211,6 +221,7 @@ export const ZoomImage = styled.img`
     @media(max-width:426px){
         width:300px;
     }
+
 `
 
 export const ZoomBackground = styled.div<IToggle>`
@@ -282,5 +293,4 @@ export const ZoomArrow = styled.svg`
 
 
 export const ZoomCloseSVG = styled(ZoomArrow)`
-
 `
