@@ -130,6 +130,7 @@ function NewRoute(props:{
             Fetching.createNewRoute(routeData).then(res => res.json()).then(data => {
                 if(data.status !== "OK"){
                     setAlertText(data.status);
+                    setButtonDisabled(false);
                 }else{
                     setAlertText("Saving route... please wait");
                     setTimeout(() => {
