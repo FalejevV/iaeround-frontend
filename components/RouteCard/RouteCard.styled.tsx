@@ -139,7 +139,7 @@ export const DateInfo = styled.p`
     right:15px;
 `
 
-export const PreviewImageContainer = styled.div`
+export const PreviewImageContainer = styled.a`
     position: absolute;
     top:0px;
     left:0px;
@@ -149,7 +149,7 @@ export const PreviewImageContainer = styled.div`
     max-height: 270px;
     align-items: center;
     gap:5px;
-    cursor: ew-resize;
+    cursor: pointer;
 `
 
 export const PreviewImageElement = styled.div<IToggle>`

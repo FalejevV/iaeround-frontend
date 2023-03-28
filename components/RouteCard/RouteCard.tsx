@@ -43,8 +43,8 @@ function RouteCard(props:{
     }, [props.data]);
     
     return(
-        <CardContainer>
-            <PreviewImageContainer onMouseLeave={() => setCurrentImagePreview(cloudImageLink + `/${props.data.id}/` + props.data.images[0])}>
+        <CardContainer >
+            <PreviewImageContainer href={`/route?id=${props.data.id}`} onMouseLeave={() => setCurrentImagePreview(cloudImageLink + `/${props.data.id}/` + props.data.images[0])}>
                 {props.data.images.map((image:string,index:number) => <PreviewImageElement onMouseEnter={() => setCurrentImagePreview(cloudImageLink + `/${props.data.id}/` + image)} key={index+image} toggle={(cloudImageLink + `/${props.data.id}/` + image) === currentImagePreview}></PreviewImageElement>)}
             </PreviewImageContainer>
             
