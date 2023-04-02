@@ -82,3 +82,17 @@ export const ProfileRoutesTitle = styled.p`
     white-space: nowrap;
     margin:0 auto;
 `
+
+export const ErrorContainer = styled.div`
+    width:100%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding-top:10vh;
+`
+
+export const ErrorText = styled.p`
+    text-align: center;
+    font-size: 25px;
+    color:#6c0000;
+`

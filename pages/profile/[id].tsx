@@ -1,6 +1,6 @@
 import Fetching, { cloudAvatarLink } from "../../Fetching";
 import { IProfile, IRoute } from "../../interface";
-import { IBAboutText, IBStatText, InfoBarAvatar, InfoBarLeftSide, InfoBarUserStats, PInfoBar, ProfileContainer, ProfileDivider, ProfileRoutesTitle } from "../../styles/profile.styled";
+import { ErrorContainer, ErrorText, IBAboutText, IBStatText, InfoBarAvatar, InfoBarLeftSide, InfoBarUserStats, PInfoBar, ProfileContainer, ProfileDivider, ProfileRoutesTitle } from "../../styles/profile.styled";
 import defaultAvatarImage from "../../public/img/profile.svg";
 import { useEffect, useState } from "react";
 import CardGrid from "../../components/CardGrid/CardGrid";
@@ -56,6 +56,10 @@ function Profile(props:{
     },[]);
     return(
         <>
+            {props.user.id === "-1" ? <ErrorContainer>
+                <ErrorText>User not found :/</ErrorText>
+            </ErrorContainer> : <> 
+
             <PInfoBar>
                 <InfoBarLeftSide>
                     <InfoBarAvatar alt="avatar" width='160' height='160' src={props.user.avatar !== "" && props.user.avatar ? cloudAvatarLink + `/${props.user.id}/${props.user.avatar}` : "/img/profile.svg"} />
@@ -84,6 +88,8 @@ function Profile(props:{
                     <CardGrid removePadding={true} data={likedPosts} displayAmount={3} incrementDisplayAmountBy={3} filterable={false} />
                 </>}
             </ProfileContainer>
+            
+            </>}
         </>
         )
 }
