@@ -41,7 +41,7 @@ function NewRouteRules(props:{
                         
                         <NRRImageContainer>
                             <NRRImageTitle>(Example image)</NRRImageTitle>
-                            <NRRImage width="500" height="400" alt="example" src="/img/ImageExample.png"/>
+                            <NRRImage alt="example" src="/img/ImageExample.png"/>
                         </NRRImageContainer>
                     </NRRulesList>
                     <NRRulesButton onClick={countIncrement} count={count}><NRRulesButtonText>Got it!</NRRulesButtonText></NRRulesButton>

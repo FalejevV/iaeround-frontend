@@ -1,7 +1,5 @@
 import styled, { css } from "styled-components";
 import { Container } from "../Styles.styled";
-import Link from "next/link";
-import Image from "next/image";
 import { ICounter, IToggle } from "../../interface";
 
 export const NRRulesBackgroundFill = styled.div<IToggle>`
@@ -125,7 +123,7 @@ export const NRRImageTitle = styled.p`
     
 `
 
-export const NRRImage = styled(Image)`
+export const NRRImage = styled.img`
     border: 2px solid ${({ theme }) => theme.accentColor || "black"};
     border-radius:5px;
     width:100%;
